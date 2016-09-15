@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//  return view('welcome');
+//});
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,6 @@ Route::group(['middleware' => ['web']], function () {
     //
 });
 
-Route::get('/compile','CompileController@index');
+Route::get('/','CompileController@index');
 Route::get('/compile/{id}','CompileController@solve');
 Route::post('/compiles','CompileController@result');

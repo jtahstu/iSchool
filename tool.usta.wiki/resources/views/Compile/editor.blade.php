@@ -4,5 +4,5 @@
 @section('language',$language)
 
 @section('content')
-{!! htmlspecialchars(trim($template)) !!}
+{!! htmlspecialchars(($template)) !!}
 @endsection

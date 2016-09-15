@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 	<head>
 		<meta charset="UTF-8" />
@@ -12,20 +12,20 @@
 		<meta name="Description" content="" />
 		<meta name="author" content="jtahstu" />
 		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
-		<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
-		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
 		<style>
-			#compile-editor {
-				width: 700px;
-				height: 600px;
-				font-size: 15px;
-				font-family: "console";
-				margin: 20px;
+			body {
+				font-family: 'Ubuntu Mono', 'Consolas', 'source-code-pro','Monaco', 'Menlo', monospace !important;
+			}
+			
+			#compile-editor-div {
+				margin-top: 20px;
 			}
 			
 			#compile-output {
 				margin: 20px;
-				height: 600px;
+				min-height: 600px;
 			}
 			
 			#compile-runbox {
@@ -39,39 +39,52 @@
 	</head>
 
 	<body>
-		<div class="col-md-1"></div>
-		<div class="col-md-10">
-			<div id="compile-editor" class="form-control col-md-6">@yield('content')</div>
-			<div class="col-md-1" id="compile-runbox" align="center">
-				<select name="" id="compile-editor-select" class="form-control">
-					<option value="@yield('value')">@yield('language')</option>
-				</select>
-				<button type="button" class="btn btn-success" id="compile-run"><i class="glyphicon glyphicon-play"></i>&nbsp;&nbsp;运行一下</button>
+		<div class="">
+
+			<div class="col-md-12 col-sm-12">
+				<div class="col-md-4" id="compile-editor-div">
+					<div id="compile-editor" name="" class=" form-control">@yield('content')</div>
+				</div>
+
+				<div class="col-md-1" id="compile-runbox" align="center">
+					<select name="" id="compile-editor-select" class="form-control">
+						<option value="@yield('value')">@yield('language')</option>
+					</select>
+					<button type="button" class="btn btn-success" id="compile-run"><i class="glyphicon glyphicon-play"></i>&nbsp;&nbsp;运行一下</button>
+				</div>
+				<div class="col-md-4">
+					<textarea name="" id="compile-output" class="form-control"></textarea>
+				</div>
 			</div>
-			<div class="col-md-5">
-				<textarea name="" id="compile-output" class=" form-control" rows="20"></textarea>
-			</div>
+
 		</div>
-		<div class="col-md-1"></div>
-		<script src="http://cdn.bootcss.com/ace/1.2.5/ace.js" type="text/javascript" charset="utf-8"></script>
-		<script src="http://cdn.jtahstu.com/ace/theme/monokai.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script type="text/javascript" src="https://ioj.ahstu.cc/JudgeOnline/ace-builds/src/ace.js"></script>-->
+		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
+		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-old_ie.js"></script>
+		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-monokai.js"></script>
+		<!--<script src="http://cdn.jtahstu.com/ace/theme/monokai.js" type="text/javascript" charset="utf-8"></script>-->
 		<script>
+			$('#compile-editor').height(700);
 			require("ace/ext/old_ie");
 			ace.require("ace/ext/language_tools");
 			var editor = ace.edit("compile-editor");
-			editor.setTheme("ace/theme/monokai");
+			editor.$blockScrolling = Infinity;
+			editor.setFontSize(16);
 			editor.session.setMode("ace/mode/c_cpp");
 			editor.setOptions({
 				enableBasicAutocompletion: true,
 				enableSnippets: true,
-				enableLiveAutocompletion: false
+				enableLiveAutocompletion: true
 			});
-			
+			//			editor.setShowInvisibles(true);
+			editor.setTheme("ace/theme/monokai");
 			$("#compile-output").val(' ');
 			//              var code= $('#code').val();
 			//				editor.setValue("/*\n\tDate: " + new Date() + "\n\tAuthor: Programmer \n*/\n" + value);
 			$(function() {
 				$("#compile-run").click(function() {
+					$("#compile-output").val('程序正在提交...');
 					var code = editor.getValue();
 					var value = $("#compile-editor-select").val();
 					$.ajax({

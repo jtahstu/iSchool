@@ -1,7 +1,8 @@
 @extends('Compile/Clayout')
 
 @section('value',$value)
-@section('language',$language)
+@section('lang',$lang)
+@section('mode',$mode)
 
 @section('content')
 {!! htmlspecialchars(($template)) !!}

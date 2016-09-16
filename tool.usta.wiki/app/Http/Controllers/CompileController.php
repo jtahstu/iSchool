@@ -25,12 +25,15 @@ class CompileController extends Controller {
     }
     
     function solve($id){
-    	$language=$this->getLanguage($id);
+    	$lang=$this->getLanguage($id);
     	$template=$this->getTemplate($id);
+ 		$realTemplate=str_replace('{{date}}',date('Y年m月d日 H:i:s'),$template[0]->template);  
+ 		$realTemplate=str_replace('{{year}}',date('Y'),$realTemplate);  
+    	$language=DB::select('select id,language from tool_lang');
 //  	var_dump($template);
 //		var_dump($id);
 //		var_dump($language);
-    	return view('Compile/editor',['value'=>$language[0]->value,'language'=>$language[0]->language,'template'=>$template[0]->template]);
+    	return view('Compile/editor',['language'=>$language,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
     }
     
     function result(Request $request){
@@ -39,7 +42,7 @@ class CompileController extends Controller {
     	$value=$data['language'];
     	$back=$this->getResult($code,$value);
     	$this->saveCode($code,$value);
-    	echo json_encode(htmlspecialchars($back));
+    	echo json_encode(($back));
     }
     
     function getLanguage($id){
@@ -66,7 +69,8 @@ class CompileController extends Controller {
 		$return = curl_exec($ch);
 		curl_close($ch);
 		$return=json_decode($return);
-		return $return->output;
+//		var_dump($return);
+		return $return->output.$return->errors;
     	
     }
     

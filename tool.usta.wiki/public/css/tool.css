@@ -1,3 +1,36 @@
 a[title='站长统计'] {
 	display: none;
 }
+
+nav {
+	height: 80px;
+	padding-top: 15px;
+}
+
+.navbar {
+	background-color: #FFFFFF;
+	border: none;
+}
+
+.navbar-nav li a {
+	color: red;
+	text-align: center;
+}
+
+#navbar ul li a:hover{
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#footer {
+	height: 120px;
+	background-color: #363636;
+	color: #BBBBBB;
+	padding-top: 50px;
+	margin-top: 40px;
+}
+
+#footer a {
+	color: #BBBBBB;
+}

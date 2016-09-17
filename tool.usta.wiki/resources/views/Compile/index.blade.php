@@ -14,69 +14,12 @@
 		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
 		<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/overhang.min.css')}}" />
+		<link rel="stylesheet" href=" http://cdn.jtahstu.com/barrager.css">
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
-		<!--<link href="//cdn.bootcss.com/foundation/6.2.3/foundation.min.css" rel="stylesheet">-->
-		<style type="text/css">
-			body {
-				padding-top: 70px;
-			}
-		</style>
 	</head>
 
-	<body>
-
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-					<a class="navbar-brand" href="{{URL::to('/')}}">iTool</a>
-				</div>
-				<div id="navbar" class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						<li>
-							<a href="http://www.usta.wiki" target="_blank">
-								iSchool
-							</a>
-						</li>
-						<li>
-							<a href="#">代码清单</a>
-						</li>
-						<?php 
-							$count=5;
-							foreach ($language as $key => $value) {
-							if($count>0){	
-						?>
-						<li>
-							<a href="{{URL::to('compile')}}/<?php echo $value->id;?>">
-								<?php  echo $value->language;?>
-							</a>
-						</li>
-						<?php $count--;}}?>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">其他在线工具 <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<?php 
-								$count=0;
-								foreach ($language as $key => $value) {
-								if($count>4){	
-							?>
-								<li>
-									<a href="{{URL::to('compile')}}/<?php echo $value->id;?>">
-										<?php  echo $value->language;?>
-									</a>
-								</li>
-								<?php }$count++;}?>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+	<body style="padding-top: 90px;">
+		@include('Compile.nav')
 		<div class="container">
 			<table class="table table-bordered table-hover table-striped">
 				<tr>
@@ -100,12 +43,14 @@
 				</tr>
 				<?php } ?>
 			</table>
+			@include('Compile.changyan')
 		</div>
+		@include('Compile.footer')
 		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script type="text/javascript" src="{{asset('/public/js/jquery-ui.min.js')}}"></script>
 		<script type="text/javascript" src="{{asset('/public/js/overhang.min.js')}}"></script>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		<!--<script src="//cdn.bootcss.com/foundation/6.2.3/foundation.min.js"></script>-->
+		<script src=" http://cdn.jtahstu.com/jquery.barrager.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				$('body').overhang({
@@ -114,7 +59,17 @@
 					duration: 5,
 					upper: true,
 				});
-			})
+				var item = {
+					img: 'http://cdn.jtahstu.com/firefox.png', //图片 
+					info: '下载火狐浏览器', //文字 
+					href: 'http://www.firefox.com.cn/', //链接 
+					speed: 6, //延迟,单位秒,默认6 
+					// bottom:70, //距离底部高度,单位px,默认随机 
+					color: '#fff', //颜色,默认白色 
+					old_ie_color: '#000000', //ie低版兼容色,不能与网页背景相同,默认黑色 
+				}
+				$('body').barrager(item);
+			});
 		</script>
 		{!! Config::get('app.cnzz') !!}
 	</body>

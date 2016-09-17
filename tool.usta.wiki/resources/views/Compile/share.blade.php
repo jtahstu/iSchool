@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>
-			iTool - 在线代码编辑器
+			iTool - 代码分享
 		</title>
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
@@ -19,19 +19,15 @@
 				margin-top: 20px;
 			}
 			
-			#compile-output {
-				margin: 20px 0 50px 0;
-				min-height: 300px;
-			}
-			
 			#compile-lang {
 				margin-top: 85px;
 				font-size: 24px;
 				font-weight: bold;
 			}
 			
-			#compile-lang span {
-				color: red;
+			#compile-view,
+			#compile-time {
+				color: red
 			}
 		</style>
 	</head>
@@ -41,24 +37,17 @@
 		<div class="">
 			<div class="container">
 				<div id="compile-lang" align="center">
-					Language:
-					<span id="">
-						@yield('lang')
-					</span>
-					<button type="button" class="btn btn-success col-md-offset-2" id="compile-run"><i class="glyphicon glyphicon-play"></i>&nbsp;Run</button>
-					<button type="button" class="btn btn-success" id="compile-share"><i class="glyphicon glyphicon-share"></i>&nbsp;Share</button>
+					浏览量：<span id="compile-view">{{$view}}</span>&nbsp;&nbsp;&nbsp; 修改时间：<span id="compile-time">{{$time}}</span>
+					<button type="button" class="btn btn-success col-md-offset-1" id="compile-share"><i class="glyphicon glyphicon-share"></i>&nbsp;Share Again</button>
 				</div>
 				<div class="" id="compile-editor-div">
-					<div id="compile-editor" name="" class=" form-control">@yield('content')</div>
+					<div id="compile-editor" name="" class=" form-control">{{$code}}</div>
 				</div>
 				<div id="tishi"></div>
-				<div class="">
-					<textarea name="" id="compile-output" class="form-control"></textarea>
-				</div>
+
 			</div>
-			@include('Compile.changyan')
+
 		</div>
-		
 		@include('Compile.footer')
 		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -73,7 +62,7 @@
 			var editor = ace.edit("compile-editor");
 			editor.$blockScrolling = Infinity;
 			editor.setFontSize(16);
-			editor.session.setMode("ace/mode/@yield('mode')");
+			editor.session.setMode("ace/mode/{{$mode}}");
 			editor.setOptions({
 				enableBasicAutocompletion: true,
 				enableSnippets: true,
@@ -81,29 +70,11 @@
 			});
 			//			editor.setShowInvisibles(true);
 			editor.setTheme("ace/theme/monokai");
-			$("#compile-output").val(' ');
 			//              var code= $('#code').val();
 			$(function() {
-				$("#compile-run").click(function() {
-					$("#compile-output").val('程序正在提交...');
-					var code = editor.getValue();
-					var value = @yield('value');
-					$.ajax({
-						type: "post",
-						url: "{{URL::to('compiles')}}",
-						data: {
-							'code': code,
-							'language': value
-						},
-						dataType: 'json',
-						success: function(msg) {
-							$("#compile-output").val(msg);
-						}
-					});
-				});
 				$("#compile-share").click(function() {
 					var code = editor.getValue();
-					var value = @yield('value');
+					var value = {{$values}};
 					$.ajax({
 						type: "post",
 						url: "{{URL::to('share')}}",
@@ -113,13 +84,12 @@
 						},
 						dataType: 'json',
 						success: function(msg) {
-							$("#tishi").html("<div class='alert alert-success' style='text-align: center;margin-top: 10px;'>分享成功，链接为 <b>{{URL::to('share')}}/"+msg+"</b></div>");
+							$("#tishi").html("<div class='alert alert-success' style='text-align: center;margin-top: 10px;'>分享成功，链接为 <b>{{URL::to('share')}}/" + msg + "</b></div>");
 						}
 					});
 				});
 			});
 		</script>
-		
 		{!! Config::get('app.cnzz') !!}
 	</body>
 

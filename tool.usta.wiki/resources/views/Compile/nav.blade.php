@@ -16,8 +16,13 @@
 						iSchool
 					</a>
 				</li>
+				<li>
+					<a href="{{URL::to('/share')}}">
+						Code Archive
+					</a>
+				</li>
 				<?php 
-							$count=5;
+							$count=6;
 							foreach ($language as $key => $value) {
 							if($count>0){	
 						?>
@@ -33,7 +38,7 @@
 						<?php 
 								$count=0;
 								foreach ($language as $key => $value) {
-								if($count>4){	
+								if($count>5){	
 							?>
 						<li>
 							<a href="{{URL::to('compile')}}/<?php echo $value->id;?>">

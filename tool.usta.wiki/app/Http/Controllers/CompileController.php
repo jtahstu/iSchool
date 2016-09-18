@@ -3,6 +3,11 @@
  * 用来处理数据库中与在线代码编辑相关的所有操作
  * 包含tool_lang、tool_temp
  * by jtahstu 2016/9/14
+ * 
+ * 这个控制器代码写的时候本人还知道它是干嘛的， 现在就只有鬼知道了
+ * 如果你开始研究本人的这个项目，本人只想对你说
+ * 千万别乱动我的代码 ！！！谨记
+ * by jtahstu 2016/9/18
  */
 	
 namespace App\Http\Controllers;
@@ -14,7 +19,6 @@ use Illuminate\Support\Facades\Input;
 use DB;
 
 class CompileController extends Controller {
-    //
     function __construct(){
     	
     }
@@ -30,10 +34,11 @@ class CompileController extends Controller {
  		$realTemplate=str_replace('{{date}}',date('Y年m月d日 H:i:s'),$template[0]->template);  
  		$realTemplate=str_replace('{{year}}',date('Y'),$realTemplate);  
     	$language=DB::select('select id,language from tool_lang');
-//  	var_dump($template);
-//		var_dump($id);
-//		var_dump($language);
-    	return view('Compile/editor',['language'=>$language,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
+    	if($id=='2'){
+    		return view('Compile/html',['language'=>$language,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
+    	}else{
+    		return view('Compile/editor',['language'=>$language,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
+    	}
     }
     
     function result(Request $request){
@@ -69,6 +74,17 @@ class CompileController extends Controller {
     	$value=$this->getShareValue($linkid);
     	$language=DB::select('select id,language from tool_lang');
     	return view('Compile/share',['code'=>$code,'mode'=>$mode,'time'=>$time,'view'=>$view,'values'=>$value,'language'=>$language]);
+    }
+    
+    function shareList(){
+    	$shareList= DB::table('tool_share')->paginate(30);
+    	$language=DB::select('select id,language from tool_lang');
+    	$lang=DB::select('select language,value from tool_lang');
+    	$valueLanguage=array();
+    	foreach ($lang as $key ) {
+    		$valueLanguage[$key->value]=$key->language;
+    	}
+		return view('Compile/list',['list'=>$shareList,'language'=>$language,'valueLanguage'=>$valueLanguage]);
     }
     
     function getLanguage($id){

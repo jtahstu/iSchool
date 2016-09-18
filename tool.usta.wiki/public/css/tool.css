@@ -1,3 +1,11 @@
+body{
+	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
 a[title='站长统计'] {
 	display: none;
 }
@@ -19,8 +27,13 @@ nav {
 
 #navbar ul li a:hover{
 	color: red;
-	font-size: 18px;
-	font-weight: bold;
+	/*font-size: 18px;*/
+	/*font-weight: bold;*/
+}
+
+#compile-index-table table tr td a:hover,#main table tr td a:hover{
+	color: red;
+	text-decoration: none;
 }
 
 #footer {
@@ -33,4 +46,8 @@ nav {
 
 #footer a {
 	color: #BBBBBB;
+}
+
+#footer a:hover{
+	color: red;
 }

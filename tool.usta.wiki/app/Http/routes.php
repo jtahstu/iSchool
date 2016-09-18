@@ -34,5 +34,6 @@ Route::get('/','CompileController@index');
 Route::get('/compile/{id}','CompileController@solve');
 Route::post('/compiles','CompileController@result');
 
+Route::get('/share','CompileController@shareList');
 Route::post('/share','CompileController@share');
 Route::get('/share/{linkid}','CompileController@showShare');

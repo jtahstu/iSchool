@@ -21,28 +21,32 @@
 	<body style="padding-top: 90px;">
 		@include('Compile.nav')
 		<div class="container">
-			<table class="table table-bordered table-hover table-striped">
-				<tr>
-					<th style="text-align: center;">ID</th>
-					<th>语言</th>
-					<th>介绍</th>
-				</tr>
-				<?php foreach ($language as $key => $value) {?>
-				<tr>
-					<td align="center">
-						<?php echo  $value->id;?>
-					</td>
-					<td>
-						<a href="{{URL::to('compile')}}/<?php echo $value->id;?>">
-							<?php  echo $value->language." 在线工具";?>
-						</a>
-					</td>
-					<td>
-						<?php echo "在线编译、运行 ".$value->language." 代码";?>
-					</td>
-				</tr>
-				<?php } ?>
-			</table>
+			<div class="col-md-1"></div>
+			<div class="col-md-10" id="compile-index-table">
+				<table class="table table-bordered table-hover table-striped">
+					<tr>
+						<th style="text-align: center;">ID</th>
+						<th style="text-align: center;">语言</th>
+						<th style="text-align: center;">介绍</th>
+					</tr>
+					<?php foreach ($language as $key => $value) {?>
+					<tr>
+						<td align="center">
+							<?php echo  $value->id;?>
+						</td>
+						<td align="center">
+							<a href="{{URL::to('compile')}}/<?php echo $value->id;?>">
+								<?php  echo $value->language." 在线工具";?>
+							</a>
+						</td>
+						<td>
+							<?php echo "在线编译、运行 ".$value->language." 代码";?>
+						</td>
+					</tr>
+					<?php } ?>
+				</table>
+			</div>
+			<div class="col-md-1"></div>
 			@include('Compile.changyan')
 		</div>
 		@include('Compile.footer')

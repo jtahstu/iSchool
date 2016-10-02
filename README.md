@@ -14,13 +14,13 @@ iAdmin是本项目的管理后台，负责所有文章编辑，代码编辑，�
 
 ## 一、在线代码编辑器 iTool  [tool.usta.wiki](http://tool.usta.wiki/)
 
-### 本站主要包含以下四大功能：
+### 本站主要包含以下四大功能
 **1. 代码在线编辑
 2. 代码在线编译、运行
 3. 代码分享、协作
 4. 代码实时归档**
 
-### 目前包含以下语言的编辑和编译功能
+### 目前包含以下语言的编辑、编译和在线运行功能
 
  - C/C++
  - HTML/CSS/JS 
@@ -41,10 +41,12 @@ iAdmin是本项目的管理后台，负责所有文章编辑，代码编辑，�
  - Pascal
 
 ### 本站主要包含以下四个页面
-1. 首页
-2. 代码编辑页
-3. 代码分享页
-4. 代码归档页
+1. 首页 （tool.usta.wiki/）
+2. 代码编辑页   （tool.usta.wiki/compile/id）
+3. 代码分享页   （tool.usta.wiki/share/linkid）
+4. 代码归档页   （tool.usta.wiki/share）
 
+### 本站管理
+待完善
 
-更多信息请戳链接体验 [tool.usta.wiki](http://tool.usta.wiki/)
+**更多信息请戳 [tool.usta.wiki](http://tool.usta.wiki/)体验**

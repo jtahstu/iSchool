@@ -66,13 +66,14 @@
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-old_ie.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-monokai.js"></script>
+		<?php if(isset($_GET['h'])){$editorHeight=$_GET['h'];}else{$editorHeight=600;}?>
 		<script>
-			$('#compile-editor').height(600);
+			$('#compile-editor').height(<?php echo $editorHeight;?>);
 			require("ace/ext/old_ie");
 			ace.require("ace/ext/language_tools");
 			var editor = ace.edit("compile-editor");
 			editor.$blockScrolling = Infinity;
-			editor.setFontSize(16);
+			editor.setFontSize(14);
 			editor.session.setMode("ace/mode/@yield('mode')");
 			editor.setOptions({
 				enableBasicAutocompletion: true,

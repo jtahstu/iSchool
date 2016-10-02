@@ -30,10 +30,18 @@ Route::group(['middleware' => ['web']], function () {
     //
 });
 
+//show home page
 Route::get('/','CompileController@index');
-Route::get('/compile/{id}','CompileController@solve');
-Route::post('/compiles','CompileController@result');
 
-Route::get('/share','CompileController@shareList');
+//show editor view
+Route::get('/compile/{id}','CompileController@solve');
+
+//run and share
+Route::post('/compiles','CompileController@result');
 Route::post('/share','CompileController@share');
+
+//show share code view
 Route::get('/share/{linkid}','CompileController@showShare');
+
+//show code archive
+Route::get('/share','CompileController@shareList');

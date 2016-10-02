@@ -4,6 +4,12 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>iTool - 在线代码编辑器</title>
+		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="Keywords" content="" />
+		<meta name="Description" content="" />
+		<meta name="author" content="jtahstu" />
+		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
 		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
 		<style type="text/css">
@@ -50,13 +56,14 @@
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-old_ie.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-monokai.js"></script>
+		<?php if(isset($_GET['h'])){$editorHeight=$_GET['h'];}else{$editorHeight=600;}?>
 		<script type="text/javascript">
-			$('#compile-editor').height(600);
+			$('#compile-editor').height(<?php echo $editorHeight;?>);
 			require("ace/ext/old_ie");
 			ace.require("ace/ext/language_tools");
 			var editor = ace.edit("compile-editor");
 			editor.$blockScrolling = Infinity;
-			editor.setFontSize(16);
+			editor.setFontSize(14);
 			editor.session.setMode("ace/mode/{{$mode}}");
 			editor.setOptions({
 				enableBasicAutocompletion: true,

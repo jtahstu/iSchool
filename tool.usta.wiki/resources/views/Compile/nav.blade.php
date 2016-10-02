@@ -22,7 +22,7 @@
 					</a>
 				</li>
 				<?php 
-							$count=6;
+							$count=5;
 							foreach ($language as $key => $value) {
 							if($count>0){	
 						?>
@@ -38,7 +38,7 @@
 						<?php 
 								$count=0;
 								foreach ($language as $key => $value) {
-								if($count>5){	
+								if($count>4){	
 							?>
 						<li>
 							<a href="{{URL::to('compile')}}/<?php echo $value->id;?>">

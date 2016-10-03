@@ -11,18 +11,19 @@
 		<meta name="author" content="jtahstu" />
 		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
 		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+			<link rel="stylesheet" type="text/css" href="{{asset('public/css/header.css')}}" />
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
 		<style>
 			#compile-editor-div{margin-top:20px}
 			#compile-output{margin:20px 0 50px 0;min-height:300px}
-			#compile-lang{margin-top:85px;font-size:24px;font-weight:bold}
+			#compile-lang{margin-top:20px;font-size:24px;font-weight:bold}
 			#compile-lang span{color:red}
 			#compile-share-title{width:100%;margin:10px 0 10px 0}
 		</style>
 	</head>
 
 	<body>
-		@include('Compile.nav')
+		@include('Compile.header')
 		<div class="">
 			<div class="container">
 				<div id="compile-lang" align="center">
@@ -53,7 +54,6 @@
 		</div>
 
 		@include('Compile.footer')
-		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
@@ -127,7 +127,6 @@
 				});
 			});
 		</script>
-		{!! Config::get('app.cnzz') !!}
 	</body>
 
 </html>

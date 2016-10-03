@@ -10,7 +10,7 @@ a[title='站长统计'] {
 	display: none;
 }
 
-nav {
+/*nav {
 	height: 80px;
 	padding-top: 15px;
 }
@@ -28,21 +28,26 @@ nav {
 #navbar ul li a:hover {
 	color: red;
 	/*font-size: 18px;*/
-	/*font-weight: bold;*/
+	/*font-weight: bold;
 }
 
 #compile-index-table table tr td a:hover,
 #main table tr td a:hover {
 	color: red;
 	text-decoration: none;
+}*/
+.center{
+	text-align: center;
 }
-
+.p2em{
+	text-indent: 2em;
+}
 #footer {
-	height: 120px;
-	background-color: #363636;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	height: 450px;
+	background-color: #373D41;
 	color: #BBBBBB;
-	padding-top: 50px;
-	margin-top: 40px;
 }
 
 #footer a {
@@ -51,4 +56,31 @@ nav {
 
 #footer a:hover {
 	color: red;
+}
+
+#footer-main{
+	height: 350px;
+}
+
+#footer-1,#footer-2,#footer-3{
+	margin: 70px 0 20px 0;
+	padding: 0 30px;
+}
+#footer h2{
+	font-size: 17px;
+	/*font-weight: bold;*/
+	margin: 15px 0 5px 0;
+}
+
+#footer-state{
+	margin-top: 40px;
+}
+
+#footer-3 img{
+	margin-left: 2em;
+	width: 80px;
+	
+}
+#footer-3 h2{
+	margin-bottom: 10px;
 }

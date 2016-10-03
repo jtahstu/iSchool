@@ -13,22 +13,23 @@
 		<meta name="author" content="jtahstu" />
 		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
 		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="{{asset('public/css/header.css')}}" />
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
 		<style>
 			#compile-editor-div{margin-top:20px}
 			#compile-lang{font-size:24px;font-weight:bold}
 			#compile-view,#compile-time{color:red}
-			#compile-share-title{margin-top:85px;text-align:center;font-size:28px;margin-left:-100px;color:#1a5cc8}
+			#compile-share-title{margin:20px 0;text-align:center;font-size:28px;margin-left:-100px;color:#1a5cc8}
 		</style>
 	</head>
 
 	<body>
-		@include('Compile.nav')
+		@include('Compile.header')
 		<div class="">
 			<div class="container">
 				<h2 id="compile-share-title">
 						<span id="compile-title">{{$title}}</span>
-					</h2>
+				</h2>
 				<div id="compile-lang" align="center">
 					浏览量：<span id="compile-view">{{$view}}</span>&nbsp;&nbsp;&nbsp; 修改时间：<span id="compile-time">{{$time}}</span>
 					<button type="button" class="btn btn-success col-md-offset-1" id="compile-share"><i class="glyphicon glyphicon-share"></i>&nbsp;Share Again</button>
@@ -84,7 +85,6 @@
 				});
 			});
 		</script>
-		{!! Config::get('app.cnzz') !!}
 	</body>
 
 </html>

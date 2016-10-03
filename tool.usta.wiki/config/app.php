@@ -1,8 +1,7 @@
 <?php
 
 return [
-	'cnzz' => '<script src="http://s95.cnzz.com/z_stat.php?id=1260398138&web_id=1260398138" language="JavaScript"></script>',
-
+	
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -3,23 +3,24 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title> iTool - 在线代码编辑器 </title>
+		<title> iTool - {!! Config::get('itool.indexTitle') !!} </title>
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="" />
-		<meta name="Description" content="" />
+		<meta name="Keywords" content="{!! Config::get('itool.key') !!}" />
+		<meta name="Description" content="{!! Config::get('itool.indexDes') !!}" />
 		<meta name="author" content="jtahstu" />
-		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
+		<link rel="icon" href="{!! Config::get('itool.icon') !!}" />
 		<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/overhang.min.css')}}" />
 		<link rel="stylesheet" href=" http://cdn.jtahstu.com/barrager.css">
 		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1475409244_4673653.css" />
+		<link rel="stylesheet" type="text/css" href="{{asset('public/css/header.css')}}" />
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/index.css')}}" />
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
 	</head>
 
 	<body>
-		@include('Compile.nav')
+		@include('Compile.header')
 		<div class="">
 			<div class="demo-wrapper">
 				<div class="dashboard clearfix">
@@ -164,10 +165,9 @@
 					</div>
 				</div>
 			</div>
-			@include('Compile.changyan')
+			
 		</div>
 		@include('Compile.footer')
-		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script type="text/javascript" src="{{asset('/public/js/jquery-ui.min.js')}}"></script>
 		<script type="text/javascript" src="{{asset('/public/js/overhang.min.js')}}"></script>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -190,7 +190,6 @@
 	}
 	$('body').barrager(item);
 });</script>
-		{!! Config::get('app.cnzz') !!}
 	</body>
 
 </html>

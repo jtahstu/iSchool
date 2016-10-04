@@ -10,6 +10,7 @@ a[title='站长统计'] {
 	display: none;
 }
 
+
 /*nav {
 	height: 80px;
 	padding-top: 15px;
@@ -28,7 +29,9 @@ a[title='站长统计'] {
 #navbar ul li a:hover {
 	color: red;
 	/*font-size: 18px;*/
-	/*font-weight: bold;
+
+
+/*font-weight: bold;
 }
 
 #compile-index-table table tr td a:hover,
@@ -36,12 +39,15 @@ a[title='站长统计'] {
 	color: red;
 	text-decoration: none;
 }*/
-.center{
+
+.center {
 	text-align: center;
 }
-.p2em{
+
+.p2em {
 	text-indent: 2em;
 }
+
 #footer {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
@@ -58,29 +64,99 @@ a[title='站长统计'] {
 	color: red;
 }
 
-#footer-main{
+#footer-main {
 	height: 350px;
 }
 
-#footer-1,#footer-2,#footer-3{
+#footer-1,
+#footer-2,
+#footer-3 {
 	margin: 70px 0 20px 0;
 	padding: 0 30px;
 }
-#footer h2{
+
+#footer-1,
+#footer-2 {
+	border-right: 1px #BBBBBB solid;
+}
+
+#footer h2 {
 	font-size: 17px;
 	/*font-weight: bold;*/
 	margin: 15px 0 5px 0;
 }
 
-#footer-state{
+#footer-state {
 	margin-top: 40px;
 }
 
-#footer-3 img{
+#footer-3 img {
 	margin-left: 2em;
 	width: 80px;
-	
 }
-#footer-3 h2{
+
+#footer-3 h2 {
 	margin-bottom: 10px;
+}
+
+
+/* Custom Styles */
+ul.nav-tabs {
+	margin-top: 20px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+}
+
+ul.nav-tabs li {
+	margin: 0;
+	border-top: 1px solid #ddd;
+}
+
+ul.nav-tabs li:first-child {
+	border-top: none;
+}
+
+ul.nav-tabs li a {
+	margin: 0;
+	padding: 8px 26px;
+	border-radius: 0;
+}
+
+ul.nav-tabs li.active a,
+ul.nav-tabs li.active a:hover {
+	color: #FFFFFF;
+	background: #373D41;
+	border: 1px solid #0088cc;
+}
+
+ul.nav-tabs li:first-child a {
+	border-radius: 4px 4px 0 0;
+}
+
+ul.nav-tabs li:last-child a {
+	border-radius: 0 0 4px 4px;
+}
+
+ul.nav-tabs.affix {
+	top: 30px;
+}
+#admin{
+	font-size: 14px;
+	margin-top: 10px;
+}
+#admin a{
+	color: rgb(0,149,187);
+}
+#admin-jumbotron{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#admin-jumbotron h2{
+	font-size: 26px;
+	margin-bottom: 10px;
+}
+#admin-section h2{
+	font-size: 20px;
+	font-weight: bold;
+	margin: 20px 0;
 }

@@ -2,19 +2,7 @@
 <html lang="zh-CN">
 
 	<head>
-		<meta charset="UTF-8" />
-		<title>
-			iTool - 代码分享
-		</title>
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="" />
-		<meta name="Description" content="" />
-		<meta name="author" content="jtahstu" />
-		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
-		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="{{asset('public/css/header.css')}}" />
-		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
+		@include('Compile.head')
 		<style>
 			#compile-editor-div{margin-top:20px}
 			#compile-lang{font-size:24px;font-weight:bold}

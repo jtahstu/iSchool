@@ -229,5 +229,4 @@ class CompileController extends Controller {
 		$shareList= DB::table('tool_share')->paginate($paginateCount);
 		return $shareList;
 	}
-
 }

@@ -17,12 +17,8 @@
 							<h2>代码归档</h2>
 						</li>
 						<li class="nav-4" data-menu="sub_menu_4" data-case="one">
-							<h2>在线搜索</h2>
+							<h2>更多功能</h2>
 						</li>
-						<li class="nav-5" data-menu="sub_menu_5" data-case="one">
-							<h2>管理入口</h2>
-						</li>
-
 					</ul>
 				</nav>
 			</div>
@@ -30,7 +26,7 @@
 	</div>
 	<div id="J_subMenus" class="sub-menus" style="top: 99px;" data-spm="201">
 		<div id="sub_menu_1" class="sub-menu">
-			<dl class="first" style="margin-left: 95.5px;">
+			<!--<dl class="first" style="margin-left: 95.5px;">
 				<dt>
 				弹性计算
 				</dt>
@@ -69,7 +65,7 @@
 						开放结构化数据服务OTS
 					</a>
 				</dd>
-			</dl>
+			</dl>-->
 		</div>
 		<div id="sub_menu_2" class="sub-menu">
 			<dl class="first" style="">
@@ -205,23 +201,26 @@
 		</div>
 		<div id="sub_menu_4" class="sub-menu">
 			<dl class="first" style="">
-
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/search')}}">
+					<a data-ga="" href="{{URL::to('/search')}}">
 						在线搜索
 					</a>
 				</dd>
 			</dl>
-		</div>
-		<div id="sub_menu_5" class="sub-menu">
-			<dl class="first" style="">
+			<dl>
 				<dd>
-					<a data-ga="" target="_blank" href="{{URL::to('compile/login')}}">
-						免账号登录
+					<a href="{{URL::to('/discuss')}}">
+						讨论交流
 					</a>
 				</dd>
 			</dl>
-
+			<dl>
+				<dd>
+					<a href="{{URL::to('/login')}}">
+						su - root
+					</a>
+				</dd>
+			</dl>
 		</div>
 	</div>
 </header>

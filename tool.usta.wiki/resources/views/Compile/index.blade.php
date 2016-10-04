@@ -2,21 +2,11 @@
 <html>
 
 	<head>
-		<meta charset="UTF-8" />
-		<title> iTool - {!! Config::get('itool.indexTitle') !!} </title>
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="{!! Config::get('itool.key') !!}" />
-		<meta name="Description" content="{!! Config::get('itool.indexDes') !!}" />
-		<meta name="author" content="jtahstu" />
-		<link rel="icon" href="{!! Config::get('itool.icon') !!}" />
-		<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" />
+		@include('Compile.head')
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/overhang.min.css')}}" />
 		<link rel="stylesheet" href=" http://cdn.jtahstu.com/barrager.css">
 		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_1475409244_4673653.css" />
-		<link rel="stylesheet" type="text/css" href="{{asset('public/css/header.css')}}" />
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/index.css')}}" />
-		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
 	</head>
 
 	<body>
@@ -175,14 +165,14 @@
 		<script type="text/javascript">$(function() {
 	$('body').overhang({
 		type: 'success',
-		message: '欢迎来到 iTool，墙裂推荐使用 火狐浏览器 或 谷歌浏览器 访问本站点',
+		message: "{{Config::get('itool.indexMessage')}}",
 		duration: 5,
 		upper: true,
 	});
 	var item = {
-		img: 'http://cdn.jtahstu.com/firefox.png', //图片
-		info: '下载火狐浏览器', //文字
-		href: 'http://www.firefox.com.cn/', //链接
+		img: "{{Config::get('itool.indexBarragerImg')}}", //图片
+		info: "{{Config::get('itool.indexBarragerInfo')}}", //文字
+		href: "{{Config::get('itool.indexBarragerLink')}}", //链接
 		speed: 6, //延迟,单位秒,默认6
 		// bottom:70, //距离底部高度,单位px,默认随机
 		color: '#fff', //颜色,默认白色

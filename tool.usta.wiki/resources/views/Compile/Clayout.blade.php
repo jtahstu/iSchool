@@ -2,17 +2,7 @@
 <html lang="zh-CN">
 
 	<head>
-		<meta charset="UTF-8" />
-		<title> iTool - 在线代码编辑器 </title>
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="" />
-		<meta name="Description" content="" />
-		<meta name="author" content="jtahstu" />
-		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
-		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-			<link rel="stylesheet" type="text/css" href="{{asset('public/css/header.css')}}" />
-		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
+		@include('Compile.head')
 		<style>
 			#compile-editor-div{margin-top:20px}
 			#compile-output{margin:20px 0 50px 0;min-height:300px}
@@ -27,7 +17,7 @@
 		<div class="">
 			<div class="container">
 				<div id="compile-lang" align="center">
-					Language:
+					{{Config::get('itool.editorTitle')}}
 					<span id=""> @yield('lang') </span>
 					<button type="button" class="btn btn-success col-md-offset-2" id="compile-run">
 					<i class="glyphicon glyphicon-play"></i>&nbsp;运行
@@ -50,7 +40,6 @@
 					<textarea name="" id="compile-output" class="form-control"></textarea>
 				</div>
 			</div>
-			@include('Compile.changyan')
 		</div>
 
 		@include('Compile.footer')
@@ -58,11 +47,10 @@
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-old_ie.js"></script>
-		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-monokai.js"></script>
+		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-{{Config::get('itool.editorTheme')}}.js"></script>
 		<?php
-			if (isset($_GET['h'])) {$editorHeight = $_GET['h'];
-			} else {$editorHeight = 600;
-			}
+			if (isset($_GET['h'])) $editorHeight = $_GET['h'];
+			else $editorHeight = Config::get('itool.editorHeight');
 		?>
 		<script>
 			$('#compile-editor').height(<?php echo $editorHeight; ?>);
@@ -77,10 +65,10 @@
 				enableSnippets: true,
 				enableLiveAutocompletion: true
 			});
-			//			editor.setShowInvisibles(true);
-			editor.setTheme("ace/theme/monokai");
+			//editor.setShowInvisibles(true);
+			editor.setTheme("ace/theme/{{Config::get('itool.editorTheme')}}");
 			$("#compile-output").val(' ');
-			//              var code= $('#code').val();
+			//var code= $('#code').val();
 			$(function() {
 				$("#compile-run").click(function() {
 					$("#compile-output").val('程序正在提交...');
@@ -102,9 +90,10 @@
 				$("#compile-share-title").hide();
 				$("#compile-share-again").hide();
 				$("#compile-share").click(function(){
-					$("#compile-share-title").show();
-					$("#compile-share").hide();
-					$("#compile-share-again").show();
+					$("#compile-share").hide('2000');
+					$("#compile-share-again").show('4000');
+					$("#compile-share-title").show('4000');
+					
 				});
 				$("#compile-share-again").click(function() {
 					var title=$("#compile-share-title-input").val();

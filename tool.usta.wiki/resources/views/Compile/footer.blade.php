@@ -3,24 +3,24 @@
 		<div class="col-md-4">
 			<div id="footer-1">
 				<div>
-					<h2>iTool：</h2>
+					<h2>简介</h2>
 					<p class="p2em">
-						在线代码编辑分享网站，起始于2016年9月14日，是站长毕业设计中的一部分。
+						{!! Config::get('itool.footDes') !!}
 					</p>
 				</div>
 				<div>
-					<h2>备案号：</h2>
+					<h2>备案号</h2>
 					<p class="p2em">
 						<a href="http://www.miibeian.gov.cn/" target="_blank">
-							皖ICP备15023420号-4
+							{{Config::get('itool.footRecord')}}
 						</a>
 					</p>
 				</div>
 				<div>
-					<h2>邮箱：</h2>
+					<h2>邮箱</h2>
 					<p class="p2em">
-						<a href="mailto:root@jtahstu.com">
-							root@jtahstu.com
+						<a href="mailto:{{Config::get('itool.footEmail')}}">
+							{{Config::get('itool.footEmail')}}
 						</a>
 					</p>
 				</div>
@@ -29,7 +29,7 @@
 		<div class="col-md-4">
 			<div id="footer-2">
 				<div>
-					<h2>域名：</h2>
+					<h2>域名</h2>
 					<p class="p2em">
 						<a href="http://tool.usta.wiki" target="_blank">
 							tool.usta.wiki
@@ -37,21 +37,21 @@
 					</p>
 				</div>
 				<div>
-					<h2>服务器：</h2>
+					<h2>服务器</h2>
 					<p class="p2em">
 						阿里云ECS服务器
 					</p>
 				</div>
 				<div>
-					<h2>框架：</h2>
+					<h2>框架</h2>
 					<p class="p2em">
 						<a href="http://getbootstrap.com/" target="_blank">
-							Bootstrap前端框架
+							Bootstrap
 						</a>
 					</p>
 					<p class="p2em">
 						<a href="https://laravel.com/" target="_blank">
-							Laravel PHP开发框架
+							Laravel
 						</a>
 					</p>
 					<p class="p2em">
@@ -65,22 +65,20 @@
 		</div>
 		<div class="col-md-4">
 			<div id="footer-3" class="layer">
-				<h2>联系方式</h2>
+				<h2>社交账号</h2>
 				<img src="{{asset('public/img/qq.jpg')}}"/>
 				<img src="{{asset('public/img/weixin.jpg')}}"/>
+				<h2><a href="{{URL::to('/login')}}" target="_blank">
+					su - root
+				</a></h2>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-12 center" id="footer-state">
-
 		<p>
 			iTool &copy;
 			<?php echo date('Y'); ?>
-			. All Rights Reserved by
-			<a href="http://www.jtahstu.com" target="_blank">
-				jtahstu
-			</a>
-			. Yes , all of them .
+			. {!! Config::get('itool.footCopy') !!}
 		</p>
 	</div>
 </footer>

@@ -2,53 +2,40 @@
 <html lang="zh-CN">
 
 	<head>
-		<meta charset="UTF-8" />
-		<title>
-			iTool - 代码分享
-		</title>
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="" />
-		<meta name="Description" content="" />
-		<meta name="author" content="jtahstu" />
-		<link rel="icon" href="http://cdn.jtahstu.com/editor.ico" />
-		<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="{{asset('public/css/tool.css')}}" />
+		<?php echo $__env->make('Compile.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<style>
-			#compile-editor-div{margin-top:20px}
+			#compile-editor-div{margin:20px 0 50px 0;}
 			#compile-lang{font-size:24px;font-weight:bold}
 			#compile-view,#compile-time{color:red}
-			#compile-share-title{margin-top:85px;text-align:center;font-size:28px;margin-left:-100px;color:#1a5cc8}
+			#compile-share-title{margin:20px 0;text-align:center;font-size:28px;margin-left:-100px;color:#1a5cc8}
 		</style>
 	</head>
 
 	<body>
-		@include('Compile.nav')
+		<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<div class="">
 			<div class="container">
 				<h2 id="compile-share-title">
-						<span id="compile-title">{{$title}}</span>
-					</h2>
+						<span id="compile-title"><?php echo e($title); ?></span>
+				</h2>
 				<div id="compile-lang" align="center">
-					浏览量：<span id="compile-view">{{$view}}</span>&nbsp;&nbsp;&nbsp; 修改时间：<span id="compile-time">{{$time}}</span>
+					浏览量：<span id="compile-view"><?php echo e($view); ?></span>&nbsp;&nbsp;&nbsp; 修改时间：<span id="compile-time"><?php echo e($time); ?></span>
 					<button type="button" class="btn btn-success col-md-offset-1" id="compile-share"><i class="glyphicon glyphicon-share"></i>&nbsp;Share Again</button>
 				</div>
 				<div class="" id="compile-editor-div">
-					<div id="compile-editor" name="" class=" form-control">{{$code}}</div>
+					<div id="compile-editor" name="" class=" form-control"><?php echo e($code); ?></div>
 				</div>
 				<div id="tishi"></div>
-
 			</div>
 
 		</div>
-		@include('Compile.footer')
-		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-old_ie.js"></script>
-		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-monokai.js"></script>
-		<?php if(isset($_GET['h'])){$editorHeight=$_GET['h'];}else{$editorHeight=600;}?>
+		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-<?php echo e($config['editorTheme']); ?>.js"></script>
+		<?php if(isset($_GET['h'])){$editorHeight=$_GET['h'];}else{$editorHeight=$config['editorHeight'];}?>
 		<script>
 			$('#compile-editor').height(<?php echo $editorHeight;?>);
 			require("ace/ext/old_ie");
@@ -56,29 +43,32 @@
 			var editor = ace.edit("compile-editor");
 			editor.$blockScrolling = Infinity;
 			editor.setFontSize(14);
-			editor.session.setMode("ace/mode/{{$mode}}");
+			editor.session.setMode("ace/mode/<?php echo e($mode); ?>");
 			editor.setOptions({
 				enableBasicAutocompletion: true,
 				enableSnippets: true,
 				enableLiveAutocompletion: true
 			});
 			//			editor.setShowInvisibles(true);
-			editor.setTheme("ace/theme/monokai");
+			editor.setTheme("ace/theme/<?php echo e($config['editorTheme']); ?>");
 			//              var code= $('#code').val();
 			$(function() {
 				$("#compile-share").click(function() {
 					var code = editor.getValue();
-					var value = {{$values}};
+					var value = <?php echo e($values); ?>;
 					$.ajax({
 						type: "post",
-						url: "{{URL::to('share')}}",
+						url: "<?php echo e(URL::to('share')); ?>",
 						data: {
 							'code': code,
 							'value': value
 						},
 						dataType: 'json',
 						success: function(msg) {
-							$("#tishi").html("<div class='alert alert-success' style='text-align: center;margin-top: 10px;'>分享成功，链接为 <b>{{URL::to('share')}}/" + msg + "</b></div>");
+							layer.ready(function() {
+								layer.msg("分享成功，赶紧复制链接分享给你的小伙伴吧  (*＾-＾*)");
+							});
+							$("#tishi").html("<div class='alert alert-success' style='text-align: center;margin-top: 10px;'>分享成功，链接为 <b><?php echo e(URL::to('share')); ?>/" + msg + "</b></div>");
 						}
 					});
 				});

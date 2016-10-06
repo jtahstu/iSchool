@@ -3,14 +3,14 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title> iTool - {!! $config['title'] !!} </title>
+		<title> iTool - <?php echo $config['title']; ?> </title>
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="{!! $config['keyword'] !!}" />
-		<meta name="Description" content="{!! $config['des'] !!}" />
+		<meta name="Keywords" content="<?php echo $config['keyword']; ?>" />
+		<meta name="Description" content="<?php echo $config['des']; ?>" />
 		<meta name="author" content="jtahstu" />
-		<link rel="icon" href="{!! $config['icon'] !!}" />
-		<link rel="stylesheet" type="text/css" href="{{asset('public/css/login.css')}}" />
+		<link rel="icon" href="<?php echo $config['icon']; ?>" />
+		<link rel="stylesheet" type="text/css" href="<?php echo e(asset('public/css/login.css')); ?>" />
 		<style>
 			body{height:100%;background:#16a085;overflow:hidden}
 			canvas{z-index:-1;position:absolute}
@@ -34,8 +34,8 @@
 			</dd>
 		</dl>
 		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-		<script src="{{asset('public/js/jQuery.md5.js')}}"></script>
-		<script src="{{asset('public/js/Particleground.js')}}"></script>
+		<script src="<?php echo e(asset('public/js/jQuery.md5.js')); ?>"></script>
+		<script src="<?php echo e(asset('public/js/Particleground.js')); ?>"></script>
 		<script>
 			$(document).ready(function() {
 				$('body').particleground({
@@ -48,9 +48,9 @@
 					var nameMd5='63a9f0ea7bb98050796b649e85481845';
 					var passMd5='1a1dc91c907325c69271ddf0c944bc72';
 					if($.md5(name)==nameMd5&&$.md5(pass)==passMd5){
-						window.location.href='{{URL::to('/admin')}}?user=63a9f0ea7bb98050796b649e85481845';
+						window.location.href='<?php echo e(URL::to('/admin')); ?>?user=63a9f0ea7bb98050796b649e85481845';
 					}else{
-						window.location.href='{{URL::to('/login')}}';
+						window.location.href='<?php echo e(URL::to('/login')); ?>';
 					}
 				});
 			});

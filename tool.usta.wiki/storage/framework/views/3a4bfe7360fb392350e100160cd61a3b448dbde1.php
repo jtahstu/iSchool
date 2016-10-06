@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 
 	<head>
-		@include('Compile.head')
+		<?php echo $__env->make('Compile.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<style>
 			#compile-editor-div{margin-top:20px}
 			#compile-output{margin:20px 0 50px 0;min-height:300px}
@@ -13,12 +13,13 @@
 	</head>
 
 	<body>
-		@include('Compile.header')
+		<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<div class="">
 			<div class="container">
 				<div id="compile-lang" align="center">
-					{{$config['editorTitle']}}
-					<span id=""> @yield('lang') </span>
+					<?php echo e($config['editorTitle']); ?>
+
+					<span id=""> <?php echo $__env->yieldContent('lang'); ?> </span>
 					<button type="button" class="btn btn-success col-md-offset-2" id="compile-run">
 					<i class="glyphicon glyphicon-play"></i>&nbsp;运行
 					</button>
@@ -33,7 +34,7 @@
 					<input type="text" class="form-control" id="compile-share-title-input" placeholder="请输入标题...">
 				</div>
 				<div class="" id="compile-editor-div">
-					<div id="compile-editor" name="" class=" form-control">@yield('content')</div>
+					<div id="compile-editor" name="" class=" form-control"><?php echo $__env->yieldContent('content'); ?></div>
 				</div>
 				<div id="tishi"></div>
 				<div class="">
@@ -42,12 +43,13 @@
 			</div>
 		</div>
 
-		@include('Compile.footer')
+		<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-old_ie.js"></script>
-		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-{{$config['editorTheme']}}.js"></script>
+		<script src="http://cdn.bootcss.com/ace/1.2.4/theme-<?php echo e($config['editorTheme']); ?>.js"></script>
 		<?php
 			if (isset($_GET['h'])) $editorHeight = $_GET['h'];
 			else $editorHeight = $config['editorHeight'];
@@ -59,14 +61,14 @@
 			var editor = ace.edit("compile-editor");
 			editor.$blockScrolling = Infinity;
 			editor.setFontSize(14);
-			editor.session.setMode("ace/mode/@yield('mode')");
+			editor.session.setMode("ace/mode/<?php echo $__env->yieldContent('mode'); ?>");
 			editor.setOptions({
 				enableBasicAutocompletion: true,
 				enableSnippets: true,
 				enableLiveAutocompletion: true
 			});
 			//editor.setShowInvisibles(true);
-			editor.setTheme("ace/theme/{{$config['editorTheme']}}");
+			editor.setTheme("ace/theme/<?php echo e($config['editorTheme']); ?>");
 			$("#compile-output").val(' ');
 			//var code= $('#code').val();
 			$(function() {
@@ -76,10 +78,10 @@
 					});
 					$("#compile-output").val('程序正在提交...');
 					var code = editor.getValue();
-					var value = @yield('value');
+					var value = <?php echo $__env->yieldContent('value'); ?>;
 					$.ajax({
 						type: "post",
-						url: "{{URL::to('compiles')}}",
+						url: "<?php echo e(URL::to('compiles')); ?>",
 						data: {
 							'code': code,
 							'language': value
@@ -105,10 +107,10 @@
 					var title=$("#compile-share-title-input").val();
 //					alert(title);
 					var code = editor.getValue();
-					var value = @yield('value');
+					var value = <?php echo $__env->yieldContent('value'); ?>;
 					$.ajax({
 						type: "post",
-						url: "{{URL::to('share')}}",
+						url: "<?php echo e(URL::to('share')); ?>",
 						data: {
 							'title':title,
 							'code': code,
@@ -119,7 +121,7 @@
 							layer.ready(function() {
 								layer.msg("分享成功，赶紧复制链接分享给你的小伙伴吧  (*＾-＾*)");
 							});
-							$("#tishi").html("<div class='alert alert-success' style='text-align: center;margin-top: 10px;'>分享成功，链接为 <b>{{URL::to('share')}}/" + msg + "</b></div>");
+							$("#tishi").html("<div class='alert alert-success' style='text-align: center;margin-top: 10px;'>分享成功，链接为 <b><?php echo e(URL::to('share')); ?>/" + msg + "</b></div>");
 						}
 					});
 				});

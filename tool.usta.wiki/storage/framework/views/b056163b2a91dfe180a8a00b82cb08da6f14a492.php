@@ -2,7 +2,7 @@
 <html>
 
 	<head>
-		@include('Compile.head')
+		<?php echo $__env->make('Compile.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<style type="text/css">
 			#main table{font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;font-size: 14px;}
 			.center,table tr th{text-align:center}
@@ -13,11 +13,12 @@
 	</head>
 
 	<body>
-		@include('Compile.header')
+		<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<div class="col-md-1"></div>
 		<div id="main" class="col-md-10">
 			<div class="pull-right">
-				{!! $list->render() !!}
+				<?php echo $list->render(); ?>
+
 			</div>
 			<div id="compile-list">
 			<table class="table table-bordered table-hover table-condensed">
@@ -29,18 +30,20 @@
 					<th class="col-md-1">最后编辑时间</th>
 					<th class="col-md-1">浏览次数</th>
 				</tr>
-				@foreach ($list as $rec)
+				<?php foreach($list as $rec): ?>
 				<tr class="list">
 					<td class="center" id="valign">
-						{{$rec->id}}
+						<?php echo e($rec->id); ?>
+
 					</td>
 					<td class="center" id="valign">
-						<a href="{{URL::to('/share')}}/{{$rec->linkid}}">
-							{{$rec->title}}
+						<a href="<?php echo e(URL::to('/share')); ?>/<?php echo e($rec->linkid); ?>">
+							<?php echo e($rec->title); ?>
+
 						</a>
 					</td>
 					<td class="compile-list-code">
-						<a href="{{URL::to('/share')}}/{{$rec->linkid}}">
+						<a href="<?php echo e(URL::to('/share')); ?>/<?php echo e($rec->linkid); ?>">
 							<?php
 								$len=$config['listCodeLength'];
 							    if(strlen($rec->code)>$len){
@@ -53,25 +56,29 @@
 						</a>
 					</td>
 					<td class="center" id="valign">
-						{{$valueLanguage[$rec->value]}}
+						<?php echo e($valueLanguage[$rec->value]); ?>
+
 					</td>
 					<td class="center" id="valign">
-						{{$rec->time}}
+						<?php echo e($rec->time); ?>
+
 					</td>
 					<td class="center" id="valign">
-						{{$rec->view}}
+						<?php echo e($rec->view); ?>
+
 					</td>
 				</tr>
-				@endforeach
+				<?php endforeach; ?>
 			</table>
 			</div>
 			<div class="pull-right">
-				{!! $list->render() !!}
+				<?php echo $list->render(); ?>
+
 			</div>
 		</div>
 		<div class="col-md-1"></div>
 		<div class="col-md-12" style="padding: 0;">
-			@include('Compile.footer')
+			<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		</div>
 	</body>
 

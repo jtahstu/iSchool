@@ -49,11 +49,10 @@ Route::get('/share','CompileController@shareList');
 //show discuss view
 Route::get('/discuss','ToolController@discuss');
 
-//show search view
-Route::get('/search','ToolController@search');
-
 //show login view
 Route::get('/login','ToolController@login');
 
 //show admin view
 Route::get('/admin','ToolController@admin');
+
+Route::post('/admin/{func}','ToolController@adminFunction');

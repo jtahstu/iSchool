@@ -75,7 +75,6 @@
 				$('body').barrager(item);
 			});
 		</script>
-		{!! Config::get('app.cnzz') !!}
 	</body>
 
 </html>

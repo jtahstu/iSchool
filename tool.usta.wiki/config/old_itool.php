@@ -4,15 +4,13 @@ return [
 	 * 全局变量
 	 */
 	 //所有页面的标题
-	'title' => 'iTool - 在线代码编辑器',
+	'title' => 'iTool - 666',
 	//关键词
 	'key' => 'itool，在线代码编辑器，在线运行，在线编译，jtahstu，ischool',
 	//介绍
 	'des' => '666',
 	 //图标
 	'icon' => 'http://cdn.jtahstu.com/editor.ico',
-	//代码归档每页的代码数
-	'paginateCount' => '15',
 	//统计代码
 	'cnzz' => '<script src="http://s95.cnzz.com/z_stat.php?id=1260398138&web_id=1260398138" language="JavaScript"></script>',
 	//头部其他引入代码
@@ -44,7 +42,12 @@ return [
 	/*
 	 * 代码归档
 	 */
-	
+	 //代码分享默认标题
+	'defaultTitle' => '作者就是懒得写题目...',
+	//代码归档每页的代码数
+	'paginateCount' => '20',
+	//代码显示长度
+	'listCodeLength' => '1000',
 	
 	/*
 	 * 代码分享

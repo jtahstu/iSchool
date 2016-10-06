@@ -28,7 +28,6 @@ use App\Http\Requests;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use DB;
-use Config;
 
 class CompileController extends Controller {
 	/*
@@ -45,7 +44,8 @@ class CompileController extends Controller {
 	 */
     function index(){
     	$sharePaginate=$this->getSharePaginate();
-    	return view('Compile/index',['sharePaginate'=>$sharePaginate]);
+//		dd($this->getConfig());
+    	return view('Compile/index',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate]);
     }
 	
 	//获取语言表的所有数据，主要应用于视图nav的显示，每个视图只要用导航栏都需要调用此函数，给视图$language字段
@@ -68,9 +68,9 @@ class CompileController extends Controller {
  		$realTemplate=str_replace('{{date}}',date('Y年m月d日 H:i:s'),$template[0]->template);
  		$realTemplate=str_replace('{{year}}',date('Y'),$realTemplate);  
     	if($id=='2'){
-    		return view('Compile/html',['sharePaginate'=>$sharePaginate,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
+    		return view('Compile/html',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
     	}else{
-    		return view('Compile/editor',['sharePaginate'=>$sharePaginate,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
+    		return view('Compile/editor',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
     	}
     }
 	//根据id获取语言
@@ -134,7 +134,9 @@ class CompileController extends Controller {
 	 */
     function share(Request $request){	
     	$data=Input::all();
-		$title=trim($data['title'])==""?'作者就是懒得写题目...':trim($data['title']);
+		$config=$this->getConfig();
+		$defaultTitle=$config['defaultTitle'];
+		$title=trim($data['title'])==""?$defaultTitle:trim($data['title']);
     	$code=$data['code'];
     	$value=$data['value'];
     	$linkid=$this->getShareCount()+1;
@@ -179,7 +181,7 @@ class CompileController extends Controller {
     	$view=$data[0]->view;
     	$value=$this->getShareValue($linkid);
     	$sharePaginate=$this->getSharePaginate();
-    	return view('Compile/share',['sharePaginate'=>$sharePaginate,'title'=>$title,'code'=>$code,'mode'=>$mode,'time'=>$time,'view'=>$view,'values'=>$value]);
+    	return view('Compile/share',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'title'=>$title,'code'=>$code,'mode'=>$mode,'time'=>$time,'view'=>$view,'values'=>$value]);
     }
 	//分享的代码view数加一
     function addShareView($linkid){
@@ -222,11 +224,22 @@ class CompileController extends Controller {
     	foreach ($language as $key ) {
     		$valueLanguage[$key->value]=$key->language;
     	}
-		return view('Compile/list',['sharePaginate'=>$sharePaginate,'list'=>$shareList,'valueLanguage'=>$valueLanguage]);
+		return view('Compile/list',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'list'=>$shareList,'valueLanguage'=>$valueLanguage]);
     }
 	function getSharePaginate(){
-		$paginateCount=\Config::get('itool.paginateCount');
+		$config=$this->getConfig();
+		$paginateCount=$config['paginateCount'];
 		$shareList= DB::table('tool_share')->paginate($paginateCount);
 		return $shareList;
+	}
+
+	//获取网站配置文件
+	function getConfig(){
+		$config=DB::select('select * from tool_config');
+		$configArray=array();
+		foreach($config as $rec){
+			$configArray[$rec->k]=$rec->value;
+		}
+		return $configArray;
 	}
 }

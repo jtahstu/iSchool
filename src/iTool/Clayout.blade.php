@@ -127,7 +127,6 @@
 				});
 			});
 		</script>
-		{!! Config::get('app.cnzz') !!}
 	</body>
 
 </html>

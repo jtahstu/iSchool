@@ -2,7 +2,7 @@
 	<div id="J_Headerwrap" class="header-wrap" data-spm="2">
 		<div class="header-inner y-row">
 			<div class="y-span6">
-				<a id="J_logo" class="logo" href="{{URL::to('/')}}">
+				<a id="J_logo" class="logo" href="<?php echo e(URL::to('/')); ?>">
 					iTool
 				</a>
 				<nav id="J_Nav">
@@ -73,27 +73,27 @@
 				常用语言
 				</dt>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/1')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/1')); ?>">
 						C/C++
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/4')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/4')); ?>">
 						Java
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/5')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/5')); ?>">
 						Python
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/7')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/7')); ?>">
 						Python3
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/6')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/6')); ?>">
 						C#
 					</a>
 				</dd>
@@ -103,27 +103,27 @@
 				Web开发
 				</dt>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/2')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/2')); ?>">
 						HTML/CSS/JS
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/3')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/3')); ?>">
 						PHP
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/10')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/10')); ?>">
 						Ruby
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/14')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/14')); ?>">
 						Node.js
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/13')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/13')); ?>">
 						Go
 					</a>
 				</dd>
@@ -134,12 +134,12 @@
 				iOS开发
 				</dt>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/8')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/8')); ?>">
 						Objective-C
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/9')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/9')); ?>">
 						Swift
 					</a>
 				</dd>
@@ -149,17 +149,17 @@
 				脚本语言
 				</dt>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/12')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/12')); ?>">
 						Bash
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/11')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/11')); ?>">
 						Perl
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/15')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/15')); ?>">
 						Lua
 					</a>
 				</dd>
@@ -169,12 +169,12 @@
 				小众语言
 				</dt>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/17')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/17')); ?>">
 						Pescal
 					</a>
 				</dd>
 				<dd>
-					<a data-ga="" href="{{URL::to('compile/16')}}">
+					<a data-ga="" href="<?php echo e(URL::to('compile/16')); ?>">
 						Scala
 					</a>
 				</dd>
@@ -184,32 +184,32 @@
 		<div id="sub_menu_3" class="sub-menu">
 			<dl class="first" style="">
 				<dd>
-					<a href="{{URL::to('/share')}}">
+					<a href="<?php echo e(URL::to('/share')); ?>">
 						第一页
 					</a>
 				</dd>
 			</dl>
-			@for ($i = 2; $i <= $sharePaginate->lastPage(); $i++)
+			<?php for($i = 2; $i <= $sharePaginate->lastPage(); $i++): ?>
 			<dl>
 				<dd>
-					<a href="{{URL::to("/share?page=")}}{{$i}}">
+					<a href="<?php echo e(URL::to("/share?page=")); ?><?php echo e($i); ?>">
 						第<?php echo numToWord($i); ?>页
 					</a>
 				</dd>
 			</dl>
-			@endfor
+			<?php endfor; ?>
 		</div>
 		<div id="sub_menu_4" class="sub-menu">
 			<dl class="first">
 				<dd>
-					<a href="{{URL::to('/discuss')}}">
+					<a href="<?php echo e(URL::to('/discuss')); ?>">
 						讨论交流
 					</a>
 				</dd>
 			</dl>
 			<dl>
 				<dd>
-					<a href="{{URL::to('/login')}}">
+					<a href="<?php echo e(URL::to('/login')); ?>">
 						su - root
 					</a>
 				</dd>
@@ -218,4 +218,4 @@
 	</div>
 </header>
 <script src="http://g.tbcdn.cn/kissy/k/1.4.3/seed-min.js"></script>
-<script type="text/javascript" src="{{asset('/public/js/header.js')}}"></script>
+<script type="text/javascript" src="<?php echo e(asset('/public/js/header.js')); ?>"></script>

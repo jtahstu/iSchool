@@ -5,22 +5,25 @@
 				<div>
 					<h2>简介</h2>
 					<p class="p2em">
-						{!! htmlspecialchars_decode($config['footDes']) !!}
+						<?php echo htmlspecialchars_decode($config['footDes']); ?>
+
 					</p>
 				</div>
 				<div>
 					<h2>备案号</h2>
 					<p class="p2em">
 						<a href="http://www.miibeian.gov.cn/" target="_blank">
-							{{$config['footRecord']}}
+							<?php echo e($config['footRecord']); ?>
+
 						</a>
 					</p>
 				</div>
 				<div>
 					<h2>邮箱</h2>
 					<p class="p2em">
-						<a href="mailto:{{$config['footEmail']}}">
-							{{$config['footEmail']}}
+						<a href="mailto:<?php echo e($config['footEmail']); ?>">
+							<?php echo e($config['footEmail']); ?>
+
 						</a>
 					</p>
 				</div>
@@ -66,9 +69,9 @@
 		<div class="col-md-4">
 			<div id="footer-3" class="layer">
 				<h2>社交账号</h2>
-				<img src="{{asset('public/img/qq.jpg')}}"/>
-				<img src="{{asset('public/img/weixin.jpg')}}"/>
-				<h2><a href="{{URL::to('/login')}}" target="_blank">
+				<img src="<?php echo e(asset('public/img/qq.jpg')); ?>"/>
+				<img src="<?php echo e(asset('public/img/weixin.jpg')); ?>"/>
+				<h2><a href="<?php echo e(URL::to('/login')); ?>" target="_blank">
 					su - root
 				</a></h2>
 			</div>
@@ -78,11 +81,11 @@
 		<p>
 			iTool &copy;
 			<?php echo date('Y'); ?>
-			. {!! htmlspecialchars_decode($config['footCopy']) !!} 
+			. <?php echo htmlspecialchars_decode($config['footCopy']); ?> 
 		</p>
 	</div>
 </footer>
-<script src="{{asset('public/js/layer.js')}}"></script>
+<script src="<?php echo e(asset('public/js/layer.js')); ?>"></script>
 <script>
 	$(function() {
 		layer.ready(function() {
@@ -94,4 +97,5 @@
 	});
 </script>
 <!--统计代码-->
-{!! htmlspecialchars_decode($config['cnzz']) !!}
+<?php echo htmlspecialchars_decode($config['cnzz']); ?>
+

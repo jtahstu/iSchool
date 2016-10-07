@@ -12,7 +12,11 @@
 	</head>
 
 	<body>
-		<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php if(isset($_GET['m'])): ?>
+			<?php echo $__env->make('Mobile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php else: ?>
+			<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php endif; ?>
 		<div class="">
 			<div class="container">
 				<h2 id="compile-share-title">
@@ -29,7 +33,11 @@
 			</div>
 
 		</div>
-		<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php if(isset($_GET['m'])): ?>
+			<?php echo $__env->make('Mobile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php else: ?>
+			<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php endif; ?>
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
@@ -54,12 +62,14 @@
 			//              var code= $('#code').val();
 			$(function() {
 				$("#compile-share").click(function() {
+					var title=$('#compile-title').html();
 					var code = editor.getValue();
 					var value = <?php echo e($values); ?>;
 					$.ajax({
 						type: "post",
 						url: "<?php echo e(URL::to('share')); ?>",
 						data: {
+							'title':title,
 							'code': code,
 							'value': value
 						},

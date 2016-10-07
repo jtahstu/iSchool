@@ -6,8 +6,16 @@
 	</head>
 
 	<body>
-		@include('Compile.header')
+		@if(isset($_GET['m']))
+			@include('Mobile.header')
+		@else
+			@include('Compile.header')
+		@endif
 		@include('Compile.changyan')
-		@include('Compile.footer')
+		@if(isset($_GET['m']))
+			@include('Mobile.footer')
+		@else
+			@include('Compile.footer')
+		@endif
 	</body>
 </html>

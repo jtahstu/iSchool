@@ -6,7 +6,11 @@
 	</head>
 
 	<body data-spy="scroll" data-target="#myScrollspy">
-		<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php if(isset($_GET['m'])): ?>
+			<?php echo $__env->make('Mobile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php else: ?>
+			<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php endif; ?>
 		<div class="container" id="admin">
 			<div class="jumbotron" id="admin-jumbotron">
 				<h2>iTool后台管理系统 &nbsp;&nbsp;<small>Version: <?php echo e($config['version']); ?> by jtahstu .</small></h2>
@@ -161,7 +165,7 @@
 							<div class="form-group">
 								<label for="" class="col-sm-2 control-label">站点声明：</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="4" id="admin-foot-footCopy"><?php echo e($config['footCopy']); ?></textarea>
+									<textarea class="form-control" rows="12" id="admin-foot-footCopy"><?php echo e($config['footCopy']); ?></textarea>
 								</div>
 							</div>
 							<div class="form-group">
@@ -188,7 +192,7 @@
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="admin-editor-editorTheme" value="<?php echo e($config['editorTheme']); ?>">
 									<br />
-									<div class="alert alert-info" role="alert">
+									<div class="alert alert-info col-sm-12" role="alert">
 										<h2 class="center" id="admin-editor-theme-title">目前支持以下主题</h2>
 										<table class="table table-bordered table-responsive">
 											<tr>
@@ -295,7 +299,11 @@
 				</div>
 			</div>
 		</div>
-		<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php if(isset($_GET['m'])): ?>
+			<?php echo $__env->make('Mobile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php else: ?>
+			<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php endif; ?>
 		<script type="text/javascript">$(function() {
 			$('#admin-global-submit').click(function() {
 				var title = $('#admin-global-title').val();

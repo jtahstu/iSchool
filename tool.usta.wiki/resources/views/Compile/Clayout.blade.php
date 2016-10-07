@@ -13,7 +13,11 @@
 	</head>
 
 	<body>
-		@include('Compile.header')
+		@if(isset($_GET['m']))
+			@include('Mobile.header')
+		@else
+			@include('Compile.header')
+		@endif
 		<div class="">
 			<div class="container">
 				<div id="compile-lang" align="center">
@@ -41,8 +45,11 @@
 				</div>
 			</div>
 		</div>
-
-		@include('Compile.footer')
+		@if(isset($_GET['m']))
+			@include('Mobile.footer')
+		@else
+			@include('Compile.footer')
+		@endif
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>

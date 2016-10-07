@@ -13,7 +13,11 @@
 	</head>
 
 	<body>
-		<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php if(isset($_GET['m'])): ?>
+			<?php echo $__env->make('Mobile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php else: ?>
+			<?php echo $__env->make('Compile.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php endif; ?>
 		<div class="col-md-1"></div>
 		<div id="main" class="col-md-10">
 			<div class="pull-right">
@@ -78,7 +82,11 @@
 		</div>
 		<div class="col-md-1"></div>
 		<div class="col-md-12" style="padding: 0;">
-			<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<?php if(isset($_GET['m'])): ?>
+				<?php echo $__env->make('Mobile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<?php else: ?>
+				<?php echo $__env->make('Compile.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<?php endif; ?>
 		</div>
 	</body>
 

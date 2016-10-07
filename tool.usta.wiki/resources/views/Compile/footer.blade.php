@@ -95,3 +95,13 @@
 </script>
 <!--统计代码-->
 {!! htmlspecialchars_decode($config['cnzz']) !!}
+
+<?php
+    if(isset($_GET['user'])||isset($_GET['page']))
+		$jumpLink=Request::getRequestUri().'&m=m';
+	else
+		$jumpLink=Request::getRequestUri().'?m=m';
+?>
+<script src="http://siteapp.baidu.com/static/webappservice/uaredirect.js" type="text/javascript"></script>
+<script type="text/javascript">uaredirect("{!! $jumpLink !!}");</script>
+{{-- 判断移动端访问 --}}

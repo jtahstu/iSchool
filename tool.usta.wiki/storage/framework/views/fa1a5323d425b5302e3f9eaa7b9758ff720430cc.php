@@ -7,7 +7,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-			<a class="navbar-brand" href="{{URL::to('/')}}">iTool</a>
+			<a class="navbar-brand" href="<?php echo e(URL::to('/')); ?>">iTool</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse pull-right">
 			<ul class="nav navbar-nav">
@@ -17,7 +17,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="{{URL::to('/share')}}">
+					<a href="<?php echo e(URL::to('/share')); ?>">
 						代码归档
 					</a>
 				</li>
@@ -27,7 +27,7 @@
 					if($count>0){	
 				?>
 				<li>
-					<a href="{{URL::to('compile')}}/<?php echo $value -> id; ?>">
+					<a href="<?php echo e(URL::to('compile')); ?>/<?php echo $value -> id; ?>">
 						<?php  echo $value -> language; ?>
 					</a>
 				</li>
@@ -43,7 +43,7 @@
 								if($count>4){	
 							?>
 						<li>
-							<a href="{{URL::to('compile')}}/<?php echo $value -> id; ?>">
+							<a href="<?php echo e(URL::to('compile')); ?>/<?php echo $value -> id; ?>">
 								<?php  echo $value -> language; ?>
 							</a>
 						</li>

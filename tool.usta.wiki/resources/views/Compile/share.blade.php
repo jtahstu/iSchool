@@ -12,7 +12,11 @@
 	</head>
 
 	<body>
-		@include('Compile.header')
+		@if(isset($_GET['m']))
+			@include('Mobile.header')
+		@else
+			@include('Compile.header')
+		@endif
 		<div class="">
 			<div class="container">
 				<h2 id="compile-share-title">
@@ -29,7 +33,11 @@
 			</div>
 
 		</div>
-		@include('Compile.footer')
+		@if(isset($_GET['m']))
+			@include('Mobile.footer')
+		@else
+			@include('Compile.footer')
+		@endif
 		<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ace.js" type="text/javascript" charset="utf-8"></script>
 		<script src="http://cdn.bootcss.com/ace/1.2.4/ext-language_tools.js"></script>
@@ -54,12 +62,14 @@
 			//              var code= $('#code').val();
 			$(function() {
 				$("#compile-share").click(function() {
+					var title=$('#compile-title').html();
 					var code = editor.getValue();
 					var value = {{$values}};
 					$.ajax({
 						type: "post",
 						url: "{{URL::to('share')}}",
 						data: {
+							'title':title,
 							'code': code,
 							'value': value
 						},

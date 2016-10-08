@@ -1,3 +1,17 @@
+<?php
+	if(isset($_GET['user'])&&isset($_GET['pass'])){
+		$passMD5=$_GET['pass'];
+//		echo $passMD5.'<br />'.md5('password');
+		if($passMD5!=md5('password')){
+			header("Location:URL::to('/login')");
+			exit;
+		}
+	}else{
+		header("Location:URL::to('/login')");
+		exit;
+	}
+    
+?>
 <!DOCTYPE html>
 <html>
 

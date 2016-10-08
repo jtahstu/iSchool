@@ -45,3 +45,14 @@ Route::get('/share/{linkid}','CompileController@showShare');
 
 //show code archive
 Route::get('/share','CompileController@shareList');
+
+//show discuss view
+Route::get('/discuss','ToolController@discuss');
+
+//show login view
+Route::get('/login','ToolController@login');
+
+//show admin view
+Route::get('/admin','ToolController@admin');
+
+Route::post('/admin/{func}','ToolController@adminFunction');

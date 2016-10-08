@@ -45,13 +45,7 @@
 				$('#login').click(function(){
 					var name=$('#name').val();
 					var pass=$('#pass').val();
-					var nameMd5='63a9f0ea7bb98050796b649e85481845';
-					var passMd5='1a1dc91c907325c69271ddf0c944bc72';
-					if($.md5(name)==nameMd5&&$.md5(pass)==passMd5){
-						window.location.href='<?php echo e(URL::to('/admin')); ?>?user=63a9f0ea7bb98050796b649e85481845';
-					}else{
-						window.location.href='<?php echo e(URL::to('/login')); ?>';
-					}
+					window.location.href='<?php echo e(URL::to('/admin')); ?>?user=root&pass='+$.md5(pass);
 				});
 			});
 		</script>

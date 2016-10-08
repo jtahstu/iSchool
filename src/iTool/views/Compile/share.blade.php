@@ -79,11 +79,6 @@
 								layer.msg("分享成功，赶紧复制链接分享给你的小伙伴吧  (*＾-＾*)");
 							});
 							$("#tishi").html("<div class='alert alert-success' style='text-align: center;margin-top: 10px;'>分享成功，链接为 <b>{{URL::to('share')}}/" + msg + "</b></div>");
-						},
-						error:function(){
-							layer.ready(function() {
-								layer.msg("啊哦，分享失败了，再试一次吧  (*＾-＾*)");
-							});
 						}
 					});
 				});

@@ -16,6 +16,9 @@
  * 每个路由规则过来的处理函数的详细介绍补全
  * 少量重构和函数位置调整
  * by jtahstu 2016/9/30
+ * 
+ * 引入配置，更加灵活化和易于管理
+ * by jtahstu 2016/10/03
  */
 	
 namespace App\Http\Controllers;
@@ -40,11 +43,13 @@ class CompileController extends Controller {
 	 * 返回：首页视图
 	 */
     function index(){
-    	$language=$this->getToolLangAll();
-    	return view('Compile/index',['language'=>$language]);
+    	$sharePaginate=$this->getSharePaginate();
+//		dd($this->getConfig());
+    	return view('Compile/index',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate]);
     }
 	
 	//获取语言表的所有数据，主要应用于视图nav的显示，每个视图只要用导航栏都需要调用此函数，给视图$language字段
+	//导航栏变更，已经不需要返回语言表，但是其他函数还是能用得到的 by jtahstu 2016/10/03
 	function getToolLangAll(){
 		$language=DB::select('select id,language,value,mode from tool_lang');
 		return $language;
@@ -57,15 +62,15 @@ class CompileController extends Controller {
 	 * 返回：代码编辑视图
 	 */
     function solve($id){
+    	$sharePaginate=$this->getSharePaginate();
     	$lang=$this->getLanguage($id);
     	$template=$this->getTemplate($id);
- 		$realTemplate=str_replace('{{date}}',date('Y年m月d日 H:i:s'),$template[0]->template);  
+ 		$realTemplate=str_replace('{{date}}',date('Y年m月d日 H:i:s'),$template[0]->template);
  		$realTemplate=str_replace('{{year}}',date('Y'),$realTemplate);  
-    	$language=$this->getToolLangAll();
     	if($id=='2'){
-    		return view('Compile/html',['language'=>$language,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
+    		return view('Compile/html',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
     	}else{
-    		return view('Compile/editor',['language'=>$language,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
+    		return view('Compile/editor',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'value'=>$lang[0]->value,'lang'=>$lang[0]->language,'mode'=>$lang[0]->mode,'template'=>$realTemplate]);
     	}
     }
 	//根据id获取语言
@@ -129,7 +134,9 @@ class CompileController extends Controller {
 	 */
     function share(Request $request){	
     	$data=Input::all();
-		$title=trim($data['title'])==""?'作者就是懒得写题目...':trim($data['title']);
+		$config=$this->getConfig();
+		$defaultTitle=$config['defaultTitle'];
+		$title=trim($data['title'])==""?$defaultTitle:trim($data['title']);
     	$code=$data['code'];
     	$value=$data['value'];
     	$linkid=$this->getShareCount()+1;
@@ -173,8 +180,8 @@ class CompileController extends Controller {
     	$time=$data[0]->time;
     	$view=$data[0]->view;
     	$value=$this->getShareValue($linkid);
-    	$language=$this->getToolLangAll();
-    	return view('Compile/share',['title'=>$title,'code'=>$code,'mode'=>$mode,'time'=>$time,'view'=>$view,'values'=>$value,'language'=>$language]);
+    	$sharePaginate=$this->getSharePaginate();
+    	return view('Compile/share',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'title'=>$title,'code'=>$code,'mode'=>$mode,'time'=>$time,'view'=>$view,'values'=>$value]);
     }
 	//分享的代码view数加一
     function addShareView($linkid){
@@ -210,13 +217,29 @@ class CompileController extends Controller {
 	 * 返回：代码归档视图
 	 */
     function shareList(){
-    	$shareList= DB::table('tool_share')->paginate(30);
-    	$language=$this->getToolLangAll();
+    	$shareList=$this->getSharePaginate();
+		$sharePaginate=$this->getSharePaginate();
+		$language=$this->getToolLangAll();
     	$valueLanguage=array();
     	foreach ($language as $key ) {
     		$valueLanguage[$key->value]=$key->language;
     	}
-		return view('Compile/list',['list'=>$shareList,'language'=>$language,'valueLanguage'=>$valueLanguage]);
+		return view('Compile/list',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate,'list'=>$shareList,'valueLanguage'=>$valueLanguage]);
     }
+	function getSharePaginate(){
+		$config=$this->getConfig();
+		$paginateCount=$config['paginateCount'];
+		$shareList= DB::table('tool_share')->paginate($paginateCount);
+		return $shareList;
+	}
 
+	//获取网站配置文件
+	function getConfig(){
+		$config=DB::select('select * from tool_config');
+		$configArray=array();
+		foreach($config as $rec){
+			$configArray[$rec->k]=$rec->value;
+		}
+		return $configArray;
+	}
 }

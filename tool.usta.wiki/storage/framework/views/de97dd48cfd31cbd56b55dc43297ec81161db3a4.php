@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title> iTool - <?php echo $config['title']; ?> </title>
+		<title><?php echo $config['title']; ?> </title>
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<meta name="Keywords" content="<?php echo $config['keyword']; ?>" />

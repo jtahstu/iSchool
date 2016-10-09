@@ -97,6 +97,11 @@
 								layer.msg("结果出来啦  (*＾-＾*)");
 							});
 							$("#compile-output").val(msg);
+						},
+						error:function(){
+							layer.ready(function() {
+								layer.msg("运行发生错误 ╭∩╮(︶︿︶)╭∩╮");
+							});
 						}
 					});
 				});

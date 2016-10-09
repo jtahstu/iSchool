@@ -16,8 +16,10 @@ iTool页面组成结构
 
 ## 二、从页面视图说开去
 可能一般应该从路由开始说起，然后到控制器，然后到视图，这是这个网站运行的顺序。但如果这样说的话，显然不够形象，难于理解。
-那么我们从每一个页面来说，或者从每一个部分来说，相信你能很快上手，如果你依然很难与理解这个网站的架构，那么好好去看看Laravel文档吧。
-或许你应该先用Laravel开发一个网站后，会更容易理解这种架构模式。
+
+那么我们从每一个页面来说，或者从每一个部分来说，相信你能很快上手，如果你依然很难与理解这个网站的架构，那么好好去看看 [Laravel文档](http://laravelacademy.org/laravel-docs-5_2) 吧。
+
+或许你应该先用Laravel开发一个网站后，这样会更容易理解这种模式。
 
 ### 2.1、头部
 ok，看了上面的图，如果你经验丰富，肯定已经一眼看穿，“哦，原来这个网站这么简单”，那么下面的东西你基本可以跳过了。如果你只是个小白，好好学习，天天向上。
@@ -62,10 +64,13 @@ ok，看了上面的图，如果你经验丰富，肯定已经一眼看穿，“
 采用Blade模板引擎的语法，生成链接和载入变量值
 
 **注意：这里配置里包含有html或js代码的，显示时需要特殊字符解码**
-因为在配置提交时，会进行html特殊字符编码，然后保存到数据库中，以防止一些sql注入攻击，所以在从数据库中拿出来时需要解码
+
+因为在配置提交时，会进行html特殊字符编码，然后保存到数据库中，以防止一些sql注入攻击，所以在从数据库中拿出来时需要解码,这个**请参考2.8、后台管理的代码说明**
 
 需要什么：$config，即网站的配置数组
+
 从哪来：控制器返回视图时带来的，也就是从数据库中读出来的
+
 干什么：当然是显示喽，视图不就是呈现的嘛
 
 ### 2.2、导航栏
@@ -74,7 +79,9 @@ ok，看了上面的图，如果你经验丰富，肯定已经一眼看穿，“
 该导航栏使用的是网上仿阿里云前下拉模式导航栏，目前阿里云导航栏已改版，效果看上去还是过得去的。
 
 需要什么：分页对象，即`$shareList= DB::table('tool_share')->paginate($paginateCount)`
+
 从哪来：控制器以参数形式传入
+
 干什么：以判断导航栏需要显示几个第多少多少页。
 
 #### 2.2.2、移动端显示的导航栏
@@ -154,10 +161,12 @@ ok，看了上面的图，如果你经验丰富，肯定已经一眼看穿，“
 ```
 
 由于js加载应该放在网页的最后，又由于每个页面都要判断，所以验证就放在了脚部里。
+
 实际上是放头部`Request::getRequestUri()`会运行不正常，不用太在意，放这里是对的。
 
 **js实现客户端的类型判断，如果是移动端则跳转到当前链接并添加标记m=m**，说明是移动端访问，此标记用与页面显示时到底是加载移动端的头部和脚部，还是加载正常的浏览器头部和脚部。
-当然啦，由于管理后台和分页时链接中已经有变量了，所以需要判断一下，一个是？一个是&
+
+由于管理后台和分页时链接中已经有变量了，所以需要判断一下，一个是？一个是&
 
 **注意：在一开始访问网站的页面时是不带m=m标记的，验证如果是移动端访问，则会刷新页面，也就是说，移动端访问会加载两次页面。**
 
@@ -242,7 +251,9 @@ $('body').barrager(item);
 你也可以参考这篇文章和演示 [jQuery通知提示插件overhang.js](http://www.jq22.com/jquery-info9193)
 
 ```javascript
-<script type="text/javascript" src="{{asset('/public/js/overhang.min.js')}}"></script>
+<script type="text/javascript" src="http://tool.usta.wiki/public/js/overhang.min.js"></script>
+```
+```
 $('body').overhang({
 	type: 'success',
 	message: "{{$config['indexMessage']}}",
@@ -250,9 +261,8 @@ $('body').overhang({
 	upper: true,
 });
 ```
-也是用到了最基本的功能
 
-控制器代码
+#### 2.4.4、首页控制器代码
 ```php
 	/*
 	 * 路由过来的/
@@ -264,9 +274,12 @@ $('body').overhang({
     	return view('Compile/index',['config'=>$this->getConfig(),'sharePaginate'=>$sharePaginate]);
     }
 ```
+这里所带的两个参数，在每个视图里都得有，一个是整个网站的配置项，一个是导航栏的分页对象
 
 ### 2.5、代码编辑页
-这个页面看上去也挺简单，上半部分的代码编辑器和下半部分的结果显示域
+这个页面包括，上半部分的代码编辑器和下半部分的结果显示域
+
+#### 2.5.1、代码编辑页控制器代码
 ```php
     /*
 	 * 路由过来的/compile/{id}，由该函数处理
@@ -299,8 +312,35 @@ $('body').overhang({
     }
 ```
 
-#### 2.5.1、16种编程语言的模板页
-这里16种编程语言的页面都是采用的这一个模板，依据不同的链接，加载不同的语言模块
+#### 2.5.2、16种编程语言的模板页
+这里16种编程语言（除html/css/js）的页面都是采用的这一模板，依据不同的链接，加载不同的语言模块和代码模板
+```html
+<div class="container">
+    <div id="compile-lang" align="center">
+		{{$config['editorTitle']}}
+		<span id=""> @yield('lang') </span>
+		<button type="button" class="btn btn-success col-md-offset-2" id="compile-run">
+	    	<i class="glyphicon glyphicon-play"></i>&nbsp;运行
+		</button>
+		<button type="button" class="btn btn-info" id="compile-share">
+			<i class="glyphicon glyphicon-share"></i>&nbsp;分享
+		</button>
+		<button type="button" class="btn btn-success" id="compile-share-again">
+		    <i class="glyphicon glyphicon-share"></i>&nbsp;确认分享
+		</button>
+	</div>
+	<div class="col-md-8 col-md-offset-2" id="compile-share-title">
+		<input type="text" class="form-control" id="compile-share-title-input" placeholder="请输入标题...">
+	</div>
+	<div class="" id="compile-editor-div">
+		<div id="compile-editor" name="" class=" form-control">@yield('content')</div>
+	</div>
+	<div id="tishi"></div>
+	<div class="">
+		<textarea name="" id="compile-output" class="form-control"></textarea>
+	</div>
+</div>
+```
 
 ```javascript
 <?php
@@ -323,12 +363,15 @@ $('#compile-editor').height(<?php echo $editorHeight; ?>);
 	editor.setTheme("ace/theme/{{$config['editorTheme']}}");
 ```
 
-有关于ace.js的用法，请参考本人写的另一篇wiki ACE Editor接入指南，里面有详细介绍如何使用ace.js构建一个web编辑器
+有关于ace.js的用法，请参考本人写的另一篇wiki [ACE Editor接入指南](http://git.jtahstu.com/jtahstu/www_usta_wiki/wiki/ACE-Editor%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97)
 
-采用的配置项，设置编辑器高度，主题等
+js代码中采用配置项，设置编辑器高度，主题等
 
 #### 2.5.2、HTML/CSS/JS的模板页
-该页面不同于第一种，是因为代码在运行时不需要编译
+该页面需要独立出来，是因为代码运行机制不同
+
+其他部分都是一样的，所以如果你要改页面，**两个都要一起改**，别忘了
+
 ```
 function show() {
 	code = editor.getValue();
@@ -338,7 +381,7 @@ function show() {
 	testwin.document.close();
 }
 ```
-获取到编辑器的代码，新开个页面，把代码加进去即可
+点击运行按钮，触发事件，获取到编辑器的代码，新打开个页面，把代码加进去即可显示运行
 
 #### 2.5.3、运行
 点击右上角的运行按钮时，会触发.click（）事件，发送ajax请求给控制器
@@ -364,6 +407,11 @@ $("#compile-run").click(function() {
 				layer.msg("结果出来啦  (*＾-＾*)");
 			});
 	    	$("#compile-output").val(msg);
+		},
+		error:function(){
+			layer.ready(function() {
+				layer.msg("运行发生错误 ╭∩╮(︶︿︶)╭∩╮");
+			});
 		}
 	});
 });
@@ -372,15 +420,15 @@ $("#compile-run").click(function() {
 
 中间会有个layer.js的弹出层提示,一般像下面这样使用
 ```javascript
-<script src="{{asset('public/js/layer.js')}}"></script>
+<script src="http://tool.usta.wiki/public/js/layer.js"></script>
 layer.ready(function() {
 	layer.msg("玩命运行中  <(＾－＾)>");
 });
 ```
-官网地址：[layer官方演示与讲解（jQuery弹出层插件）](http://layer.layui.com/)
+该插件官网地址：[layer官方演示与讲解（jQuery弹出层插件）](http://layer.layui.com/)
 
 #### 2.5.4、分享代码
-代码分享前需要补全标题，这里使用的jquery show()和hide()方法,分享成功后显示分享链接
+代码分享前需要补全标题，这里使用的jquery show()和hide()方法,分享成功后异步显示分享链接
 
 ```javascript
 $("#compile-share-title").hide();
@@ -418,7 +466,7 @@ $("#compile-share-again").click(function() {
 	});
 });
 ```
-控制器里响应的代码
+#### 2.5.5、分享代码时的控制器代码
 ```php
 	/*
 	 * 路由post过来的/share，由该函数处理
@@ -454,16 +502,307 @@ $("#compile-share-again").click(function() {
     }
 ```
 
+### 2.6、代码分享页、代码归档页、讨论交流页
+如果你看懂了前面介绍的首页和代码编辑页，这些页面对你也就不成问题了
 
+**一个页面包含头部、导航栏和脚部这三个固定的部分，不同的只是中间部分的代码**
 
+ - 代码分享页中间是一个编辑器，依据链接id从数据库读出代码并填充进去，再次分享和代码编辑页里的分享功能完全一样
+ - 代码归档页是把所有分享的代码用一个表格显示出来，其中用到了Laravel提供的分页功能
+ - 讨论交流页是引入的畅言，在畅言网站注册个账号，把代码加进来即可
 
+### 2.7、后台登录页
+后台登录页有头部，但是没有之前页面的导航栏和脚部，所以只需要传入一个配置项即可，不需要分页对象
 
+**这里也没有真正的用户登录，只是在链接中加入明文的root和MD5加密的密码值，由后台页面去判断该密码是否正确**
+```javascript
+<dl class="admin_login">
+	<dt>
+	  <strong>iTool管理系统</strong>
+	  <em>iTool Management System</em>
+	 </dt>
+	<dd class="user_icon">
+		<input placeholder="账号" class="login_txtbx" type="text" id="name">
+	</dd>
+	<dd class="pwd_icon">
+		<input placeholder="密码" class="login_txtbx" type="password" id="pass">
+	</dd>
+	<dd>
+		<input value="立即登陆" class="submit_btn" type="button" id="login">
+	</dd>
+</dl>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://tool.usta.wiki/public/js/jQuery.md5.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#login').click(function(){
+		var name=$('#name').val();
+		var pass=$('#pass').val();
+			window.location.href='{{URL::to('/admin')}}?user=root&pass='+$.md5(pass);
+		});
+	});
+</script>
+```
+后台验证代码
+```php
+<?php
+	if(isset($_GET['user'])&&isset($_GET['pass'])){
+		$passMD5=$_GET['pass'];
+		if($passMD5!=md5('你要设置的密码')){
+			header("Location:URL::to('/login')");
+			exit;
+		}
+	}else{
+		header("Location:URL::to('/login')");
+		exit;
+	}
+?>
+```
+因为这个只是给自己用的，就不写登录的模块了，省事。
 
+### 2.8、管理后台
+后台采用的是Bootstrap Affix插件来写的页面
 
-## 
+**显示所有的配置选项，然后把当前的配置加载进去，当要修改配置时，使用ajax的方式提交修改**
+
+由于Bootstrap页面缓存的问题，修改完成之后页面可能是不变的，所以**需要重新打开这个页面，不是刷新哦**
+
+举一个例子来说，其他的代码省略了，如全局配置的设置
+html代码
+```html
+<div class="col-sm-10" id="admin-section">
+	<h2 id="section-1">全局配置</h2>
+	<div id="admin-global">
+		<div class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">网站标题：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="admin-global-title" value="{{$config['title']}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">网站关键词：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="admin-global-key" value="{{$config['keyword']}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">网站介绍：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="admin-global-des" value="{{$config['des']}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">网站图标：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="admin-global-icon" value="{{$config['icon']}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">当前版本：</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="admin-global-version" value="{{$config['version']}}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">统计代码：</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" rows="3" id="admin-global-cnzz">{{$config['cnzz']}}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">添加头部代码：</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" rows="3" id="admin-global-headAddCode">{{$config['headAddCode']}}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-success" id="admin-global-submit">
+					<i class="glyphicon glyphicon-ok"></i> 确认修改
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+```
+ajax代码
+```javascript
+$('#admin-global-submit').click(function() {
+	var title = $('#admin-global-title').val();
+	var key = $('#admin-global-key').val();
+	var des = $('#admin-global-des').val();
+	var icon = $('#admin-global-icon').val();
+	var version = $('#admin-global-version').val();
+	var cnzz = $('#admin-global-cnzz').val();
+	var headAddCode = $('#admin-global-headAddCode').val();
+	//		alert(title + '\n' + key);
+	$.ajax({
+		type: "post",
+		url: "{{URL::to('/admin/global')}}",
+		data: {
+			'title': title,
+			'key': key,
+			'des': des,
+			'icon': icon,
+			'version': version,
+			'cnzz': cnzz,
+			'headAddCode': headAddCode
+		},
+		success: function(msg) {
+			var prompt=(msg=='1')?'修改成功  (*＾-＾*)':'修改失败 ○|￣|_';
+			layer.ready(function() {
+				layer.msg(prompt);
+			});
+		}
+	});
+});
+```
+php代码
+```php
+ /*
+  * 路由post过来的/admin/{func}
+  * 返回：ajax网站配置数据是否修改成功
+  */
+ 
+ function adminFunction($func){
+ 	$data=Input::all();
+	if($func=='global'){
+		$title=htmlentities($data['title']);
+		$key=htmlentities($data['key']);
+		$des=htmlentities($data['des']);
+		$icon=htmlentities($data['icon']);
+		$version=htmlentities($data['version']);
+		$cnzz=htmlentities($data['cnzz']);
+		$headAddCode=htmlentities($data['headAddCode']);
+		$res=$this->setConfigGlobal($title,$key,$des,$icon,$version,$cnzz,$headAddCode);
+		echo $res?'1':'0';
+	}
+ }
+function setConfigGlobal($title,$key,$des,$icon,$version,$cnzz,$headAddCode){
+	$res1=DB::table('tool_config')->where('k', 'title')->update(['value' => $title]);
+	$res2=DB::table('tool_config')->where('k', 'keyword')->update(['value' => $key]);
+	$res3=DB::table('tool_config')->where('k', 'des')->update(['value' => $des]);
+	$res4=DB::table('tool_config')->where('k', 'icon')->update(['value' => $icon]);
+	$res5=DB::table('tool_config')->where('k', 'version')->update(['value' => $version]);
+	$res6=DB::table('tool_config')->where('k', 'cnzz')->update(['value' => $cnzz]);
+	$res7=DB::table('tool_config')->where('k', 'headAddCode')->update(['value' => $headAddCode]);
+	return $res1||$res2||$res3||$res4||$res5||$res6||$res7;
+}
+```
+**当接收post过来的配置项，在把代码存入数据库之前，会进行htmlentities特殊字符编码，以防止注入攻击
+所以在视图加载配置时，但凡有html或js或者其他的有特殊字符的代码时，我们都需要解码
+而且不要用{{...}}，这个是默认使用htmlentities特殊字符编码的，我们使用{!!...!!}的方式
+例如 `{!! htmlspecialchars_decode($config['title']) !!}`**
+
+## 三、路由
+
+```php
+<?php
+//show home page
+Route::get('/','CompileController@index');
+
+//show editor view
+Route::get('/compile/{id}','CompileController@solve');
+
+//run and share
+Route::post('/compiles','CompileController@result');
+Route::post('/share','CompileController@share');
+
+//show share code view
+Route::get('/share/{linkid}','CompileController@showShare');
+
+//show code archive
+Route::get('/share','CompileController@shareList');
+
+//show discuss view
+Route::get('/discuss','ToolController@discuss');
+
+//show login view
+Route::get('/login','ToolController@login');
+
+//show admin view
+Route::get('/admin','ToolController@admin');
+
+//admin ajax
+Route::post('/admin/{func}','ToolController@adminFunction');
+```
+
+## 四、数据库
+MySQL数据库表结构
+![数据库表结构][5]
+```
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for tool_code
+-- ----------------------------
+DROP TABLE IF EXISTS `tool_code`;
+CREATE TABLE `tool_code` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` text,
+  `type` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tool_config
+-- ----------------------------
+DROP TABLE IF EXISTS `tool_config`;
+CREATE TABLE `tool_config` (
+  `k` varchar(255) DEFAULT NULL,
+  `value` varchar(1023) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tool_lang
+-- ----------------------------
+DROP TABLE IF EXISTS `tool_lang`;
+CREATE TABLE `tool_lang` (
+  `id` int(11) NOT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `value` int(11) DEFAULT NULL,
+  `mode` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tool_share
+-- ----------------------------
+DROP TABLE IF EXISTS `tool_share`;
+CREATE TABLE `tool_share` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `linkid` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `code` text,
+  `value` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `view` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for tool_temp
+-- ----------------------------
+DROP TABLE IF EXISTS `tool_temp`;
+CREATE TABLE `tool_temp` (
+  `id` int(11) NOT NULL,
+  `template` text,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `lang` FOREIGN KEY (`id`) REFERENCES `tool_lang` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET FOREIGN_KEY_CHECKS=1;
+```
+具体sql文件在项目MySQL目录里，导入最新的版本即可
+
+ok，文档到此就告一段落了，这个小项目也到此结束了，by jtahstu at 2016/10/09 in USTA Lixing Building Lab .
+
 
 
   [1]: http://cdn.jtahstu.com/iSchool/iTool/iToolFunc1.jpg
   [2]: http://cdn.jtahstu.com/iSchool/iTool/iToolFunc2.png
   [3]: http://cdn.jtahstu.com/iSchool/iTool/iToolPages.png
   [4]: http://cdn.jtahstu.com/iSchool/iTool/iToolIcons.png
+  [5]: http://cdn.jtahstu.com/iSchool/iTool/iToolMySQL.png

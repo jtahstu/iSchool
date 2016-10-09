@@ -55,4 +55,5 @@ Route::get('/login','ToolController@login');
 //show admin view
 Route::get('/admin','ToolController@admin');
 
+//admin ajax
 Route::post('/admin/{func}','ToolController@adminFunction');

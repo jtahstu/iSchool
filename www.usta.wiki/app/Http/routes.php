@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//  return view('welcome');
+//});
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +29,15 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
+/**
+ * Error
+ */
+Route::get('/404',function(){
+	return view('index.404');
+}); 
+Route::get('/500',function(){
+	return view('index.500');
+}); 
+
+Route::get('/', 'IndexController@showIndex');

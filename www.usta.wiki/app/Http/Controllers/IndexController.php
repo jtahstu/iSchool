@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Course;
+
 
 class IndexController extends Controller
 {
     public function showIndex()
     {
-        return view('index.index');
+        $courses = Course::all();
+        return view('index.index',['courses'=>$courses]);
     }
 	
 	public function show404()

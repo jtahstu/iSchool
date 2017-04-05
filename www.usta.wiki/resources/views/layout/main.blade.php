@@ -6,8 +6,8 @@
 		<meta charset="utf-8">
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="" />
-		<meta name="Description" content="" />
+		<meta name="Keywords" content="教程,HTML,CSS,JS,PHP,C,C++,Java,Python,MySQL,Redis" />
+		<meta name="Description" content="Jin Tao同学的毕业设计，一个教程网站" />
 		<meta name="author" content="jtahstu" />
 		
 		<title>@yield('title') - iSchool</title>

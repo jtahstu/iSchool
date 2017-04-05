@@ -3,6 +3,9 @@
 @section('title','首页')
 
 @section('body')
+	<?php
+//		var_dump($courses);
+	?>
 <div id="wrapper">
 
 	<nav class="navbar-default navbar-static-side" role="navigation">
@@ -84,36 +87,6 @@
 						<li>
 							<a href="graph_morris.html">
 								Morris.js Charts
-							</a>
-						</li>
-						<li>
-							<a href="graph_rickshaw.html">
-								Rickshaw Charts
-							</a>
-						</li>
-						<li>
-							<a href="graph_chartjs.html">
-								Chart.js
-							</a>
-						</li>
-						<li>
-							<a href="graph_chartist.html">
-								Chartist
-							</a>
-						</li>
-						<li>
-							<a href="c3.html">
-								c3 charts
-							</a>
-						</li>
-						<li>
-							<a href="graph_peity.html">
-								Peity Charts
-							</a>
-						</li>
-						<li>
-							<a href="graph_sparkline.html">
-								Sparkline Charts
 							</a>
 						</li>
 					</ul>
@@ -246,346 +219,36 @@
 
 			</nav>
 		</div>
-		<div class="row wrapper border-bottom white-bg page-heading">
-			<div class="col-lg-9">
-				<h2>Contacts 2</h2>
-				<ol class="breadcrumb">
-					<li>
-						<a href="index.html">
-							Home
-						</a>
-					</li>
-					<li>
-						App Views
-					</li>
-					<li class="active">
-						<strong>Contacts 2</strong>
-					</li>
-				</ol>
-			</div>
-		</div>
-		<div class="wrapper wrapper-content animated fadeInRight">
-			<div class="row">
+		<div class="wrapper wrapper-content">
+            	<?php $i=-1; ?>
+				@foreach($courses as $course)
+					<?php
+                        $i++;
+                        if(($i%4==0&&$i>0))
+                            echo '</div>';
+                        if($i%4==0&&($i/4)%2==0)
+                            echo '<div class="row animated fadeInRight">';
+                        else if($i%4==0&&($i/4)%2==1)
+                            echo '<div class="row animated fadeInLeft">';
+						?>
 				<div class="col-lg-3">
 					<div class="contact-box center-version">
 
-						<a href="profile.html">
+						<a href="{{ $course->url }}">
 
-							<img alt="image" class="img-circle" src="/public/img/a2.jpg">
+							<img alt="image" class="img-circle" src="/public/img/a.png">
 
-							<h3 class="m-b-xs"><strong>John Smith</strong></h3>
+							<h3 class="m-b-xs"><strong>{{ $course->name }}</strong></h3>
 
-							<div class="font-bold">
-								Graphics designer
+							<div class="">
+								{{ $course->des }}
 							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
+
 
 						</a>
-						
-
 					</div>
 				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a1.jpg">
-
-							<h3 class="m-b-xs"><strong>Alex Johnatan</strong></h3>
-
-							<div class="font-bold">
-								CEO
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a3.jpg">
-
-							<h3 class="m-b-xs"><strong>Monica Smith</strong></h3>
-
-							<div class="font-bold">
-								Marketing manager
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a4.jpg">
-
-							<h3 class="m-b-xs"><strong>Michael Zimber</strong></h3>
-
-							<div class="font-bold">
-								Sales manager
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a5.jpg">
-
-							<h3 class="m-b-xs"><strong>Sandra Smith</strong></h3>
-
-							<div class="font-bold">
-								Graphics designer
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-					</div>
-				</div>
-
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a6.jpg">
-
-							<h3 class="m-b-xs"><strong>Janet Carton</strong></h3>
-
-							<div class="font-bold">
-								CFO
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-					</div>
-				</div>
-
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a1.jpg">
-
-							<h3 class="m-b-xs"><strong>Alex Johnatan</strong></h3>
-
-							<div class="font-bold">
-								CEO
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-					</div>
-				</div>
-
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a7.jpg">
-
-							<h3 class="m-b-xs"><strong>John Smith</strong></h3>
-
-							<div class="font-bold">
-								Graphics designer
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a2.jpg">
-
-							<h3 class="m-b-xs"><strong>John Smith</strong></h3>
-
-							<div class="font-bold">
-								Graphics designer
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-					
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a1.jpg">
-
-							<h3 class="m-b-xs"><strong>Alex Johnatan</strong></h3>
-
-							<div class="font-bold">
-								CEO
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a3.jpg">
-
-							<h3 class="m-b-xs"><strong>Monica Smith</strong></h3>
-
-							<div class="font-bold">
-								Marketing manager
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-					</div>
-				</div>
-				<div class="col-lg-3">
-					<div class="contact-box center-version">
-
-						<a href="profile.html">
-
-							<img alt="image" class="img-circle" src="/public/img/a4.jpg">
-
-							<h3 class="m-b-xs"><strong>Michael Zimber</strong></h3>
-
-							<div class="font-bold">
-								Sales manager
-							</div>
-							<address class="m-t-md">
-							<strong>Twitter, Inc.</strong>
-							<br>
-							795 Folsom Ave, Suite 600
-							<br>
-							San Francisco, CA 94107
-							<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
-							</address>
-
-						</a>
-						
-
-					</div>
-				</div>
+				@endforeach
 
 			</div>
 		</div>

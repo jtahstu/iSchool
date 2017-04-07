@@ -1,0 +1,229 @@
+.example-btn {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c
+}
+
+.example-btn:hover {
+    color: #fff;
+    background-color: #47a447;
+    border-color: #398439
+}
+
+.example-btn:active {
+    background-image: none
+}
+
+pre {
+    margin: 15px auto;
+    font: 12px/20px 'courier new';
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    border: 1px solid #ddd;
+    border-left-width: 4px;
+    background: #fbfbfb url(/images/codecolorer_bg.gif) top;
+    padding: 10px 15px
+}
+
+
+div.example {
+    width: 98%;
+    color: #000;
+    margin: 0 0 5px 0;
+    padding: 5px;
+    border: 1px solid #d4d4d4;
+}
+
+div.example_code {
+    line-height: 1.4em;
+    width: 98%;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #d4d4d4;
+    font-size: 110%;
+    font-family: "courier new";
+    word-break: break-all;
+    word-wrap: break-word
+}
+
+div.example_result {
+    background-color: #fff;
+    padding: 4px;
+    border: 1px solid #d4d4d4;
+    width: 98%
+}
+
+div.code {
+    width: 98%;
+    border: 1px solid #d4d4d4;
+    background-color: #f6f4f0;
+    color: #444;
+    padding: 5px;
+    margin: 0
+}
+
+div.code div {
+    font-size: 110%
+}
+
+div.code div, div.code p, div.example_code p {
+    font-family: "courier new"
+}
+
+
+
+
+table.browserref {
+    border-collapse: collapse;
+    width: 100%
+}
+
+table.browserref tr:nth-child(even) {
+    background-color: #f6f4f0
+}
+
+table.browserref tr:nth-child(odd) {
+    background-color: #fff
+}
+
+table.browserref tr.fixzebra {
+    background-color: #f6f4f0
+}
+
+table.browserref th {
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 1px solid #d4d4d4;
+    background-color: #fff;
+    font-weight: normal;
+    color: #555;
+    padding: 5px;
+    vertical-align: middle
+}
+
+table.browserref td {
+    border: 1px solid #d4d4d4;
+    text-align: center;
+    padding: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    vertical-align: top
+}
+
+table.browserref .bsIE {
+    background-image: url('/images/compatible_ie.gif')
+}
+
+table.browserref .bsFirefox {
+    background-image: url('/images/compatible_firefox.gif')
+}
+
+table.browserref .bsEdge {
+    background-image: url('/images/compatible_edge.gif')
+}
+
+table.browserref .bsChrome {
+    background-image: url('/images/compatible_chrome.gif')
+}
+
+table.browserref .bsSafari {
+    background-image: url('/images/compatible_safari.gif')
+}
+
+table.browserref .bsOpera {
+    background-image: url('/images/compatible_opera.gif')
+}
+
+table.lamp {
+    width: 100%;
+    padding: 0;
+    border: 1px solid #d4d4d4
+}
+
+table.lamp th {
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+    padding-right: 5px
+}
+
+table.lamp td {
+    padding: 4px;
+    padding-left: 0;
+    padding-right: 10px;
+    background-color: #fff
+}
+
+table.tecspec td, table.tecspec th {
+    border: 1px solid #d4d4d4;
+    padding: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    vertical-align: top;
+    text-align: left
+}
+
+table.reference, table.tecspec {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 4px;
+    margin-top: 4px
+}
+
+table.reference tr:nth-child(odd) {
+    background-color: #f6f4f0
+}
+
+table.reference tr:nth-child(even) {
+    background-color: #fff
+}
+
+table.reference tr.fixzebra {
+    background-color: #f6f4f0
+}
+
+table.reference th {
+    color: #fff;
+    background-color: #555;
+    border: 1px solid #555;
+    font-size: 12px;
+    padding: 3px;
+    vertical-align: top;
+    text-align: left
+}
+
+table.reference th a:link, table.reference th a:visited {
+    color: #fff
+}
+
+table.reference th a:active, table.reference th a:hover {
+    color: #ee872a
+}
+
+tr td:first-child {
+    min-width: 25px
+}
+
+table.reference td {
+    line-height: 2em;
+    min-width: 24px;
+    border: 1px solid #d4d4d4;
+    padding: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    vertical-align: top
+}
+
+table.reference td.example_code {
+    vertical-align: bottom
+}
+
+table.summary {
+    border: 1px solid #d4d4d4;
+    padding: 5px;
+    font-size: 100%;
+    color: #555;
+    background-color: #fafad2
+}

@@ -41,3 +41,5 @@ Route::get('/500',function(){
 }); 
 
 Route::get('/', 'IndexController@showIndex');
+
+Route::get('/show', ['uses'=>'CourseController@show']);

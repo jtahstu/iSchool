@@ -11,6 +11,7 @@ class IndexController extends Controller
     public function showIndex()
     {
         $courses = Course::all();
+
         return view('index.index',['courses'=>$courses]);
     }
 	

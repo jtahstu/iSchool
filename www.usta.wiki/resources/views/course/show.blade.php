@@ -1,13 +1,9 @@
 @extends('layout/main')
 
-@section('title','教程')
+@section('title',$detail['title'])
 
 @section('head')
-	<style>
-		.nav>li{
-			font-size: 10px;
-		}
-	</style>
+
 @endsection
 
 @section('nav_li')
@@ -31,8 +27,6 @@
 @endsection
 
 @section('body')
-    <?php
-            ?>
 <div class="wrapper wrapper-content  animated fadeInRight article">
 	<div class="row">
 		<div class="col-lg-10 col-lg-offset-1">
@@ -66,4 +60,5 @@
 			</div>
 		</div>
 	</div>
+
 	@endsection

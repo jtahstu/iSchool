@@ -16,11 +16,21 @@
         <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('public/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
         <link href="{{asset('public/css/animate.css')}}" rel="stylesheet">
+        <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
         <link href="{{asset('public/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('public/css/main.css')}}" rel="stylesheet">
+        <link href="{{asset('public/css/footable.core.css')}}" rel="stylesheet">
 
         <script src="{{asset('public/js/jquery-3.1.1.min.js')}}"></script>
         <script src="{{asset('public/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('public/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
+        <script src="{{asset('public/js/jquery.metisMenu.js')}}"></script>
+        <script src="{{asset('public/js/jquery.slimscroll.min.js')}}"></script>
+
+        <script src="{{asset('public/js/inspinia.js')}}"></script>
+        <script src="{{asset('public/js/pace.min.js')}}"></script>
+        <script src="{{asset('public/js/main.js')}}"></script>
+
+        <script src="{{asset('public/js/footable.all.min.js')}}"></script>
 
 @yield('head')
 
@@ -37,57 +47,43 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element forum-info">
 						<span>
-						<img alt="image" class="img-circle" src="/public/img/profile_small.jpg" />
+						<img alt="image" class="img-circle" src="/public/img/logo.png" width="100px" />
 						</span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong> </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Jin Tao</strong>&nbsp;<b class="caret"></b> </span>  </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li>
-                                <a href="profile.html">
-                                    Profile
+                                <a href="/setting">
+                                    设置
                                 </a>
                             </li>
                             <li>
-                                <a href="contacts.html">
-                                    Contacts
+                                <a href="/logout">
+                                    退出
                                 </a>
                             </li>
 
                         </ul>
                     </div>
                     <div class="logo-element">
-                        iSchool
+                        <a href="/admin">
+                            iAdmin
+                        </a>
                     </div>
                 </li>
                 <li>
-                    <a href="index.html">
+                    <a href="/admin">
                         <i class="fa fa-th-large"></i><span class="nav-label">Dashboards</span>
                     </a>
 
                 </li>
                 <li>
-                    <a href="layouts.html">
-                        <i class="fa fa-diamond"></i><span class="nav-label">Layouts</span>
+                    <a href="/admin-course">
+                        <i class="fa fa-mortar-board"></i><span class="nav-label">课程管理</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-bar-chart-o"></i><span class="nav-label">Graphs</span><span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level collapse">
-                        <li>
-                            <a href="graph_flot.html">
-                                Flot Charts
-                            </a>
-                        </li>
-                        <li>
-                            <a href="graph_morris.html">
-                                Morris.js Charts
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @yield('nav_li')
 
             </ul>
 
@@ -101,11 +97,6 @@
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
                         <i class="fa fa-bars"></i>
                     </a>
-                    <form role="search" class="navbar-form-custom" action="search_results.html">
-                        <div class="form-group">
-                            <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
-                        </div>
-                    </form>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>

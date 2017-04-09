@@ -38,4 +38,13 @@ class CourseController extends Controller
 
         return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware]);
     }
+
+    public function search()
+    {
+        $words = Input::get('top-search');
+
+        $courses = Course::all();
+
+        return view('index.search',['courses'=>$courses,'words'=>$words]);
+    }
 }

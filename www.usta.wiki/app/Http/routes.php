@@ -43,3 +43,9 @@ Route::get('/500',function(){
 Route::get('/', 'IndexController@showIndex');
 
 Route::get('/show', ['uses'=>'CourseController@show']);
+
+Route::get('/admin',['uses'=>'AdminController@index']);
+Route::get('/admin-course',['uses'=>'AdminController@course']);
+
+Route::get('/search', ['uses'=>'CourseController@search']);
+Route::post('/search', ['uses'=>'CourseController@search']);

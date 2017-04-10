@@ -6,7 +6,7 @@
 	@foreach($courses as $key=>$course)
 	<li>
 		<a href="{{ URL::action('CourseController@show',['course'=>$course->url]) }}">
-			<i class="fa fa-sitemap"></i> <span class="nav-label">{{ $course->name }} 教程</span>
+			<i class="fa fa-list-ul"></i> <span class="nav-label">{{ $course->name }} 教程</span>
 		</a>
 	</li>
 	@endforeach

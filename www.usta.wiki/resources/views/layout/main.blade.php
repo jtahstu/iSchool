@@ -30,9 +30,10 @@
 
 		@yield('head')
 
+
 	</head>
 
-	<body>
+	<div>
 
 
 		<div id="wrapper">
@@ -43,7 +44,9 @@
 						<li class="nav-header">
 							<div class="dropdown profile-element forum-info">
 						<span>
-						<img alt="image" class="img-container" src="{{asset('public/img/logo.png')}}" style=""/>
+							<a href="/">
+								<img alt="image" class="img-container" src="{{asset('public/img/logo.png')}}" style=""/>
+							</a>
 						</span>
 
 							</div>
@@ -56,7 +59,7 @@
 
 						<li>
 							<a href="{{ URL::to('/') }}">
-								<i class="fa fa-th-large"></i><span class="nav-label">Dashboards</span>
+								<i class="fa fa-th-large"></i><span class="nav-label">首页导航</span>
 							</a>
 
 						</li>
@@ -70,7 +73,7 @@
 
 			<div id="page-wrapper" class="gray-bg">
 				<div class="row border-bottom">
-					<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+					<nav class="navbar navbar-static-top " role="navigation" style="margin-bottom: 0">
 						<div class="navbar-header">
 							<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
 								<i class="fa fa-bars"></i>
@@ -83,7 +86,9 @@
 						</div>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<span class="m-r-sm text-muted welcome-message"></span>
+								<a href="/admin">
+									<i class="fa fa-sign-in"></i> 管理员登录
+								</a>
 							</li>
 						</ul>
 
@@ -91,9 +96,8 @@
 				</div>
 				@yield('body')
 			</div>
-			@include('part.foot')
-
-		</div>
+		@include('part.foot')
+	</div>
 	</body>
 
 </html>

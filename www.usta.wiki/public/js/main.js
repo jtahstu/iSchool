@@ -15,3 +15,4 @@ function getDay(){
     var days=getToday()-85+(nowYear-2017)*365;
     return days;
 }
+

@@ -73,8 +73,13 @@
                     </div>
                 </li>
                 <li>
+                    <a href="/">
+                        <i class="fa fa-th-large"></i><span class="nav-label">首页</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/admin">
-                        <i class="fa fa-th-large"></i><span class="nav-label">Dashboards</span>
+                        <i class="fa fa-dashboard"></i><span class="nav-label">Dashboards</span>
                     </a>
 
                 </li>
@@ -153,8 +158,8 @@
             </nav>
         </div>
         @yield('body')
+        @include('part.foot')
     </div>
-    @include('part.foot')
 
 </div>
 </body>

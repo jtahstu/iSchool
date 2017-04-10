@@ -1,6 +1,8 @@
-<div class="footer">
+<div class="footer" style="bottom: 0px;">
 	<div class="pull-right">
-		<a href="#"> <i class="fa fa-angle-double-up"></i> 返回顶部</a>
+		<a href="#">
+		<i class="fa fa-angle-double-up"></i> 返回顶部
+		</a>
 	</div>
 	<div>
 		iSchool &copy; <?php echo date('Y'); ?> . All rights received by jtahstu . 勉强运行<script>document.write(getDay());</script>天 ,

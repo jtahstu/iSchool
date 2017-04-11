@@ -33,7 +33,7 @@
 
 	</head>
 
-	<div>
+	<body>
 
 
 		<div id="wrapper">
@@ -85,11 +85,28 @@
 							</form>
 						</div>
 						<ul class="nav navbar-top-links navbar-right">
-							<li>
-								<a href="/admin">
-									<i class="fa fa-sign-in"></i> 管理员登录
-								</a>
-							</li>
+							@if(!Auth::check())
+								<li><a href="{{ url('/login') }}">登录</a></li>
+								<li><a href="{{ url('/register') }}">注册</a></li>
+							@else
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+										{{ \Auth::user()->name }} <span class="caret"></span>
+									</a>
+
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>退出</a></li>
+									</ul>
+								</li>
+								@if(in_array(Auth::user()->name,['root','jtahstu']))
+									<li>
+										<a href="/admin">
+											<i class="fa fa-sign-in"></i> 管理后台
+										</a>
+									</li>
+								@endif
+							@endif
+
 						</ul>
 
 					</nav>

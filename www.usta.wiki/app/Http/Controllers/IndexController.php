@@ -24,4 +24,9 @@ class IndexController extends Controller
 	{
 		return view('index.500');
 	}
+
+//	public function login()
+//    {
+//        return view('index.login');
+//    }
 }

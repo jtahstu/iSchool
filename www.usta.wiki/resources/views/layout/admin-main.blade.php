@@ -47,10 +47,10 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element forum-info">
 						<span>
-						<img alt="image" class="img-circle" src="/public/img/logo.png" width="100px" />
+						<img alt="image" class="img-circle" src="/public/img/tx/0.png" width="100px" />
 						</span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Jin Tao</strong>&nbsp;<b class="caret"></b> </span>  </span>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>&nbsp;<b class="caret"></b> </span>  </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li>
@@ -149,8 +149,8 @@
                     </li>
 
                     <li>
-                        <a href="login.html">
-                            <i class="fa fa-sign-out"></i> Log out
+                        <a href="/logout">
+                            <i class="fa fa-sign-out"></i> 退出
                         </a>
                     </li>
                 </ul>

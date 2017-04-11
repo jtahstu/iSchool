@@ -11,9 +11,19 @@ use DB;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('admin.index');
+        if(in_array(\Auth::user()->name,['root','jtahstu'])){
+            return view('admin.index');
+        }else{
+            return view('index.404');
+        }
+
     }
 
     public function course()

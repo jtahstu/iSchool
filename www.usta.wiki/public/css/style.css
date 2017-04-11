@@ -5301,9 +5301,9 @@ dd.project-people {
   display: block;
 }
 .chat-discussion {
-  background: #eee;
-  padding: 15px;
-  height: 400px;
+  /*background: #eee;*/
+  padding: 30px;
+  /*height: 400px;*/
   overflow-y: auto;
 }
 .chat-users {

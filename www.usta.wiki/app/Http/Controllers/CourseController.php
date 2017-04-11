@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Detail;
 use App\Course;
+use App\Comment;
 use Illuminate\Support\Facades\Input;
 use DB;
 
@@ -29,6 +30,7 @@ class CourseController extends Controller
             $detail = Detail::where(['course_id'=>$course['id']])->get()[0]->toArray();
         }
 
+        //详情页上一页和下一页信息
         $pre_id = Detail::where('id','<',$detail['id'])->where('course_id',$course['id'])->max('id');
         $next_id = Detail::where('id','>',$detail['id'])->where('course_id',$course['id'])->min('id');
         if($pre_id){
@@ -38,7 +40,13 @@ class CourseController extends Controller
             $link_ware['next_course'] = Detail::where('id',$next_id)->get(['title','url'])->first();
         }
 
-        return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware]);
+        //页面评论
+//        $comments = Comment::where(['ref_id'=>$detail['id'],'type'=>1])->orderBy('id','desc')->get()->toArray();
+        $comments = DB::select('select a.*,b.name from ischool_comments a left join ischool_users b on a.add_user_id=b.id 
+        where a.ref_id=? and a.type=1 order by a.id desc',[$detail['id']]);
+//        exit(var_dump($comments));
+
+        return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
     }
 
     public function search()

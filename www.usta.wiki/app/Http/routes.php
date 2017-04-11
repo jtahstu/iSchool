@@ -25,15 +25,22 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController'
+]);
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
 
 /**
  * Error
  */
 Route::get('/404',function(){
+    dd(\Auth::user());
 	return view('index.404');
 }); 
 Route::get('/500',function(){
@@ -49,3 +56,9 @@ Route::get('/admin-course',['uses'=>'AdminController@course']);
 
 Route::get('/search', ['uses'=>'CourseController@search']);
 Route::post('/search', ['uses'=>'CourseController@search']);
+
+Route::post('/comment/{id}',['uses'=>'CommentController@add']);
+
+//Route::get('/login',['uses'=>'IndexController@login']);
+
+

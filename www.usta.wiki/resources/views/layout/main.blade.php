@@ -80,7 +80,7 @@
 							</a>
 							<form role="search" class="navbar-form-custom" action="/search" type="get">
 								<div class="form-group">
-									<input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+									<input type="text" placeholder="Search for something ..." class="form-control" name="top-search" id="top-search">
 								</div>
 							</form>
 						</div>
@@ -91,6 +91,7 @@
 							@else
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+										<img alt="image" class="img-circle" src="/public/img/tx/0.png" width="30px" />
 										{{ \Auth::user()->name }} <span class="caret"></span>
 									</a>
 
@@ -98,7 +99,7 @@
 										<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>退出</a></li>
 									</ul>
 								</li>
-								@if(in_array(Auth::user()->name,['root','jtahstu']))
+								@if(in_array(Auth::user()->id,[1,2,3,4,5]))
 									<li>
 										<a href="/admin">
 											<i class="fa fa-sign-in"></i> 管理后台

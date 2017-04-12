@@ -25,6 +25,9 @@
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+/**
+ * Auth
+ */
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
@@ -45,20 +48,27 @@ Route::get('/404',function(){
 }); 
 Route::get('/500',function(){
 	return view('index.500');
-}); 
+});
 
+/**
+ * Index
+ */
 Route::get('/', 'IndexController@showIndex');
 
 Route::get('/show', ['uses'=>'CourseController@show']);
 
+/**
+ * Admin
+ */
 Route::get('/admin',['uses'=>'AdminController@index']);
 Route::get('/admin-course',['uses'=>'AdminController@course']);
+Route::get('/setting',['uses'=>'AdminController@setting']);
+Route::get('/course-add',['uses'=>'AdminController@courseAdd']);
+Route::get('/course-edit/{id}',['uses'=>'AdminController@courseEdit']);
+Route::post('/course-edit-do',['uses'=>'AdminController@courseEditDo']);
+Route::get('/course-del/{id}',['uses'=>'AdminController@courseDel']);
+
 
 Route::get('/search', ['uses'=>'CourseController@search']);
-Route::post('/search', ['uses'=>'CourseController@search']);
 
 Route::post('/comment/{id}',['uses'=>'CommentController@add']);
-
-//Route::get('/login',['uses'=>'IndexController@login']);
-
-

@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function showIndex()
     {
-        $courses = Course::all();
+        $courses = Course::all()->sortBy('sort');
 
         return view('index.index',['courses'=>$courses]);
     }
@@ -25,8 +25,4 @@ class IndexController extends Controller
 		return view('index.500');
 	}
 
-//	public function login()
-//    {
-//        return view('index.login');
-//    }
 }

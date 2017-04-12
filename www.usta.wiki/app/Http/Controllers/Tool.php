@@ -18,4 +18,9 @@ class Tool extends Controller
     {
         return date('Y-m-d');
     }
+
+    public static function get_user_id()
+    {
+        return \Auth::user()->id;
+    }
 }

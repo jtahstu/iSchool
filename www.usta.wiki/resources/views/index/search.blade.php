@@ -54,6 +54,7 @@
 
                         <?php $i=1; ?>
                         @foreach($wares as $ware)
+                            @if($ware['course']['url'])
                         <div class="search-result">
 
                             <h3>
@@ -64,6 +65,7 @@
                             </p>
                         </div>
                         <div class="hr-line-dashed"></div>
+                                @endif
                         @endforeach
                     </div>
                 </div>

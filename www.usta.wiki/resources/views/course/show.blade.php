@@ -124,23 +124,24 @@
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-
-
                         <a class="close-link">
                             <i class="fa fa-times"></i>
                         </a>
                     </div>
                 </div>
                 <div class="ibox-content">
+                    <div class="col-lg-12">
                     <textarea name="content" data-provide="markdown" rows="8" id="markdown">
                     </textarea>
-                    <div class=" m-t-sm m-b-sm">
+                    <div class="m-t-sm m-b-sm pull-right dim btn-lg">
                         <button class="btn btn-primary" id="comment"><i class="fa fa-comment"></i> 评论</button>
+                    </div>
                     </div>
 
                         <div class="chat-discussion">
+                            <?php $i=count($comments);$lc=['沙发','板凳','地板','地下室','下水道']; ?>
                             @foreach($comments as $key=>$comment)
-
+                                    <?php $i--; ?>
                             <div class="chat-message
                                 @if(Auth::check() && Auth::user()->id==$comment->add_user_id)
                                 right
@@ -151,7 +152,14 @@
                                 <img class="message-avatar img-circle" src="{{ asset('public/img/tx/0.png') }}" alt="" >
                                 <div class="message">
                                     <a class="message-author" href="#"> {{ $comment->name }} </a>
-                                    <span class="message-date"> {{ $comment->created_at }} </span>
+                                    <span class="message-date">
+                                        @if($i<count($lc))
+                                            <button class="btn btn-primary btn-outline btn-xs"> {{ $lc[$i] }} </button>
+                                        @else
+                                            <button class="btn btn-primary btn-outline btn-xs"> {{ $i+1 }}楼 </button>
+                                        @endif
+                                        &nbsp;{{ date_format(date_create($comment->created_at), 'Y-m-d H:i') }}
+                                    </span>
                                     <span class="message-content">
 											{!! $comment->comment !!}
                                             </span>

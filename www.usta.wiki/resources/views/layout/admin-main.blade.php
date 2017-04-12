@@ -30,6 +30,9 @@
         <script src="{{asset('public/js/pace.min.js')}}"></script>
         <script src="{{asset('public/js/main.js')}}"></script>
 
+        <link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
+        <script src="{{asset('public/js/sweetalert.min.js')}}"></script>
+
         <script src="{{asset('public/js/footable.all.min.js')}}"></script>
 
 @yield('head')

@@ -69,7 +69,7 @@
                                 <td>
                                     <a type="button" class="btn btn-outline btn-danger btn-sm" href="">添加课件</a>
                                     &nbsp;&nbsp;
-                                    <a type="button" class="btn btn-outline btn-primary btn-sm" href="">编辑课程</a>
+                                    <a type="button" class="btn btn-outline btn-primary btn-sm" href="/course-edit/{{ $course['id'] }}">编辑课程</a>
                                     &nbsp;&nbsp;
                                     <a type="button" class="btn btn-outline btn-danger btn-sm">删除课程</a>
                                 </td>

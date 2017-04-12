@@ -19,7 +19,7 @@ class CommentController extends Controller
         $com->ref_id = $id;
         $com->comment = strval($comment);
         $com->type = 1;
-        $com->add_user_id = 1;
+        $com->add_user_id = Tool::get_user_id();
         $res = $com->save();
         if($res){
             return 1;

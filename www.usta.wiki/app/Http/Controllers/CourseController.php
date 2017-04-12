@@ -10,6 +10,7 @@ use App\Course;
 use App\Comment;
 use Illuminate\Support\Facades\Input;
 use DB;
+use App\Http\Controllers\Tool;
 
 class CourseController extends Controller
 {
@@ -41,10 +42,8 @@ class CourseController extends Controller
         }
 
         //页面评论
-//        $comments = Comment::where(['ref_id'=>$detail['id'],'type'=>1])->orderBy('id','desc')->get()->toArray();
         $comments = DB::select('select a.*,b.name from ischool_comments a left join ischool_users b on a.add_user_id=b.id 
         where a.ref_id=? and a.type=1 order by a.id desc',[$detail['id']]);
-//        exit(var_dump($comments));
 
         return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
     }
@@ -56,11 +55,9 @@ class CourseController extends Controller
         $rows = Detail::where('title','like',$word)->get()->toArray();
         foreach ($rows as $key=>$row){
             $rows[$key]['course'] = Course::where('id',$row['course_id'])->get(['url'])->first();
-//            exit(var_dump($rows[$key]['course']));
         }
 
-        $courses = Course::all();
-
+        $courses = Course::all()->sortBy('sort');
         return view('index.search',['courses'=>$courses,'words'=>$words,'wares'=>$rows]);
     }
 
@@ -70,5 +67,7 @@ class CourseController extends Controller
         $view = Detail::where('id',$id)->first();
         $view2 = intval($view['view'])+1;
         DB::update('update ischool_details set view=? where id=?',[$view2,$id]);
+
+
     }
 }

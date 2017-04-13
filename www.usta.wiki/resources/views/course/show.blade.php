@@ -12,7 +12,6 @@
 
     <script>
         $(function () {
-            $('#markdown').val('### 欢迎使用 Markdown 编辑器');
             $('#comment').click(function () {
                 var comment = $('#markdown').data('markdown').parseContent();
                 $.ajax({
@@ -20,9 +19,9 @@
                     data: {'comment':comment,'_token': '{!! csrf_token() !!}'},
                     url: "/comment/<?php echo $detail['id'];?>",
                     success: function(data) {
-                        if(data) {
+                        if(data.status==1) {
                             swal({
-                                title: '评论成功',
+                                title: data.msg,
                                 type: "success",
                                 confirmButtonColor: "#30B593"
                             });
@@ -30,7 +29,7 @@
                             setTimeout('location.reload()',2000);
                         } else {
                             swal({
-                                title: '评论失败',
+                                title: data.msg,
                                 type: "error",
                                 confirmButtonColor: "#F3AE56"
                             });
@@ -45,6 +44,25 @@
 @endsection
 
 @section('nav_li')
+@foreach($courses as $key=>$c)
+    @if($c->id>1 && $c->first==1)
+    </ul>
+        </li>
+    @endif
+    @if($c->first==1)
+        <li>
+            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">{{ $c->type_des }}</span> <span
+                        class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+                @endif
+                <li>
+                    <a href="{{ URL::action('CourseController@show',['course'=>$c->url]) }}">
+                        <i class="fa fa-list-ul"></i> {{ $c->name }} 教程
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+        </li>
 
     <li class="active">
         <a href="#"><i class="fa fa-list-ul"></i> <span class="nav-label">{{ $course['name'] }} 教程</span><span class="fa arrow"></span></a>
@@ -131,11 +149,23 @@
                 </div>
                 <div class="ibox-content">
                     <div class="col-lg-12">
-                    <textarea name="content" data-provide="markdown" rows="8" id="markdown">
-                    </textarea>
-                    <div class="m-t-sm m-b-sm pull-right dim btn-lg">
-                        <button class="btn btn-primary" id="comment"><i class="fa fa-comment"></i> 评论</button>
-                    </div>
+                    <textarea name="content" data-provide="markdown" rows="10" id="markdown"></textarea>
+                        <div>
+                            <span class="m-t-lg text-danger">Pls be informed : </span>
+                            <ol>
+                                <li>
+                                    <span class=" m-t-sm" style="color: #ff6d00;">支持MarkDown语法</span>
+                                </li>
+                                <li>
+                                    <span class="m-t-sm" style="color: #ff6d00;">请先登录后，再发表评论</span>
+                                </li>
+                            </ol>
+                            <div class="m-t-sm m-b-sm pull-right dim btn-lg">
+                                <button class="btn btn-primary" id="comment"><i class="fa fa-comment"></i> 评论</button>
+                            </div>
+                        </div>
+
+
                     </div>
 
                         <div class="chat-discussion">

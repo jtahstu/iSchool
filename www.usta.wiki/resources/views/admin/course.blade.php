@@ -47,8 +47,9 @@
                         <tr class="">
 
                             <th data-toggle="true" class="col-lg-1">ID</th>
+                            <th class="col-lg-1">排序</th>
                             <th class="col-lg-2">教程</th>
-                            <th class="col-lg-5">简介</th>
+                            <th class="col-lg-4">简介</th>
                             <th class="col-lg-4">操作</th>
                             @foreach($course_all as $key=>$course)
                             @foreach($course['wares'] as $ware)
@@ -64,6 +65,7 @@
                             <tr>
 
                                 <td> {{ $course['id'] }}</td>
+                                <td>{{ $course['sort'] }}</td>
                                 <td>{{ $course['name'] }} 教程</td>
                                 <td>{{ $course['des'] }}</td>
                                 <td>

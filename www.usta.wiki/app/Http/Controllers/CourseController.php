@@ -11,6 +11,7 @@ use App\Comment;
 use Illuminate\Support\Facades\Input;
 use DB;
 use App\Http\Controllers\Tool;
+use Illuminate\Support\Facades\Redirect;
 
 class CourseController extends Controller
 {
@@ -21,6 +22,9 @@ class CourseController extends Controller
 
         $course = Course::where('url',$type)->get()[0];
         $nav_lis = Detail::where('course_id',$course['id'])->get()->toArray();
+        if(count($nav_lis)==0){
+            return Redirect::to('/404');
+        }
 
         $link_ware = ['pre_course'=>['title'=>'','url'=>''],'next_course'=>['title'=>'','url'=>'']];
 
@@ -45,7 +49,10 @@ class CourseController extends Controller
         $comments = DB::select('select a.*,b.name from ischool_comments a left join ischool_users b on a.add_user_id=b.id 
         where a.ref_id=? and a.type=1 order by a.id desc',[$detail['id']]);
 
-        return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
+        //所有教程目录
+        $courses = Course::all()->sortBy('sort');
+
+        return view('course.show',['courses'=>$courses,'course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
     }
 
     public function search()

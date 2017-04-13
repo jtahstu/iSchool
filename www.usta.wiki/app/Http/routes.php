@@ -43,7 +43,6 @@ Route::group(['middleware' => 'web'], function () {
  * Error
  */
 Route::get('/404',function(){
-    dd(\Auth::user());
 	return view('index.404');
 }); 
 Route::get('/500',function(){
@@ -64,6 +63,7 @@ Route::get('/admin',['uses'=>'AdminController@index']);
 Route::get('/admin-course',['uses'=>'AdminController@course']);
 Route::get('/setting',['uses'=>'AdminController@setting']);
 Route::get('/course-add',['uses'=>'AdminController@courseAdd']);
+Route::post('/course-add-do',['uses'=>'AdminController@courseAddDo']);
 Route::get('/course-edit/{id}',['uses'=>'AdminController@courseEdit']);
 Route::post('/course-edit-do',['uses'=>'AdminController@courseEditDo']);
 Route::get('/course-del/{id}',['uses'=>'AdminController@courseDel']);

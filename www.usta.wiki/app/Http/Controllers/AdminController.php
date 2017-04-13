@@ -19,7 +19,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        if(in_array(Tool::get_user_id(),[1,2,3,4,5])){
+        if(Tool::getLevel()==1){
             return view('admin.index');
         }else{
             return view('index.404');
@@ -41,7 +41,6 @@ class AdminController extends Controller
     public function courseEdit($id)
     {
         $course = Course::where('id',$id)->first()->toArray();
-//        exit(var_dump($course));
         return view('admin.course-edit',['course'=>$course]);
     }
 
@@ -61,12 +60,37 @@ class AdminController extends Controller
         $res = DB::table('courses')
             ->where('id',$id)
             ->update($data);
-        echo $res;
+        if($res)
+            return Tool::returnMsg($res,'编辑成功！');
+        else
+            return Tool::returnMsg($res,'编辑失败！');
     }
 
     public function courseAdd()
     {
+        return view('admin.course-add');
+    }
 
+    public function courseAddDo(Request $request)
+    {
+        $data = $request->input();
+        $id = $request->input('id');
+        $file = $request->file('file');
+        if ($file && $file->isValid()) {
+            $clientName = $file -> getClientOriginalName();
+            $entension = $file -> getClientOriginalExtension();
+            $newName = md5(date("Y-m-d H:i:s").$clientName).".".$entension;
+            $data['logo'] = $file -> move('public/img/logo',$newName);
+        }
+        unset($data['_token']);
+        unset($data['id']);
+        $res = DB::table('courses')
+            ->where('id',$id)
+            ->insert($data);
+        if($res)
+            return Tool::returnMsg($res,'添加成功！');
+        else
+            return Tool::returnMsg($res,'添加失败！');
     }
 
     public function courseDel($id)

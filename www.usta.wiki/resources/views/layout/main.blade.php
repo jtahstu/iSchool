@@ -15,17 +15,23 @@
 		<link rel="icon" href="{{asset('public/favicon.ico')}}" />
 		<link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{asset('public/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+		{{--动画--}}
 		<link href="{{asset('public/css/animate.css')}}" rel="stylesheet">
+		{{--菜鸟教程css--}}
 		<link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
+		{{--后台模板css--}}
 		<link href="{{asset('public/css/style.css')}}" rel="stylesheet">
+		{{--手写的css--}}
 		<link href="{{asset('public/css/main.css')}}" rel="stylesheet">
 		
 		<script src="{{asset('public/js/jquery-3.1.1.min.js')}}"></script>
 		<script src="{{asset('public/js/bootstrap.min.js')}}"></script>
+		{{--菜单js--}}
 		<script src="{{asset('public/js/jquery.metisMenu.js')}}"></script>
 		<script src="{{asset('public/js/jquery.slimscroll.min.js')}}"></script>
 
 		<script src="{{asset('public/js/inspinia.js')}}"></script>
+		{{--手写的js--}}
 		<script src="{{asset('public/js/main.js')}}"></script>
 
 		@yield('head')
@@ -96,10 +102,13 @@
 									</a>
 
 									<ul class="dropdown-menu" role="menu">
-										<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>退出</a></li>
+										<li><a href="{{ url('/setting') }}">
+												<i class="fa fa-user"></i> 个人设置
+											</a></li>
+										<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> 退出登录</a></li>
 									</ul>
 								</li>
-								@if(in_array(Auth::user()->id,[1,2,3,4,5]))
+								@if(\App\Http\Controllers\Tool::getLevel()==1)
 									<li>
 										<a href="/admin">
 											<i class="fa fa-sign-in"></i> 管理后台

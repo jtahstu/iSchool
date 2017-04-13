@@ -23,4 +23,26 @@ class Tool extends Controller
     {
         return \Auth::user()->id;
     }
+
+    //获取用户级别
+    public static function getLevel()
+    {
+        if(in_array(\Auth::user()->id,[1,2,3,4,5]))
+            return 1;
+        else
+            return 2;
+    }
+
+    public static function isLogin()
+    {
+        return \Auth::check();
+    }
+
+    public static function returnMsg($status,$msg)
+    {
+        return response()->json(array(
+            'status' => $status,
+            'msg' => $msg
+        ));
+    }
 }

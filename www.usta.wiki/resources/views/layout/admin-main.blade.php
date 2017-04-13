@@ -15,24 +15,33 @@
         <link rel="icon" href="{{asset('public/favicon.ico')}}" />
         <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('public/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+        {{--动画--}}
         <link href="{{asset('public/css/animate.css')}}" rel="stylesheet">
+        {{--菜鸟教程css--}}
         <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
+        {{--后台模板css--}}
         <link href="{{asset('public/css/style.css')}}" rel="stylesheet">
+        {{--手写的css--}}
         <link href="{{asset('public/css/main.css')}}" rel="stylesheet">
+        {{--表格--}}
         <link href="{{asset('public/css/footable.core.css')}}" rel="stylesheet">
 
         <script src="{{asset('public/js/jquery-3.1.1.min.js')}}"></script>
         <script src="{{asset('public/js/bootstrap.min.js')}}"></script>
+        {{--菜单--}}
         <script src="{{asset('public/js/jquery.metisMenu.js')}}"></script>
         <script src="{{asset('public/js/jquery.slimscroll.min.js')}}"></script>
-
         <script src="{{asset('public/js/inspinia.js')}}"></script>
         <script src="{{asset('public/js/pace.min.js')}}"></script>
+        {{--网站手写的js--}}
         <script src="{{asset('public/js/main.js')}}"></script>
-
+        {{--弹窗--}}
         <link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
         <script src="{{asset('public/js/sweetalert.min.js')}}"></script>
-
+        {{--文件上传--}}
+        <link href="{{asset('public/css/jasny-bootstrap.min.css')}}" rel="stylesheet">
+        <script src="{{asset('public/js/jasny-bootstrap.min.js')}}"></script>
+        {{--表格--}}
         <script src="{{asset('public/js/footable.all.min.js')}}"></script>
 
 @yield('head')
@@ -76,21 +85,34 @@
                     </div>
                 </li>
                 <li>
-                    <a href="/">
+                    <a href="/" target="_blank">
                         <i class="fa fa-th-large"></i><span class="nav-label">首页</span>
                     </a>
                 </li>
+                @if(\App\Http\Controllers\Tool::getLevel()==1)
                 <li>
                     <a href="/admin">
                         <i class="fa fa-dashboard"></i><span class="nav-label">Dashboards</span>
                     </a>
 
                 </li>
-                <li>
-                    <a href="/admin-course">
-                        <i class="fa fa-mortar-board"></i><span class="nav-label">课程管理</span>
-                    </a>
+                    <li>
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">课程管理</span> <span
+                                    class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="/course-add">
+                                    <i class="fa fa-plus"></i> 课程添加
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/admin-course">
+                                    <i class="fa fa-mortar-board"></i> 课程编辑
+                                </a>
+                            </li>
+                        </ul>
                 </li>
+                @endif
                 @yield('nav_li')
 
             </ul>

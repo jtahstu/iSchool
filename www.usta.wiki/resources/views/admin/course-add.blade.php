@@ -1,9 +1,17 @@
 @extends('layout.admin-main')
 
-@section('title','课程设置')
+@section('title','课程添加')
 
 @section('head')
+
     <script>
+        $(function () {
+            clear();
+
+            $('#reset_2').click(function () {
+                clear();
+            });
+        })
         function save() {
             var form = new FormData(document.getElementById("uploadForm"));
             $.ajax({
@@ -11,18 +19,18 @@
                 data: form,
                 processData:false,
                 contentType:false,
-                url: "/course-edit-do",
+                url: "/course-add-do",
                 success: function(data) {
-                    if(data.status==1) {
+                    if(data) {
                         swal({
-                            title: data.msg,
+                            title: '修改成功！',
                             type: "success",
                             confirmButtonColor: "#30B593"
                         });
                         setTimeout('location.reload()');
                     } else {
                         swal({
-                            title: data.msg,
+                            title: '修改失败！',
                             type: "error",
                             confirmButtonColor: "#F3AE56"
                         });
@@ -30,6 +38,10 @@
 
                 }
             });
+        }
+
+        function clear() {
+            $('#reset').click();
         }
 
     </script>
@@ -42,7 +54,7 @@
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>编辑课程</h5>
+                        <h5>课程添加</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -55,43 +67,39 @@
                     <div class="ibox-content col-lg-12">
                         <form action="do" class="form-horizontal" id="uploadForm" enctype="multipart/form-data" method="post">
                             {!! csrf_field() !!}
-                            <input type="text" hidden="hidden" name="id" value="{{ $course['id'] }}">
+                            <input type="text" hidden="hidden" name="id">
                             <div class="form-group"><label class="col-sm-2 control-label">教程名</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Name" name="name" value="{{ $course['name'] }}"></div>
+                                    <input type="text" class="form-control" placeholder="Name" name="name"></div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">教程介绍</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="des" placeholder="Des" value="{{ $course['des'] }}">
+                                    <input type="text" class="form-control" name="des" placeholder="Des" >
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">链接</label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="url" placeholder="Url"  value="{{ $course['url'] }}">
+                                    <input type="text" class="form-control" name="url" placeholder="Url"  >
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">排序</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="sort" placeholder="Sort"  value="{{ $course['sort'] }}">
+                                    <input type="text" class="form-control" name="sort" placeholder="Sort"  >
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">是否首个</label>
                                 <div class="col-sm-10">
-                                    <div class="i-checks"><label> <input type="radio" <?php echo $course['first']==1?'checked="checked"':""; ?> value="1" name="first"> <i></i> Yes</label></div>
-                                    <div class="i-checks"><label> <input type="radio" <?php echo $course['first']==0?'checked="checked"':""; ?>   value="0" name="first"> <i></i> No </label></div>
+                                    <div class="i-checks"><label> <input type="radio" value="1" name="first"> <i></i> Yes</label></div>
+                                    <div class="i-checks"><label> <input type="radio"  value="0" name="first"> <i></i> No </label></div>
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">类型介绍</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="type_des" placeholder="Type Des" value="{{ $course['type_des'] }}">
+                                    <input type="text" class="form-control" name="type_des" placeholder="Type Des">
                                 </div>
                             </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">封面图预览</label>
-                                <div class="col-sm-10">
-                                    <img class="img-circle" src="/{{ $course['logo'] }}" alt="" style="max-width: 200px;">
-                                </div>
-                            </div>
+
                             <div class="form-group"><label class="col-sm-2 control-label">封面图</label>
                                 <div class="col-sm-10">
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
@@ -104,14 +112,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="reset" hidden="hidden" id="reset" />
                         </form>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-white">Cancel</button>
-                                    <button class="btn btn-primary" onclick="save()" id="save">Save changes</button>
-                                </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-warning" id="reset_2"><i class="fa fa-trash"></i> 清空</button>
+                                <button class="btn btn-primary" onclick="save()" id="save"><i class="fa fa-save"></i> 保存</button>
                             </div>
+                        </div>
 
                     </div>
                 </div>

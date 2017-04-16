@@ -20,8 +20,14 @@ class CourseController extends Controller
         $type = Input::get('course');
         $ware = Input::get('ware');
 
+        //如果课程不存在
+        if(count(Course::where('url',$type)->get())==0){
+            return Redirect::to('/404');
+        }
         $course = Course::where('url',$type)->get()[0];
+
         $nav_lis = Detail::where('course_id',$course['id'])->get()->toArray();
+        //如果某个课程一个课件也没有
         if(count($nav_lis)==0){
             return Redirect::to('/404');
         }
@@ -29,6 +35,10 @@ class CourseController extends Controller
         $link_ware = ['pre_course'=>['title'=>'','url'=>''],'next_course'=>['title'=>'','url'=>'']];
 
         if($ware){
+            //如果该课件不存在
+            if(count(Detail::where(['course_id'=>$course['id'],'url'=>$ware])->get()->toArray())==0){
+                return Redirect::to('/404');
+            }
             $detail = Detail::where(['course_id'=>$course['id'],'url'=>$ware])->get()[0]->toArray();
             $this->addWareView($detail['id']);
         }else{

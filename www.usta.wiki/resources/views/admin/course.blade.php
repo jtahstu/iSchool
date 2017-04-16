@@ -153,7 +153,7 @@
                                 <td>{{ $course['name'] }} 教程</td>
                                 <td>{{ $course['des'] }}</td>
                                 <td>
-                                    <a type="button" class="btn btn-outline btn-danger btn-sm" href="">添加课件</a>
+                                    <a type="button" class="btn btn-outline btn-danger btn-sm" href="/course-ware-add/{{ $course['id'] }}">添加课件</a>
                                     &nbsp;&nbsp;
                                     <a type="button" class="btn btn-outline btn-primary btn-sm" href="/course-edit/{{ $course['id'] }}">编辑课程</a>
                                     &nbsp;&nbsp;

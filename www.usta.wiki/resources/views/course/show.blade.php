@@ -96,7 +96,7 @@
                     <div class="ibox-tools">
                         <i class="fa fa-eye"></i> {{ $detail['view'] }}
                         &nbsp;&nbsp;
-                        <i class="fa fa-clock-o"></i> {{ date_format(date_create($detail['update_time']), 'Y-m-d H:i') }}
+                        <i class="fa fa-clock-o"></i> {{ date_format(date_create($detail['updated_at']), 'Y-m-d H:i') }}
                         &nbsp;&nbsp;
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

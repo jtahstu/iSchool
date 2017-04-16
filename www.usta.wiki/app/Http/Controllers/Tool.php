@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Log;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,10 +25,15 @@ class Tool extends Controller
         return \Auth::user()->id;
     }
 
+    public static function get_user_name()
+    {
+        return \Auth::user()->name;
+    }
+
     //获取用户级别
     public static function getLevel()
     {
-        if(in_array(\Auth::user()->id,[1,2,3,4,5]))
+        if(in_array(\Auth::user()->id,[1,2]))
             return 1;
         else
             return 2;
@@ -44,5 +50,13 @@ class Tool extends Controller
             'status' => $status,
             'msg' => $msg
         ));
+    }
+
+    public static function writeLog($content)
+    {
+        $log = new Log();
+        $log->add_user_id = self::get_user_id();
+        $log->content = $content;
+        $log->save();
     }
 }

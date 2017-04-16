@@ -20,6 +20,7 @@ class AdminController extends Controller
     public function index()
     {
         if(Tool::getLevel()==1){
+            Tool::writeLog(Tool::get_user_name().'登录了后台');
             return view('admin.index');
         }else{
             return view('index.404');
@@ -61,9 +62,9 @@ class AdminController extends Controller
             ->where('id',$id)
             ->update($data);
         if($res)
-            return Tool::returnMsg($res,'编辑成功！');
+            return Tool::returnMsg($res,'课程编辑成功！');
         else
-            return Tool::returnMsg($res,'编辑失败！');
+            return Tool::returnMsg($res,'课程编辑失败！');
     }
 
     public function courseAdd()
@@ -97,6 +98,7 @@ class AdminController extends Controller
     {
         $id = $request->input('id');
         $res = Course::where('id',$id)->delete();
+        $res2 = Detail::where('course_id',$id)->delete();
         if($res){
             return Tool::returnMsg($res,'教程删除成功');
         }else{
@@ -126,14 +128,37 @@ class AdminController extends Controller
         }
     }
 
-    public function courseWareAdd(){
+    public function courseWareAdd($id)
+    {
+        return view('admin.course-ware-add',['course_id'=>$id]);
+    }
 
+    public function courseWareAddDo(Request $request)
+    {
+        $data = $request->input();
+        if(empty($data['course_id'])||empty($data['title'])||empty($data['content'])){
+            return Tool::returnMsg(0,'课件标题和课件内容为必填');
+        }
+
+        $detail = new Detail();
+        $detail->course_id = $data['course_id'];
+        $detail->title = $data['title'];
+        $detail->url = $data['url']?$data['url']:$data['title'];
+        $detail->view = intval($data['view'])?intval($data['view']):1;
+        $detail->content = $data['content'];
+
+        $res = $detail->save();
+        if($res){
+            return Tool::returnMsg(1,'课件添加成功!');
+        }else{
+            return Tool::returnMsg(0,'课件添加失败!');
+        }
     }
 
     public function courseWareDelDo(Request $request)
     {
         $id = $request->input('id');
-        $res = Course::where('id',$id)->delete();
+        $res = Detail::where('id',$id)->delete();
         if($res){
             return Tool::returnMsg($res,'课件删除成功');
         }else{

@@ -33,7 +33,7 @@
 		<div class="error-desc">
 			Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
 			<br />
-			<a href="javascript:window.history.go(-1);" class="btn btn-primary m-t"> Go back </a>
+			<a href="javascript:window.history.go(-1);" class="btn btn-primary m-t"> Go back </a> 或 <a href="/" class="btn btn-primary m-t"> 返回首页 </a>
 		</div>
 	</div>
 

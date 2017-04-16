@@ -1,6 +1,6 @@
 @extends('layout.admin-main')
 
-@section('title','课程设置')
+@section('title','课件编辑')
 
 @section('head')
     <script type="text/javascript" src="{{ asset('public/js/ueditor/ueditor.config.js') }}"></script>

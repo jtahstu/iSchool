@@ -65,7 +65,7 @@ Route::get('/course-edit/{id}',['uses'=>'AdminController@courseEdit']);
 Route::post('/course-edit-do',['uses'=>'AdminController@courseEditDo']);
 Route::post('/course-del-do',['uses'=>'AdminController@courseDelDo']);
 
-Route::get('/course-ware-add',['uses'=>'AdminController@courseWareAdd']);
+Route::get('/course-ware-add/{id}',['uses'=>'AdminController@courseWareAdd']);
 Route::post('/course-ware-add-do',['uses'=>'AdminController@courseWareAddDo']);
 Route::get('/course-ware-edit/{id}',['uses'=>'AdminController@courseWareEdit']);
 Route::post('/course-ware-edit-do',['uses'=>'AdminController@courseWareEditDo']);

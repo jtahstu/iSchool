@@ -13,6 +13,90 @@
             $('.footable').footable();
 
         });
+        
+        function delCourse(course_id,name) {
+            swal({
+                    title: "Are you sure ?",
+                    text: "确定要删除 '"+name+"' 吗?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes , delete it !",
+                    cancelButtonText: "No , cancel plx !",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "post",
+                            data: {'id': course_id, '_token': '{!! csrf_token() !!}'},
+                            url: "/course-del-do",
+                            success: function (data) {
+                                if (data.status == 1) {
+                                    swal({
+                                        title: data.msg,
+                                        type: "success",
+                                        confirmButtonColor: "#30B593"
+                                    });
+                                    setTimeout('location.reload()');
+                                } else {
+                                    swal({
+                                        title: data.msg,
+                                        type: "error",
+                                        confirmButtonColor: "#F3AE56"
+                                    });
+                                }
+
+                            }
+                        })
+                    }else {
+                        swal("Cancelled", "Your course is safe :)", "error");
+                    }
+                })
+        }
+
+        function delCourseWare(course_ware_id,name) {
+            swal({
+                    title: "Are you sure ?",
+                    text: "确定要删除 '"+name+"' 吗?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes , delete it !",
+                    cancelButtonText: "No , cancel plx !",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "post",
+                            data: {'id': course_ware_id, '_token': '{!! csrf_token() !!}'},
+                            url: "/course-ware-del-do",
+                            success: function (data) {
+                                if (data.status == 1) {
+                                    swal({
+                                        title: data.msg,
+                                        type: "success",
+                                        confirmButtonColor: "#30B593"
+                                    });
+                                    setTimeout('location.reload()');
+                                } else {
+                                    swal({
+                                        title: data.msg,
+                                        type: "error",
+                                        confirmButtonColor: "#F3AE56"
+                                    });
+                                }
+
+                            }
+                        })
+                    }else {
+                        swal("Cancelled", "Your course ware is safe :)", "error");
+                    }
+                })
+        }
 
     </script>
 
@@ -73,7 +157,7 @@
                                     &nbsp;&nbsp;
                                     <a type="button" class="btn btn-outline btn-primary btn-sm" href="/course-edit/{{ $course['id'] }}">编辑课程</a>
                                     &nbsp;&nbsp;
-                                    <a type="button" class="btn btn-outline btn-danger btn-sm">删除课程</a>
+                                    <a type="button" class="btn btn-outline btn-danger btn-sm" onclick="delCourse({{ $course['id'].',"'.$course['name'].'"' }})">删除课程</a>
                                 </td>
                                 <td>
                                     @foreach($course['wares'] as $ware)
@@ -84,9 +168,9 @@
                                                 </a>
                                             </div>
                                             <div class="col-lg-6">
-                                                <a type="button" class="btn btn-outline btn-primary btn-xs">编辑</a>
+                                                <a type="button" class="btn btn-outline btn-primary btn-xs" href="/course-ware-edit/{{ $ware['id'] }}" target="_blank">编辑</a>
                                                 &nbsp;&nbsp;
-                                                <a type="button" class="btn btn-outline btn-danger btn-xs">删除</a>
+                                                <a type="button" class="btn btn-outline btn-danger btn-xs" onclick="delCourseWare({{ $ware['id'].',"'.$ware['title'].'"' }})">删除</a>
                                             </div>
                                         </div>
 

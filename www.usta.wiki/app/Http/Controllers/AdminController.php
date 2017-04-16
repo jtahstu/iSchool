@@ -88,25 +88,56 @@ class AdminController extends Controller
             ->where('id',$id)
             ->insert($data);
         if($res)
-            return Tool::returnMsg($res,'添加成功！');
+            return Tool::returnMsg($res,'教程添加成功！');
         else
-            return Tool::returnMsg($res,'添加失败！');
+            return Tool::returnMsg($res,'教程添加失败！');
     }
 
-    public function courseDel($id)
+    public function courseDelDo(Request $request)
     {
-
+        $id = $request->input('id');
+        $res = Course::where('id',$id)->delete();
+        if($res){
+            return Tool::returnMsg($res,'教程删除成功');
+        }else{
+            return Tool::returnMsg($res,'教程删除失败');
+        }
     }
 
-    public function courseWareEdit(){
+    public function courseWareEdit($id){
+        $detail = Detail::where('id',$id)->first();
+        return view('admin.course-ware-edit',['detail'=>$detail]);
+    }
 
+    public function courseWareEditDo(Request $request)
+    {
+        $data = $request->input();
+        $id = $data['id'];
+        unset($data['id']);
+        unset($data['_token']);
+        $data['content'] = htmlspecialchars($data['content']);
+        $res = DB::table('details')
+            ->where('id',$id)
+            ->update($data);
+        if($res){
+            return Tool::returnMsg($res,'课件编辑成功!');
+        }else{
+            return Tool::returnMsg($res,'课件编辑失败!');
+        }
     }
 
     public function courseWareAdd(){
 
     }
 
-    public function courseWareDel(){
-
+    public function courseWareDelDo(Request $request)
+    {
+        $id = $request->input('id');
+        $res = Course::where('id',$id)->delete();
+        if($res){
+            return Tool::returnMsg($res,'课件删除成功');
+        }else{
+            return Tool::returnMsg($res,'课件删除失败');
+        }
     }
 }

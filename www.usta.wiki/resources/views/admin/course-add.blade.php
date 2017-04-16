@@ -91,7 +91,7 @@
                             <div class="form-group"><label class="col-sm-2 control-label">是否首个</label>
                                 <div class="col-sm-10">
                                     <div class="i-checks"><label> <input type="radio" value="1" name="first"> <i></i> Yes</label></div>
-                                    <div class="i-checks"><label> <input type="radio"  value="0" name="first"> <i></i> No </label></div>
+                                    <div class="i-checks"><label> <input type="radio" value="0" name="first"> <i></i> No </label></div>
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">类型介绍</label>

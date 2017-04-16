@@ -21,6 +21,8 @@
         <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
         {{--后台模板css--}}
         <link href="{{asset('public/css/style.css')}}" rel="stylesheet">
+        {{--菜鸟教程css--}}
+        <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
         {{--手写的css--}}
         <link href="{{asset('public/css/main.css')}}" rel="stylesheet">
         {{--表格--}}

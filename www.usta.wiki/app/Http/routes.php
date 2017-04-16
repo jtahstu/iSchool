@@ -28,16 +28,12 @@
 /**
  * Auth
  */
-Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController'
-]);
-
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
 });
+
 
 /**
  * Error
@@ -62,12 +58,18 @@ Route::get('/show', ['uses'=>'CourseController@show']);
 Route::get('/admin',['uses'=>'AdminController@index']);
 Route::get('/admin-course',['uses'=>'AdminController@course']);
 Route::get('/setting',['uses'=>'AdminController@setting']);
+
 Route::get('/course-add',['uses'=>'AdminController@courseAdd']);
 Route::post('/course-add-do',['uses'=>'AdminController@courseAddDo']);
 Route::get('/course-edit/{id}',['uses'=>'AdminController@courseEdit']);
 Route::post('/course-edit-do',['uses'=>'AdminController@courseEditDo']);
-Route::get('/course-del/{id}',['uses'=>'AdminController@courseDel']);
+Route::post('/course-del-do',['uses'=>'AdminController@courseDelDo']);
 
+Route::get('/course-ware-add',['uses'=>'AdminController@courseWareAdd']);
+Route::post('/course-ware-add-do',['uses'=>'AdminController@courseWareAddDo']);
+Route::get('/course-ware-edit/{id}',['uses'=>'AdminController@courseWareEdit']);
+Route::post('/course-ware-edit-do',['uses'=>'AdminController@courseWareEditDo']);
+Route::post('/course-ware-del-do',['uses'=>'AdminController@courseWareDelDo']);
 
 Route::get('/search', ['uses'=>'CourseController@search']);
 

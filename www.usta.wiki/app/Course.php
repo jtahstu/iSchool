@@ -11,7 +11,7 @@ class Course extends Model
     {
         $courses = Course::all()->sortBy('sort')->toArray();
         foreach ($courses as $key=>$course){
-            $wares = Detail::where('course_id',$course['id'])->get(['title','url'])->toArray();
+            $wares = Detail::where('course_id',$course['id'])->get(['id','title','url','view'])->toArray();
             $courses[$key]['wares'] = $wares;
         }
         return  $courses;

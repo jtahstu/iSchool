@@ -74,3 +74,6 @@ Route::post('/course-ware-del-do',['uses'=>'AdminController@courseWareDelDo']);
 Route::get('/search', ['uses'=>'CourseController@search']);
 
 Route::post('/comment/{id}',['uses'=>'CommentController@add']);
+
+Route::get('/timeline','IndexController@timeLine');
+Route::get('/git-add','AdminController@gitAdd');

@@ -71,6 +71,17 @@
 						</li>
 
 						@yield('nav_li')
+						<li>
+							<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">更多精彩</span> <span
+										class="fa arrow"></span></a>
+							<ul class="nav nav-second-level collapse">
+								<li>
+									<a href="/timeline">
+										<i class="fa fa-git"> iSchool时光机</i>
+									</a>
+								</li>
+							</ul>
+						</li>
 
 					</ul>
 

@@ -165,4 +165,9 @@ class AdminController extends Controller
             return Tool::returnMsg($res,'课件删除失败');
         }
     }
+
+    public function gitAdd()
+    {
+        return view('admin.git-add');
+    }
 }

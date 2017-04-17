@@ -1,52 +1,53 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
+<head>
 
-		<meta charset="utf-8">
-		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="教程,HTML,CSS,JS,PHP,C,C++,Java,Python,MySQL,Redis" />
-		<meta name="Description" content="Jin Tao同学的毕业设计，一个教程网站" />
-		<meta name="author" content="jtahstu" />
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="Keywords" content="教程,HTML,CSS,JS,PHP,C,C++,Java,Python,MySQL,Redis"/>
+    <meta name="Description" content="Jin Tao同学的毕业设计，一个教程网站"/>
+    <meta name="author" content="jtahstu"/>
 
-		<title>后台管理 - iSchool</title>
+    <title>后台管理 - iSchool</title>
 
-        <link rel="icon" href="{{asset('public/favicon.ico')}}" />
-        <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset('public/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-        {{--动画--}}
-        <link href="{{asset('public/css/animate.css')}}" rel="stylesheet">
-        {{--菜鸟教程css--}}
-        <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
-        {{--后台模板css--}}
-        <link href="{{asset('public/css/style.css')}}" rel="stylesheet">
-        {{--菜鸟教程css--}}
-        <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
-        {{--手写的css--}}
-        <link href="{{asset('public/css/main.css')}}" rel="stylesheet">
-        {{--表格--}}
-        <link href="{{asset('public/css/footable.core.css')}}" rel="stylesheet">
+    <link rel="icon" href="{{asset('public/favicon.ico')}}"/>
+    <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    {{--动画--}}
+    <link href="{{asset('public/css/animate.css')}}" rel="stylesheet">
+    {{--菜鸟教程css--}}
+    <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
+    {{--后台模板css--}}
+    <link href="{{asset('public/css/style.css')}}" rel="stylesheet">
+    {{--菜鸟教程css--}}
+    <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
+    {{--手写的css--}}
+    <link href="{{asset('public/css/main.css')}}" rel="stylesheet">
+    {{--表格--}}
+    <link href="{{asset('public/css/footable.core.css')}}" rel="stylesheet">
 
-        <script src="{{asset('public/js/jquery-3.1.1.min.js')}}"></script>
-        <script src="{{asset('public/js/bootstrap.min.js')}}"></script>
-        {{--菜单--}}
-        <script src="{{asset('public/js/jquery.metisMenu.js')}}"></script>
-        <script src="{{asset('public/js/jquery.slimscroll.min.js')}}"></script>
-        <script src="{{asset('public/js/inspinia.js')}}"></script>
-        <script src="{{asset('public/js/pace.min.js')}}"></script>
-        {{--网站手写的js--}}
-        <script src="{{asset('public/js/main.js')}}"></script>
-        {{--弹窗--}}
-        <link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
-        <script src="{{asset('public/js/sweetalert.min.js')}}"></script>
-        {{--文件上传--}}
-        <link href="{{asset('public/css/jasny-bootstrap.min.css')}}" rel="stylesheet">
-        <script src="{{asset('public/js/jasny-bootstrap.min.js')}}"></script>
-        {{--表格--}}
-        <script src="{{asset('public/js/footable.all.min.js')}}"></script>
+    <script src="{{asset('public/js/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{asset('public/js/bootstrap.min.js')}}"></script>
+    {{--菜单--}}
+    <script src="{{asset('public/js/jquery.metisMenu.js')}}"></script>
+    <script src="{{asset('public/js/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('public/js/inspinia.js')}}"></script>
+    <script src="{{asset('public/js/pace.min.js')}}"></script>
+    {{--网站手写的js--}}
+    <script src="{{asset('public/js/main.js')}}"></script>
+    {{--弹窗--}}
+    <link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
+    <script src="{{asset('public/js/sweetalert.min.js')}}"></script>
+    {{--文件上传--}}
+    <link href="{{asset('public/css/jasny-bootstrap.min.css')}}" rel="stylesheet">
+    <script src="{{asset('public/js/jasny-bootstrap.min.js')}}"></script>
+    {{--表格--}}
+    <script src="{{asset('public/js/footable.all.min.js')}}"></script>
 
-@yield('head')
+    @yield('head')
 
 </head>
 
@@ -61,10 +62,12 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element forum-info">
 						<span>
-						<img alt="image" class="img-circle" src="/public/img/tx/0.png" width="100px" />
+						<img alt="image" class="img-circle" src="/public/img/tx/0.png" width="100px"/>
 						</span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::user()->name }}</strong>&nbsp;<b class="caret"></b> </span>  </span>
+                            <span class="clear"> <span class="block m-t-xs"> <strong
+                                            class="font-bold">{{ Auth::user()->name }}</strong>&nbsp;<b
+                                            class="caret"></b> </span>  </span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             <li>
@@ -92,12 +95,12 @@
                     </a>
                 </li>
                 @if(\App\Http\Controllers\Tool::getLevel()==1)
-                <li>
-                    <a href="/admin">
-                        <i class="fa fa-dashboard"></i><span class="nav-label">Dashboards</span>
-                    </a>
+                    <li>
+                        <a href="/admin">
+                            <i class="fa fa-dashboard"></i><span class="nav-label">Dashboards</span>
+                        </a>
 
-                </li>
+                    </li>
                     <li>
                         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">课程管理</span> <span
                                     class="fa arrow"></span></a>
@@ -113,7 +116,18 @@
                                 </a>
                             </li>
                         </ul>
-                </li>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">网站管理</span> <span
+                                    class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="/git-add">
+                                    <i class="fa fa-git"> Git添加</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 @yield('nav_li')
 
@@ -143,7 +157,8 @@
                             <li>
                                 <a href="mailbox.html">
                                     <div>
-                                        <i class="fa fa-envelope fa-fw"></i> You have 16 messages <span class="pull-right text-muted small">4 minutes ago</span>
+                                        <i class="fa fa-envelope fa-fw"></i> You have 16 messages <span
+                                                class="pull-right text-muted small">4 minutes ago</span>
                                     </div>
                                 </a>
                             </li>
@@ -151,7 +166,8 @@
                             <li>
                                 <a href="profile.html">
                                     <div>
-                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers <span class="pull-right text-muted small">12 minutes ago</span>
+                                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers <span
+                                                class="pull-right text-muted small">12 minutes ago</span>
                                     </div>
                                 </a>
                             </li>
@@ -159,7 +175,8 @@
                             <li>
                                 <a href="grid_options.html">
                                     <div>
-                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted <span class="pull-right text-muted small">4 minutes ago</span>
+                                        <i class="fa fa-upload fa-fw"></i> Server Rebooted <span
+                                                class="pull-right text-muted small">4 minutes ago</span>
                                     </div>
                                 </a>
                             </li>

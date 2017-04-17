@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Course;
+use App\Git;
 
 
 class IndexController extends Controller
@@ -24,5 +25,11 @@ class IndexController extends Controller
 	{
 		return view('index.500');
 	}
+
+	public function timeLine()
+    {
+        $git = array_reverse(Git::all()->toArray());
+        return view('index.timeline',['gits'=>$git]);
+    }
 
 }

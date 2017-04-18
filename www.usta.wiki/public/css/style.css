@@ -4310,7 +4310,7 @@ table.table-mail tr td {
 }
 
 .ibox-content {
-    clear: both
+    clear: both;
 }
 
 .ibox-heading {

@@ -4,5 +4,4 @@
 
 @section('body')
 
-
 @endsection

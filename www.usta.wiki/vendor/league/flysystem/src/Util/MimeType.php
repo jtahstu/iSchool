@@ -3,6 +3,7 @@
 namespace League\Flysystem\Util;
 
 use Finfo;
+use ErrorException;
 
 /**
  * @internal
@@ -12,17 +13,22 @@ class MimeType
     /**
      * Detects MIME Type based on given content.
      *
-     * @param string $content
+     * @param mixed $content
      *
      * @return string|null MIME Type or NULL if no mime type detected
      */
     public static function detectByContent($content)
     {
-        if ( ! class_exists('Finfo')) {
+        if ( ! class_exists('Finfo') || ! is_string($content)) {
             return;
         }
+        try {
+            $finfo = new Finfo(FILEINFO_MIME_TYPE);
 
-        return (new Finfo(FILEINFO_MIME_TYPE))->buffer($content) ?: null;
+            return $finfo->buffer($content) ?: null;
+        } catch( ErrorException $e ) {
+            // This is caused by an array to string conversion error.
+        }
     }
 
     /**
@@ -36,13 +42,27 @@ class MimeType
     {
         static $extensionToMimeTypeMap;
 
-        if ( ! $extensionToMimeTypeMap) {
+        if (! $extensionToMimeTypeMap) {
             $extensionToMimeTypeMap = static::getExtensionToMimeTypeMap();
         }
 
         if (isset($extensionToMimeTypeMap[$extension])) {
             return $extensionToMimeTypeMap[$extension];
         }
+
+        return 'text/plain';
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return string
+     */
+    public static function detectByFilename($filename)
+    {
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+        return empty($extension) ? 'text/plain' : static::detectByFileExtension($extension);
     }
 
     /**

@@ -148,8 +148,6 @@ class Mailer implements MailerContract, MailQueueContract
      */
     public function send($view, array $data, $callback)
     {
-        $this->forceReconnection();
-
         // First we need to parse the view, which could either be a string or an array
         // containing both an HTML and plain text versions of the view which should
         // be used when sending an e-mail. We will extract both of them out here.
@@ -254,8 +252,8 @@ class Mailer implements MailerContract, MailQueueContract
     /**
      * Build the callable for a queued e-mail job.
      *
-     * @param  mixed  $callback
-     * @return mixed
+     * @param  \Closure|string  $callback
+     * @return string
      */
     protected function buildQueueCallable($callback)
     {
@@ -284,12 +282,12 @@ class Mailer implements MailerContract, MailQueueContract
      * Get the true callable for a queued e-mail message.
      *
      * @param  array  $data
-     * @return mixed
+     * @return \Closure|string
      */
     protected function getQueuedCallable(array $data)
     {
         if (Str::contains($data['callback'], 'SerializableClosure')) {
-            return unserialize($data['callback'])->getClosure();
+            return (new Serializer)->unserialize($data['callback']);
         }
 
         return $data['callback'];
@@ -383,7 +381,11 @@ class Mailer implements MailerContract, MailQueueContract
             $this->events->fire(new Events\MessageSending($message));
         }
 
-        return $this->swift->send($message, $this->failedRecipients);
+        try {
+            return $this->swift->send($message, $this->failedRecipients);
+        } finally {
+            $this->swift->getTransport()->stop();
+        }
     }
 
     /**

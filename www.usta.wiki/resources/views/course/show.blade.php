@@ -3,16 +3,12 @@
 @section('title',$detail['title'])
 
 @section('head')
-    {{--<link href="{{asset('public/css/bootstrap-markdown.min.css')}}" rel="stylesheet">--}}
-    {{--<script src="{{asset('public/js/bootstrap-markdown.js')}}"></script>--}}
-    {{--<script src="{{asset('public/js/markdown.js')}}"></script>--}}
-
     <link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
     <script src="{{asset('public/js/sweetalert.min.js')}}"></script>
 
-    <link href="{{asset('public/css/editormd.min.css')}}" rel="stylesheet">
-    <script src="{{asset('public/js/editormd.min.js')}}"></script>
-    <script src="{{ asset('public/js/prettify.js') }}"></script>
+    <link href="/public/css/editormd.min.css" rel="stylesheet">
+    <script src="/public/js/editormd/editormd.min.js"></script>
+    <script src="/public/js/prettify.js"></script>
 
     <script>
         var Editor;
@@ -28,7 +24,7 @@
                     return ["undo", "redo", "|", "bold","del","italic","quote","|","h1","h2","h3","h4","h5","h6","|" ,"list-ul","list-ol","hr","|","clear", "preview"]
                 },
                 syncScrolling : "single",
-                path    : '/public/js/lib/',
+                path    : '/public/js/editormd/lib/',
                 saveHTMLToTextarea : true,
                 taskList : true,
                 tocm            : true,         // Using [TOCM]
@@ -36,12 +32,14 @@
                 flowChart : true,             // 开启流程图支持，默认关闭
                 sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
             });
+
             $('#comment').click(function () {
                 var comment = Editor.getHTML();
-                alert(comment);
+                var comment_code = $('#comment_code').val();
+
                 $.ajax({
                     type: "post",
-                    data: {'comment': comment, '_token': '{!! csrf_token() !!}'},
+                    data: {'comment': comment,'comment_code':comment_code , '_token': '{!! csrf_token() !!}'},
                     url: "/comment/<?php echo $detail['id'];?>",
                     success: function (data) {
                         if (data.status == 1) {
@@ -62,7 +60,9 @@
 
                     }
                 })
-            })
+            });
+            $('#comment_code').val('');
+            $('#top-search').focus();
 
         })
     </script>
@@ -124,6 +124,12 @@
                             &nbsp;&nbsp;
                             <i class="fa fa-clock-o"></i> {{ date_format(date_create($detail['updated_at']), 'Y-m-d H:i') }}
                             &nbsp;&nbsp;
+                            @if(\App\Http\Controllers\Tool::getLevel()==1)
+                            <a href="/course-ware-edit/{{ $detail['id'] }}" target="_blank">
+                                <button class="btn btn-primary btn-outline btn-xs">编辑课件</button>
+                            </a>
+                            &nbsp;&nbsp;
+                            @endif
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
@@ -194,12 +200,18 @@
                             <div id="editormd">
                             </div>
 
-                            <div>
-                                <div class="m-t-sm m-b-sm pull-right dim btn-lg">
-                                    <button class="btn btn-primary" id="comment"><i class="fa fa-comment"></i> 评论
-                                    </button>
-                                </div>
+                            <div class="col-lg-6 pull-left">
+                                <input type="text" class="form-control col-lg-2" name="comment_code" id="comment_code" placeholder="请输入验证码">
+                                <a onclick="javascript:re_captcha();" >
+                                    <img src="{{ URL('/img/comment_code/1') }}"  alt="验证码" title="刷新图片" width="150" height="80" id="c2c98f0de5a04167a9e427d883690ff6" border="0" class="m-t-sm">
+                                </a>
                             </div>
+                            <div class="m-t-sm m-b-sm pull-right dim btn-lg">
+                                <button class="btn btn-primary" id="comment">
+                                    <i class="fa fa-comment"></i> 评论
+                                </button>
+                            </div>
+
                         </div>
                         <div class="chat-discussion">
                             <?php $i = count($comments);$lc = ['沙发', '板凳', '地板', '地下室', '下水道']; ?>
@@ -232,4 +244,11 @@
                 </div>
             </div>
         </div>
+        <script>
+            function re_captcha() {
+                $url = "{{ URL('/img/comment_code') }}";
+                $url = $url + "/" + Math.random();
+                document.getElementById('c2c98f0de5a04167a9e427d883690ff6').src=$url;
+            }
+        </script>
 @endsection

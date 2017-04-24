@@ -17,7 +17,8 @@ class Util
     public static function pathinfo($path)
     {
         $pathinfo = pathinfo($path) + compact('path');
-        $pathinfo['dirname'] = static::normalizeDirname($pathinfo['dirname']);
+        $pathinfo['dirname'] = array_key_exists('dirname', $pathinfo)
+            ? static::normalizeDirname($pathinfo['dirname']) : '';
 
         return $pathinfo;
     }
@@ -80,20 +81,7 @@ class Util
      */
     public static function normalizePath($path)
     {
-        // Remove any kind of funky unicode whitespace
-        $normalized = preg_replace('#\p{C}+|^\./#u', '', $path);
-        $normalized = static::normalizeRelativePath($normalized);
-
-        if (preg_match('#/\.{2}|^\.{2}/|^\.{2}$#', $normalized)) {
-            throw new LogicException(
-                'Path is outside of the defined root, path: [' . $path . '], resolved: [' . $normalized . ']'
-            );
-        }
-
-        $normalized = preg_replace('#\\\{2,}#', '\\', trim($normalized, '\\'));
-        $normalized = preg_replace('#/{2,}#', '/', trim($normalized, '/'));
-
-        return $normalized;
+        return static::normalizeRelativePath($path);
     }
 
     /**
@@ -101,18 +89,53 @@ class Util
      *
      * @param string $path
      *
+     * @throws LogicException
+     *
      * @return string
      */
     public static function normalizeRelativePath($path)
     {
-        // Path remove self referring paths ("/./").
-        $path = preg_replace('#/\.(?=/)|^\./|/\./?$#', '', $path);
+        $path = str_replace('\\', '/', $path);
+        $path = static::removeFunkyWhiteSpace($path);
 
-        // Regex for resolving relative paths
-        $regex = '#/*[^/\.]+/\.\.#Uu';
+        $parts = [];
 
-        while (preg_match($regex, $path)) {
-            $path = preg_replace($regex, '', $path);
+        foreach (explode('/', $path) as $part) {
+            switch ($part) {
+                case '':
+                case '.':
+                break;
+
+            case '..':
+                if (empty($parts)) {
+                    throw new LogicException(
+                        'Path is outside of the defined root, path: [' . $path . ']'
+                    );
+                }
+                array_pop($parts);
+                break;
+
+            default:
+                $parts[] = $part;
+                break;
+            }
+        }
+
+        return implode('/', $parts);
+    }
+
+    /**
+     * Removes unprintable characters and invalid unicode characters.
+     *
+     * @param string $path
+     *
+     * @return string $path
+     */
+    protected static function removeFunkyWhiteSpace($path) {
+        // We do this check in a loop, since removing invalid unicode characters
+        // can lead to new characters being created.
+        while (preg_match('#\p{C}+|^\./#u', $path)) {
+            $path = preg_replace('#\p{C}+|^\./#u', '', $path);
         }
 
         return $path;
@@ -147,7 +170,7 @@ class Util
      * Guess MIME Type based on the path of the file and it's content.
      *
      * @param string $path
-     * @param string $content
+     * @param string|resource $content
      *
      * @return string|null MIME Type or NULL if no extension detected
      */
@@ -155,15 +178,11 @@ class Util
     {
         $mimeType = MimeType::detectByContent($content);
 
-        if (empty($mimeType) || in_array($mimeType, ['application/x-empty', 'text/plain', 'text/x-asm'])) {
-            $extension = pathinfo($path, PATHINFO_EXTENSION);
-
-            if ($extension) {
-                $mimeType = MimeType::detectByFileExtension($extension) ?: 'text/plain';
-            }
+        if ( ! (empty($mimeType) || in_array($mimeType, ['application/x-empty', 'text/plain', 'text/x-asm']))) {
+            return $mimeType;
         }
 
-        return $mimeType;
+        return MimeType::detectByFilename($path);
     }
 
     /**

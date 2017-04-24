@@ -118,6 +118,12 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="/addmin-comment">
+                            <i class="fa fa-dashboard"></i><span class="nav-label">评论管理</span>
+                        </a>
+
+                    </li>
+                    <li>
                         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">网站管理</span> <span
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">

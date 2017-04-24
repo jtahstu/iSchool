@@ -170,4 +170,12 @@ class AdminController extends Controller
     {
         return view('admin.git-add');
     }
+
+    public function comment()
+    {
+//        $comments = DB::select('select a.*,b.title,c.name from ischool_comments a left join ischool_details b on a.ref_id=b.id
+//left join ischool_courses c on b.course_id=c.id')->get()->paginate(20);
+        $comments = DB::table('ischool_comments')->paginate(20);
+        return view('admin.comment', ['comments' => $comments]);
+    }
 }

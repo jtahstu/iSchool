@@ -69,7 +69,6 @@
 							</a>
 
 						</li>
-
 						@yield('nav_li')
 						<li>
 							<a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">更多精彩</span> <span
@@ -82,9 +81,7 @@
 								</li>
 							</ul>
 						</li>
-
 					</ul>
-
 				</div>
 			</nav>
 

@@ -3,6 +3,7 @@
 @section('title','登录')
 
 @section('body')
+
     <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -41,6 +42,22 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-md-4 control-label">验证码</label>
+
+                            <div class="col-md-6">
+                                <input type="text" name="captcha" class="form-control" placeholder="Verification Code">
+                                <a onclick="javascript:re_captcha();" >
+                                    <img src="{{ URL('/img/verification_code/1') }}"  alt="验证码" title="刷新图片" width="200" height="80" id="c2c98f0de5a04167a9e427d883690ff6" border="0" class="m-t-sm">
+                                </a>
+                                @if ($errors->has('verification_code'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('verification_code') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
+                        </div>
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <div class="checkbox">
                                     <label>
@@ -64,5 +81,11 @@
             </div>
         </div>
     </div>
-
+        <script>
+            function re_captcha() {
+                $url = "{{ URL('/img/verification_code') }}";
+                $url = $url + "/" + Math.random();
+                document.getElementById('c2c98f0de5a04167a9e427d883690ff6').src=$url;
+            }
+        </script>
 @endsection

@@ -65,7 +65,7 @@
                         </div>
                     </div>
                     <div class="ibox-content col-lg-12">
-                        <form action="do" class="form-horizontal" id="uploadForm" enctype="multipart/form-data" method="post">
+                        <form class="form-horizontal" id="uploadForm" enctype="multipart/form-data" method="post">
                             {!! csrf_field() !!}
                             <input type="text" hidden="hidden" name="id">
                             <div class="form-group"><label class="col-sm-2 control-label">教程名</label>

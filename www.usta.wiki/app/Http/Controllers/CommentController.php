@@ -15,22 +15,35 @@ class CommentController extends Controller
 
     public function add(Request $request,$id)
     {
-        if(Tool::isLogin()){
-            $comment = $request->input('comment');
-            $com = new Comment();
-            $com->ref_id = $id;
-            $com->comment = strval($comment);
-            $com->type = 1;
-            $com->add_user_id = Tool::get_user_id();
-            $res = $com->save();
-            if($res){
-                return Tool::returnMsg(1,'评论成功！');
-            }else{
-                return Tool::returnMsg(0,'评论失败！');
-            }
-        }else{
+//        验证是否登录
+        if(!Tool::isLogin()){
             return Tool::returnMsg(0,'请先登录！');
         }
+
+//        验证验证码是否正确
+        $comment_code = $request->input('comment_code');
+        if(!$comment_code){
+            return Tool::returnMsg(0,'请输入验证码！');
+        }else{
+            if($comment_code!=\Session()->get('comment_code')){
+                return Tool::returnMsg(0,'验证码错误');
+            }
+        }
+
+        $comment = $request->input('comment');
+        $com = new Comment();
+        $com->ref_id = $id;
+        $com->comment = strval($comment);
+        $com->type = 1;
+        $com->add_user_id = Tool::get_user_id();
+        $res = $com->save();
+        if($res){
+            return Tool::returnMsg(1,'评论成功！');
+        }else{
+            return Tool::returnMsg(0,'评论失败！');
+        }
+
+
 
     }
 }

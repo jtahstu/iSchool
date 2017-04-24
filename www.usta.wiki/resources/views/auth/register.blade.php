@@ -30,7 +30,7 @@
                             <label class="col-md-4 control-label">邮箱</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="E-Mail Address">
+                                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="E-Mail Address"><span class="help-block m-b-none">请记住邮箱，此将用作登录账号</span>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Log;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -38,6 +39,19 @@ class Tool extends Controller
             return '游客';
         }
 
+    }
+
+    public static function get_user_head_pic()
+    {
+        if(self::isLogin()){
+            $user = User::where('id',self::get_user_id())->first();
+            if($user->head_pic)
+                return $user->head_pic;
+            else
+                return 'public/img/tx/0.png';
+        }else{
+            return 'public/img/tx/0.png';
+        }
     }
 
     //获取用户级别

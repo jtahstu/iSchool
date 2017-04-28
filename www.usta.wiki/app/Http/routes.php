@@ -77,6 +77,9 @@ Route::post('/comment/{id}',['uses'=>'CommentController@add']);
 
 Route::get('/timeline','IndexController@timeLine');
 Route::get('/git-add','AdminController@gitAdd');
-Route::get('/addmin-comment','AdminController@comment');
+Route::get('/admin-comment','AdminController@comment');
+Route::post('/course-comment-del-do','AdminController@courseCommentDelDo');
 
 Route::get('/img/{name?}/{tmp}', 'ImgController@captcha');
+
+Route::post('/user-edit-do','AdminController@userEditDo');

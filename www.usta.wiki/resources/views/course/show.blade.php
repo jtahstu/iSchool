@@ -14,7 +14,7 @@
         var Editor;
 
         $(function () {
-            $('pre').addClass('prettyprint lang-js').attr('style', 'overflow:auto');
+            $('pre').addClass('prettyprint lang-js').attr('style', 'overflow:auto;font-family:consola;');
             window.prettyPrint && prettyPrint();
 
             Editor = editormd("editormd", {
@@ -62,6 +62,7 @@
                 })
             });
             $('#comment_code').val('');
+            $('#comment_link').click();
             $('#top-search').focus();
 
         })
@@ -172,21 +173,22 @@
                 <div class="ibox">
                     <div class="ibox-content" style="border: 1px dashed;color: gray;padding: 16px;font-size: 14px;">
                         <ul>
-                            <li style="color: #ff6d00;">请先登录后，再发表评论</li>
+                            <li style="color: #ff6d00;">请先登录 ~\(≧▽≦)/~，再发表评论 /(ㄒoㄒ)/~~</li>
+                            <li>评论内容不要超过233个字符 (⊙o⊙)哦</li>
                             <li>请注意单词拼写，以及中英文排版，<a href="https://github.com/sparanoid/chinese-copywriting-guidelines"
                                                    target="_blank">参考此页</a></li>
                             <li>支持 Markdown 格式, <strong>**粗体**</strong>、<code>```代码```</code>, 更多语法请见这里 <a
                                         href="http://www.markdown.cn/"
                                         target="_blank">Markdown 语法</a></li>
-                            <li>目前MarkDown在添加代码时，预览会有点问题，但不影响评论后的效果</li>
+                            <li>目前MarkDown在添加代码时，预览会有点问题，但不影响评论后的效果 ╮(╯▽╰)╭哎</li>
                         </ul>
                     </div>
                 </div>
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>评论列表 &nbsp;(<i class="fa fa-comment"></i>{{ count($comments) }})</h5>
+                        <h5>评论列表 &nbsp <i class="fa fa-comment fa-spin"></i>{{ count($comments) }} </h5>
                         <div class="ibox-tools">
-                            <a class="collapse-link">
+                            <a class="collapse-link" id="comment_link">
                                 <i class="fa fa-chevron-up"></i>
                             </a>
                             <a class="close-link">
@@ -200,16 +202,25 @@
                             <div id="editormd">
                             </div>
 
-                            <div class="col-lg-6 pull-left">
-                                <input type="text" class="form-control col-lg-2" name="comment_code" id="comment_code" placeholder="请输入验证码">
-                                <a onclick="javascript:re_captcha();" >
-                                    <img src="{{ URL('/img/comment_code/1') }}"  alt="验证码" title="刷新图片" width="150" height="80" id="c2c98f0de5a04167a9e427d883690ff6" border="0" class="m-t-sm">
-                                </a>
+                            <div class="col-lg-12 pull-left">
+                                <div class="col-lg-4">
+                                    <input type="text" class="form-control" name="comment_code" id="comment_code" placeholder="请输入验证码">
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn btn-primary btn-outline" id="comment">
+                                        <i class="fa fa-comment fa-spin"></i> 评论
+                                    </button>
+                                </div>
+                                <div class="col-lg-6"></div>
+
+
                             </div>
-                            <div class="m-t-sm m-b-sm pull-right dim btn-lg">
-                                <button class="btn btn-primary" id="comment">
-                                    <i class="fa fa-comment"></i> 评论
-                                </button>
+                            <div class="col-lg-12 pull-left">
+                                <div class="col-lg-4">
+                                    <a onclick="javascript:re_captcha();" >
+                                        <img src="{{ URL('/img/comment_code/1') }}"  alt="验证码" title="刷新图片" width="150" height="80" id="c2c98f0de5a04167a9e427d883690ff6" border="0" class="m-t-sm">
+                                    </a>
+                                </div>
                             </div>
 
                         </div>
@@ -218,11 +229,14 @@
                             @foreach($comments as $key=>$comment)
                                 <?php $i--; ?>
                                 <div class="chat-message left">
-                                    <img class="message-avatar img-circle" src="{{ asset('public/img/tx/0.png') }}"
+                                    <img class="message-avatar img-circle head_pic" src="{{ asset('public/img/tx/0.png') }}"
                                          alt="">
                                     <div class="message">
                                         <a class="message-author" href="#"> {{ $comment->name }} </a>
                                         <span class="message-date">
+                                            @if(\App\Http\Controllers\Tool::getLevel()==1)
+                                                <a type="button" class="btn btn-outline btn-danger btn-xs" onclick="delComment({!! $comment->id.',\''. csrf_token().'\'' !!})">删除评论</a>
+                                            @endif
                                         @if($i<count($lc))
                                                 <button class="btn btn-primary btn-outline btn-xs"> {{ $lc[$i] }} </button>
                                             @else

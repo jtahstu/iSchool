@@ -70,7 +70,9 @@
                             <input type="text" hidden="hidden" name="id">
                             <div class="form-group"><label class="col-sm-2 control-label">教程名</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Name" name="name"></div>
+                                    <input type="text" class="form-control" placeholder="Name" name="name">
+                                    <span style="color: #ff6d00;"><small>课程添加后务必添加一个课件，否则课程无法点开显示。</small></span>
+                                </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">教程介绍</label>
                                 <div class="col-sm-10">

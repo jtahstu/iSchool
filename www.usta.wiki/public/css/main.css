@@ -1,6 +1,18 @@
 img{
     max-width: 100%;
 }
+
+.head_pic{
+    border-radius: 50%;
+    transition: all 3.0s;
+}
+.logo{
+    transition: all 3.0s;
+}
+.head_pic:hover , .logo:hover{
+    transform: rotate(360deg);
+}
+
 .prettyprint,
 pre.prettyprint {
     background-color: #272822;

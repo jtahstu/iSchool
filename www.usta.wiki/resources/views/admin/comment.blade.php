@@ -2,11 +2,28 @@
 
 @section('title','评论管理')
 
+@section('head')
+    <style>
+        th,td{
+            /*text-align: center;*/
+            vertical-align: middle !important;
+        }
+    </style>
+    <script src="/public/js/prettify.js"></script>
+    <script>
+        $(function () {
+//            $('pre').addClass('prettyprint lang-js').attr('style', 'overflow:auto');
+        })
+
+    </script>
+
+@endsection
+
 @section('body')
     <div class="wrapper wrapper-content  animated fadeInRight article">
     <div class="row">
         <div class="col-lg-12">
-            <div class="ibox float-e-margins col-lg-10 col-lg-offset-1">
+            <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>评论管理</h5>
                     <div class="ibox-tools">
@@ -23,31 +40,25 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>ID</th>
+                            <th>评论</th>
+                            <th>评论人</th>
+                            <th>时间</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($comments as $key=>$comment)
                         <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{ $comment->id }}</td>
+                            <td>{{ $comment->comment }}</td>
+                            <td>{{ $comment->add_user_id }}</td>
+                            <td>{{ $comment->created_at }}</td>
+                            <td>
+                                <a type="button" class="btn btn-outline btn-danger btn-sm" onclick="delComment({!! $comment->id.',\''. csrf_token().'\'' !!})">删除评论</a>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     {!! $comments->links() !!}

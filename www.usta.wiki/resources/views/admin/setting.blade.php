@@ -4,6 +4,36 @@
 
 
 @section('body')
+    <script>
+        function save() {
+            var form = new FormData(document.getElementById("form"));
+            $.ajax({
+                type: "post",
+                data: form,
+                processData:false,
+                contentType:false,
+                url: "/user-edit-do",
+                success: function(data) {
+                    if(data.status==1) {
+                        swal({
+                            title: data.msg,
+                            type: "success",
+                            confirmButtonColor: "#30B593"
+                        });
+                        setTimeout('location.reload()');
+                    } else {
+                        swal({
+                            title: data.msg,
+                            type: "error",
+                            confirmButtonColor: "#F3AE56"
+                        });
+                    }
+
+                }
+            })
+
+        }
+    </script>
     <div class="wrapper wrapper-content  animated fadeInRight article">
         <div class="row m-t-md m-b-lg">
             <div class="col-lg-8 col-lg-offset-2">
@@ -20,50 +50,58 @@
                         </div>
                     </div>
                     <div class="ibox-content col-lg-12">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" id="form">
                             {!! csrf_field() !!}
                             <div class="form-group"><label class="col-sm-2 control-label">用户名</label>
 
                                 <div class="col-sm-10"><input type="text" class="form-control" placeholder="Username"
-                                                              name="name"></div>
+                                                              name="name" value="{{ $user->name }}"></div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">邮箱</label>
-                                <div class="col-sm-10"><input type="text" class="form-control" placeholder="Email"
-                                                              name="email">
+                                <div class="col-sm-10"><input type="text" class="form-control" placeholder="Email" disabled="disabled" value="{{ $user->email }}">
                                 </div>
                             </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group"><label class="col-sm-2 control-label">密码</label>
+                            {{--<div class="hr-line-dashed"></div>--}}
+                            {{--<div class="form-group"><label class="col-sm-2 control-label">密码</label>--}}
 
-                                <div class="col-sm-10"><input type="password" class="form-control"
-                                                              placeholder="Password" name="password"></div>
-                            </div>
+                                {{--<div class="col-sm-10"><input type="password" class="form-control"--}}
+                                                              {{--placeholder="Password" name="password"  value="{{ $user->password }}"></div>--}}
+                            {{--</div>--}}
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">性别</label>
                                 <div class="col-sm-10">
-                                    <div class="i-checks"><label> <input type="radio" value="option1" name="gender">
-                                            男 </label></div>
-                                    <div class="i-checks"><label> <input type="radio" value="option2"
-                                                                         name="gender"> 女</label></div>
+                                    <div class="i-checks">
+                                        <label> <input type="radio" name="gender" <?php echo $user->gender==1?'checked="checked"':""; ?> value="1">
+                                            男 </label>
+                                    </div>
+                                    <div class="i-checks">
+                                        <label> <input type="radio" name="gender" <?php echo $user->gender==0?'checked="checked"':""; ?> value="0"> 女</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">学校</label>
                                 <div class="col-sm-10"><input type="text" placeholder="School" name="school"
-                                                              class="form-control"></div>
+                                                              class="form-control"  value="{{ $user->school }}"></div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-lg-2 control-label">地址</label>
                                 <div class="col-lg-10"><input type="text" name="address"
-                                                              placeholder="Address" class="form-control">
+                                                              placeholder="Address" class="form-control"  value="{{ $user->address }}">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-lg-2 control-label">公司</label>
                                 <div class="col-lg-10">
-                                    <input type="text" class="form-control" name="company" placeholder="Company">
+                                    <input type="text" class="form-control" name="company" placeholder="Company"  value="{{ $user->company }}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group"><label class="col-lg-2 control-label">头像预览</label>
+                                <div class="col-lg-10">
+                                    <img class="img-circle" src="{{ \App\Http\Controllers\Tool::get_user_head_pic() }}" alt="" style="width:100px">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>

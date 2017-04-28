@@ -15,6 +15,17 @@ class CommentController extends Controller
 
     public function add(Request $request,$id)
     {
+//        验证评论是否为空
+        $comment = $request->input('comment');
+        if(empty($comment)){
+            return Tool::returnMsg(0,'评论内容不能为空！');
+        }
+
+//        验证评论是否太长
+        if(mb_strlen(strip_tags($comment))>233){
+            return Tool::returnMsg(0,'评论内容过长,再来一条吧！');
+        }
+
 //        验证是否登录
         if(!Tool::isLogin()){
             return Tool::returnMsg(0,'请先登录！');
@@ -30,7 +41,6 @@ class CommentController extends Controller
             }
         }
 
-        $comment = $request->input('comment');
         $com = new Comment();
         $com->ref_id = $id;
         $com->comment = strval($comment);

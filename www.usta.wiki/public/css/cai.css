@@ -22,7 +22,7 @@ pre {
     word-wrap: break-word;
     border: 1px solid #ddd;
     border-left-width: 4px;
-    background: #fbfbfb url(/images/codecolorer_bg.gif) top;
+    background: #fbfbfb url(/public/img/codecolorer_bg.gif) top;
     padding: 10px 15px
 }
 

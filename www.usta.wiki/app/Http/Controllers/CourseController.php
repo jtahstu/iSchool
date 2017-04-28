@@ -75,6 +75,10 @@ class CourseController extends Controller
         }
 
         $courses = Course::all()->sortBy('sort');
+
+        $log = Tool::get_user_name().'搜索了 '.$words;
+        Tool::writeLog($log);
+
         return view('index.search',['courses'=>$courses,'words'=>$words,'wares'=>$rows]);
     }
 

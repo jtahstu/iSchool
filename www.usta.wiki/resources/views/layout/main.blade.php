@@ -51,7 +51,7 @@
 							<div class="dropdown profile-element forum-info">
 						<span>
 							<a href="/">
-								<img alt="image" class="img-container" src="{{asset('public/img/logo.png')}}" style=""/>
+								<img alt="image" class="img-container logo" src="{{asset('public/img/logo.png')}}" style=""/>
 							</a>
 						</span>
 
@@ -105,7 +105,7 @@
 							@else
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-										<img alt="image" class="img-circle" src="/public/img/tx/0.png" width="30px" />
+										<img alt="image" class="img-circle head_pic" src="{{ \App\Http\Controllers\Tool::get_user_head_pic() }}" width="30px" />
 										{{ \Auth::user()->name }} <span class="caret"></span>
 									</a>
 

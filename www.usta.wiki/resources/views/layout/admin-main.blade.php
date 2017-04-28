@@ -22,12 +22,13 @@
     <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
     {{--后台模板css--}}
     <link href="{{asset('public/css/style.css')}}" rel="stylesheet">
+    {{--表格--}}
+    <link href="{{asset('public/css/footable.core.css')}}" rel="stylesheet">
     {{--菜鸟教程css--}}
     <link href="{{asset('public/css/cai.css')}}" rel="stylesheet">
     {{--手写的css--}}
     <link href="{{asset('public/css/main.css')}}" rel="stylesheet">
-    {{--表格--}}
-    <link href="{{asset('public/css/footable.core.css')}}" rel="stylesheet">
+
 
     <script src="{{asset('public/js/jquery-3.1.1.min.js')}}"></script>
     <script src="{{asset('public/js/bootstrap.min.js')}}"></script>
@@ -62,7 +63,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element forum-info">
 						<span>
-						<img alt="image" class="img-circle" src="/public/img/tx/0.png" width="100px"/>
+						<img alt="image" class="img-circle head_pic" src="{{ \App\Http\Controllers\Tool::get_user_head_pic() }}" width="100px"/>
 						</span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong
@@ -118,8 +119,8 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/addmin-comment">
-                            <i class="fa fa-dashboard"></i><span class="nav-label">评论管理</span>
+                        <a href="/admin-comment">
+                            <i class="fa fa-comment"></i><span class="nav-label">评论管理</span>
                         </a>
 
                     </li>

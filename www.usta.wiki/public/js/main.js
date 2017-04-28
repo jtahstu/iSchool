@@ -16,3 +16,45 @@ function getDay(){
     return days;
 }
 
+
+function delComment(comment_id,token) {
+    swal({
+            title: "Are you sure ?",
+//                    text: "确定要删除 '"+name+"' 吗?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes , delete it !",
+            cancelButtonText: "No , cancel plx !",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "post",
+                    data: {'id': comment_id, '_token': token},
+                    url: "/course-comment-del-do",
+                    success: function (data) {
+                        if (data.status == 1) {
+                            swal({
+                                title: data.msg,
+                                type: "success",
+                                confirmButtonColor: "#30B593"
+                            });
+                            setTimeout('location.reload()');
+                        } else {
+                            swal({
+                                title: data.msg,
+                                type: "error",
+                                confirmButtonColor: "#F3AE56"
+                            });
+                        }
+
+                    }
+                })
+            }else {
+                swal("Cancelled", "Your course ware is safe :)", "error");
+            }
+        })
+}

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -36,7 +38,13 @@ class AdminController extends Controller
 
     public function setting()
     {
-        return view('admin.setting');
+        if(Tool::isLogin()){
+            $user = User::where('id',Tool::get_user_id())->first();
+            return view('admin.setting',['user'=>$user]);
+        }else{
+            return view('index.404');
+        }
+
     }
 
     public function courseEdit($id)
@@ -97,9 +105,13 @@ class AdminController extends Controller
     public function courseDelDo(Request $request)
     {
         $id = $request->input('id');
+        $log = Tool::get_user_name().'删除了一个课程，课程内容为：'.json_encode(Course::where('id',$id)->get()->toArray());
         $res = Course::where('id',$id)->delete();
+        $log2 = '顺带删除了'.json_encode(Detail::where('course_id',$id)->get()->toArray());
         $res2 = Detail::where('course_id',$id)->delete();
         if($res){
+            Tool::writeLog($log);
+            Tool::writeLog($log2);
             return Tool::returnMsg($res,'教程删除成功');
         }else{
             return Tool::returnMsg($res,'教程删除失败');
@@ -117,7 +129,7 @@ class AdminController extends Controller
         $id = $data['id'];
         unset($data['id']);
         unset($data['_token']);
-        $data['content'] = htmlspecialchars($data['content']);
+        $data['content']=html_entity_decode($data['content']);
         $res = DB::table('details')
             ->where('id',$id)
             ->update($data);
@@ -158,8 +170,10 @@ class AdminController extends Controller
     public function courseWareDelDo(Request $request)
     {
         $id = $request->input('id');
+        $log = Tool::get_user_name().'删除了一个课件，课件内容为：'.json_encode(Detail::where('id',$id)->get()->toArray());
         $res = Detail::where('id',$id)->delete();
         if($res){
+            Tool::writeLog($log);
             return Tool::returnMsg($res,'课件删除成功');
         }else{
             return Tool::returnMsg($res,'课件删除失败');
@@ -175,7 +189,45 @@ class AdminController extends Controller
     {
 //        $comments = DB::select('select a.*,b.title,c.name from ischool_comments a left join ischool_details b on a.ref_id=b.id
 //left join ischool_courses c on b.course_id=c.id')->get()->paginate(20);
-        $comments = DB::table('ischool_comments')->paginate(20);
+        $comments = DB::table('comments')->paginate(20);
         return view('admin.comment', ['comments' => $comments]);
+    }
+
+    public function courseCommentDelDo(Request $request)
+    {
+        $id = $request->input('id');
+        $log = Tool::get_user_name().'删除了一条评论，评论内容为：'.json_encode(Comment::where('id',$id)->get()->toArray());
+        $res = Comment::where('id',$id)->delete();
+        if($res){
+            Tool::writeLog($log);
+            return Tool::returnMsg($res,'评论删除成功');
+        }else{
+            return Tool::returnMsg($res,'评论删除失败');
+        }
+    }
+
+    public function userEditDo(Request $request)
+    {
+        $id = Tool::get_user_id();
+        $data['name']=$request->input('name');
+        $data['gender']=$request->input('gender');
+        $data['school']=$request->input('school');
+        $data['address']=$request->input('address');
+        $data['company']=$request->input('company');
+        $file = $request->file('file');
+        if ($file && $file->isValid()) {
+            $clientName = $file -> getClientOriginalName();
+            $entension = $file -> getClientOriginalExtension();
+            $newName = md5(date("Y-m-d H:i:s").$clientName).".".$entension;
+            $data['head_pic'] = $file -> move('public/img/tx',$newName);
+        }
+        $res = DB::table('users')
+            ->where('id',$id)
+            ->update($data);
+        if($res){
+            return Tool::returnMsg($res,'个人信息编辑成功!');
+        }else{
+            return Tool::returnMsg($res,'个人信息编辑失败!');
+        }
     }
 }

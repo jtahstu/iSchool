@@ -1,4 +1,4 @@
-<div class="footer" style="bottom: 0px;">
+<div class="footer" style="bottom: 0px; ">
 	<div class="pull-right">
 		<a href="#">
 		<i class="fa fa-angle-double-up"></i> 返回顶部

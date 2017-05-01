@@ -3,15 +3,27 @@
 @section('title','检索')
 
 @section('nav_li')
-    @foreach($courses as $key=>$course)
-        <li>
-            <a href="{{ URL::action('CourseController@show',['course'=>$course->url]) }}">
-                <i class="fa fa-list-ul"></i> <span class="nav-label">{{ $course->name }} 教程</span>
-            </a>
-        </li>
-    @endforeach
+@foreach($courses as $key=>$course)
+@if($course->id>1 && $course->first==1)
+</ul>
+</li>
+@endif
+@if($course->first==1)
+    <li>
+        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">{{ $course->type_des }}</span> <span
+                    class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse">
+            @endif
+            <li>
+                <a href="{{ URL::action('CourseController@index',['course'=>$course->url]) }}">
+                    <i class="fa fa-list-ul"></i> {{ $course->name }} 教程
+                </a>
+            </li>
+            @endforeach
+        </ul>
+    </li>
 
-@endsection
+    @endsection
 
 @section('body')
 

@@ -50,7 +50,14 @@ Route::get('/500',function(){
  */
 Route::get('/', 'IndexController@showIndex');
 
-Route::get('/show', ['uses'=>'CourseController@show']);
+Route::get('/course','CourseController@index');
+Route::get('/show', 'CourseController@show');
+Route::get('/comment','CourseController@comment');
+Route::get('/problem','CourseController@problem');
+Route::get('/note','CourseController@note');
+
+Route::post('/course-ware-learn','CourseController@learn');
+Route::post('/comment','CommentController@add');
 
 /**
  * Admin
@@ -73,7 +80,7 @@ Route::post('/course-ware-del-do',['uses'=>'AdminController@courseWareDelDo']);
 
 Route::get('/search', ['uses'=>'CourseController@search']);
 
-Route::post('/comment/{id}',['uses'=>'CommentController@add']);
+
 
 Route::get('/timeline','IndexController@timeLine');
 Route::get('/git-add','AdminController@gitAdd');

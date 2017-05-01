@@ -13,7 +13,7 @@ use App\Http\Controllers\Tool;
 class CommentController extends Controller
 {
 
-    public function add(Request $request,$id)
+    public function add(Request $request)
     {
 //        验证评论是否为空
         $comment = $request->input('comment');
@@ -30,21 +30,21 @@ class CommentController extends Controller
         if(!Tool::isLogin()){
             return Tool::returnMsg(0,'请先登录！');
         }
-
-//        验证验证码是否正确
-        $comment_code = $request->input('comment_code');
-        if(!$comment_code){
-            return Tool::returnMsg(0,'请输入验证码！');
-        }else{
-            if($comment_code!=\Session()->get('comment_code')){
-                return Tool::returnMsg(0,'验证码错误');
-            }
-        }
+//
+////        验证验证码是否正确
+//        $comment_code = $request->input('comment_code');
+//        if(!$comment_code){
+//            return Tool::returnMsg(0,'请输入验证码！');
+//        }else{
+//            if($comment_code!=\Session()->get('comment_code')){
+//                return Tool::returnMsg(0,'验证码错误');
+//            }
+//        }
 
         $com = new Comment();
-        $com->ref_id = $id;
+        $com->ref_id = $request->input('course_id');
         $com->comment = strval($comment);
-        $com->type = 1;
+        $com->type = 2;
         $com->add_user_id = Tool::get_user_id();
         $res = $com->save();
         if($res){

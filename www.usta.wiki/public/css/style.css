@@ -5894,12 +5894,12 @@ dd.project-people {
 }
 
 .message-author {
-    font-size: 15px
+    font-size: 15px;
 }
 
 .message-date {
     font-size: 12px;
-    color: #888
+    color: #888;
 }
 
 .message-content {

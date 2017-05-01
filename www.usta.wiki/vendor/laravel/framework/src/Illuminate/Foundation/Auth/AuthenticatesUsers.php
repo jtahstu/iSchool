@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Http\Controllers\Tool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -58,6 +59,7 @@ trait AuthenticatesUsers
     {
         $userInput = $request->input('captcha');
         if (\Session::get('verification_code') === $userInput) {
+
             $this->validateLogin($request);
 
             // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -74,8 +76,10 @@ trait AuthenticatesUsers
             $credentials = $this->getCredentials($request);
 
             if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+                Tool::writeLog(Tool::get_user_name().' 登录成功');
                 return $this->handleUserWasAuthenticated($request, $throttles);
             }
+
 
             // If the login attempt was unsuccessful we will increment the number of attempts
             // to login and redirect the user back to the login form. Of course, when this
@@ -83,6 +87,7 @@ trait AuthenticatesUsers
             if ($throttles && !$lockedOut) {
                 $this->incrementLoginAttempts($request);
             }
+
 
             return $this->sendFailedLoginResponse($request);
         }else {

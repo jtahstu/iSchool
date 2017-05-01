@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Config;
+use App\Status;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,6 +17,23 @@ use Illuminate\Support\Facades\Redirect;
 
 class CourseController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * 课程主页
+     */
+    public function index()
+    {
+        $course_url = Input::get('course');
+        $course_main = Course::getCourse($course_url);
+        $wares = Detail::getCourseWareMenu($course_main['course']['id']);
+
+        return view('course.index',['course_main'=>$course_main,'wares'=>$wares]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * 课件页
+     */
     public function show()
     {
         $type = Input::get('course');
@@ -25,6 +44,10 @@ class CourseController extends Controller
             return Redirect::to('/404');
         }
         $course = Course::where('url',$type)->get()[0];
+        //如果该课件不存在
+        if (count(Detail::where(['course_id' => $course['id'], 'url' => $ware])->get()->toArray()) == 0) {
+            return Redirect::to('/404');
+        }
 
         $nav_lis = Detail::where('course_id',$course['id'])->get()->toArray();
         //如果某个课程一个课件也没有
@@ -34,16 +57,8 @@ class CourseController extends Controller
 
         $link_ware = ['pre_course'=>['title'=>'','url'=>''],'next_course'=>['title'=>'','url'=>'']];
 
-        if($ware){
-            //如果该课件不存在
-            if(count(Detail::where(['course_id'=>$course['id'],'url'=>$ware])->get()->toArray())==0){
-                return Redirect::to('/404');
-            }
-            $detail = Detail::where(['course_id'=>$course['id'],'url'=>$ware])->get()[0]->toArray();
-            $this->addWareView($detail['id']);
-        }else{
-            $detail = Detail::where(['course_id'=>$course['id']])->get()[0]->toArray();
-        }
+        $detail = Detail::where(['course_id' => $course['id'], 'url' => $ware])->get()[0]->toArray();
+        $this->addWareView($detail['id']);
 
         //详情页上一页和下一页信息
         $pre_id = Detail::where('id','<',$detail['id'])->where('course_id',$course['id'])->max('id');
@@ -62,9 +77,50 @@ class CourseController extends Controller
         //所有教程目录
         $courses = Course::all()->sortBy('sort');
 
+        //打开课件时，添加学习状态
+        if(Tool::isLogin()){
+            Status::addLearnStatus($course['id'],$detail['id']);
+        }
+
         return view('course.show',['courses'=>$courses,'course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
     }
 
+    public function comment()
+    {
+        $course_url = Input::get('course');
+        $ware_url = Input::get('ware');
+        $course_main = Course::getCourse($course_url);
+
+        $page = Input::get('page');
+
+        $comments = Comment::getCourseComments($course_main['course']['id']);
+
+        return view('course.comment',['course_main'=>$course_main,'comments'=>$comments]);
+    }
+
+    public function problem()
+    {
+        $course_url = Input::get('course');
+        $ware_url = Input::get('ware');
+        $course_main = Course::getCourse($course_url);
+
+        return view('course.problem',['course_main'=>$course_main]);
+    }
+
+    public function note()
+    {
+        $course_url = Input::get('course');
+        $ware_url = Input::get('ware');
+        $course_main = Course::getCourse($course_url);
+
+        return view('course.note',['course_main'=>$course_main]);
+    }
+
+
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search()
     {
         $words = Input::get('top-search');
@@ -82,13 +138,22 @@ class CourseController extends Controller
         return view('index.search',['courses'=>$courses,'words'=>$words,'wares'=>$rows]);
     }
 
+    /**
+     * @param $id
+     */
     public function addWareView($id)
     {
         $id = intval($id);
         $view = Detail::where('id',$id)->first();
         $view2 = intval($view['view'])+1;
         DB::update('update ischool_details set view=? where id=?',[$view2,$id]);
+    }
 
+    public function learn(Request $request)
+    {
+        $data['course_id'] = $request->input('course_id');
+        $data['ware_id'] = $request->input('ware_id');
+        $data['user_id'] = Tool::get_user_id();
 
     }
 }

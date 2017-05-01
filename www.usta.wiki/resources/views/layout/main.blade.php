@@ -6,13 +6,13 @@
 		<meta charset="utf-8">
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<meta name="Keywords" content="教程,HTML,CSS,JS,PHP,C,C++,Java,Python,MySQL,Redis" />
-		<meta name="Description" content="Jin Tao同学的毕业设计，一个教程网站" />
-		<meta name="author" content="jtahstu" />
-		
+		<meta name="Keywords" content="{{ \App\Config::getConfig('keywords') }}" />
+		<meta name="Description" content="{{ \App\Config::getConfig('description') }}" />
+		<meta name="author" content="{{ \App\Config::getConfig('author') }}" />
+
 		<title>@yield('title') - iSchool</title>
-		
-		<link rel="icon" href="{{asset('public/favicon.ico')}}" />
+
+		<link rel="icon" href="{{ \App\Config::getConfig('icon') }}" />
 		<link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
 		<link href="{{asset('public/css/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 		{{--动画--}}
@@ -31,6 +31,10 @@
 		<script src="{{asset('public/js/jquery.slimscroll.min.js')}}"></script>
 
 		<script src="{{asset('public/js/inspinia.js')}}"></script>
+
+		<link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
+		<script src="{{asset('public/js/sweetalert.min.js')}}"></script>
+
 		{{--手写的js--}}
 		<script src="{{asset('public/js/main.js')}}"></script>
 
@@ -105,7 +109,7 @@
 							@else
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-										<img alt="image" class="img-circle head_pic" src="{{ \App\Http\Controllers\Tool::get_user_head_pic() }}" width="30px" />
+										<img alt="image" class="img-circle head_pic" src="{{ \App\Http\Controllers\Tool::get_user_head_pic() }}" width="30px" style="width: 30px;" />
 										{{ \Auth::user()->name }} <span class="caret"></span>
 									</a>
 

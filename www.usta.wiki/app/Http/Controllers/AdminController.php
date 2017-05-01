@@ -22,7 +22,7 @@ class AdminController extends Controller
     public function index()
     {
         if(Tool::getLevel()==1){
-            Tool::writeLog(Tool::get_user_name().'登录了后台');
+            Tool::writeLog(Tool::get_user_name().' 登录了后台');
             return view('admin.index');
         }else{
             return view('index.404');
@@ -105,7 +105,7 @@ class AdminController extends Controller
     public function courseDelDo(Request $request)
     {
         $id = $request->input('id');
-        $log = Tool::get_user_name().'删除了一个课程，课程内容为：'.json_encode(Course::where('id',$id)->get()->toArray());
+        $log = Tool::get_user_name().' 删除了一个课程，课程内容为：'.json_encode(Course::where('id',$id)->get()->toArray());
         $res = Course::where('id',$id)->delete();
         $log2 = '顺带删除了'.json_encode(Detail::where('course_id',$id)->get()->toArray());
         $res2 = Detail::where('course_id',$id)->delete();
@@ -170,7 +170,7 @@ class AdminController extends Controller
     public function courseWareDelDo(Request $request)
     {
         $id = $request->input('id');
-        $log = Tool::get_user_name().'删除了一个课件，课件内容为：'.json_encode(Detail::where('id',$id)->get()->toArray());
+        $log = Tool::get_user_name().' 删除了一个课件，课件内容为：'.json_encode(Detail::where('id',$id)->get()->toArray());
         $res = Detail::where('id',$id)->delete();
         if($res){
             Tool::writeLog($log);
@@ -189,14 +189,14 @@ class AdminController extends Controller
     {
 //        $comments = DB::select('select a.*,b.title,c.name from ischool_comments a left join ischool_details b on a.ref_id=b.id
 //left join ischool_courses c on b.course_id=c.id')->get()->paginate(20);
-        $comments = DB::table('comments')->paginate(20);
+        $comments = DB::table('comments')->join('users', 'users.id', '=', 'comments.add_user_id')->paginate(20);
         return view('admin.comment', ['comments' => $comments]);
     }
 
     public function courseCommentDelDo(Request $request)
     {
         $id = $request->input('id');
-        $log = Tool::get_user_name().'删除了一条评论，评论内容为：'.json_encode(Comment::where('id',$id)->get()->toArray());
+        $log = Tool::get_user_name().' 删除了一条评论，评论内容为：'.json_encode(Comment::where('id',$id)->get()->toArray());
         $res = Comment::where('id',$id)->delete();
         if($res){
             Tool::writeLog($log);

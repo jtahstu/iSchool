@@ -15,7 +15,7 @@
                 <ul class="nav nav-second-level collapse">
         @endif
             <li>
-                <a href="{{ URL::action('CourseController@show',['course'=>$course->url]) }}">
+                <a href="{{ URL::action('CourseController@index',['course'=>$course->url]) }}">
                     <i class="fa fa-list-ul"></i> {{ $course->name }} 教程
                 </a>
             </li>
@@ -50,7 +50,7 @@
         <div class="col-lg-3">
             <div class="contact-box center-version">
 
-                <a href="{{ URL::action('CourseController@show',['course'=>$course->url]) }}">
+                <a href="{{ URL::action('CourseController@index',['course'=>$course->url]) }}">
 
                     <img alt="image" class="img-circle"
                          src="<?php echo $course->logo ? $course->logo : 'public/img/logo/a41def31e94869ced7de969c6a28bdf1.jpg'; ?>">

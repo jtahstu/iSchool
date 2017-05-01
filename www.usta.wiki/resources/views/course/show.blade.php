@@ -3,12 +3,10 @@
 @section('title',$detail['title'])
 
 @section('head')
-    <link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
-    <script src="{{asset('public/js/sweetalert.min.js')}}"></script>
-
     <link href="/public/css/editormd.min.css" rel="stylesheet">
     <script src="/public/js/editormd/editormd.min.js"></script>
     <script src="/public/js/prettify.js"></script>
+    <link href="https://cdn.bootcss.com/prettify/r298/prettify.css" rel="stylesheet">
 
     <script>
         var Editor;
@@ -82,7 +80,7 @@
             <ul class="nav nav-second-level collapse">
                 @endif
                 <li>
-                    <a href="{{ URL::action('CourseController@show',['course'=>$c->url]) }}">
+                    <a href="{{ URL::action('CourseController@index',['course'=>$c->url]) }}">
                         <i class="fa fa-list-ul"></i> {{ $c->name }} 教程
                     </a>
                 </li>

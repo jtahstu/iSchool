@@ -35,15 +35,15 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content">
+                <div class="ibox-content col-lg-12">
 
-                    <table class="table table-bordered">
+                    <table class="table table-bordered col-lg-12">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>评论</th>
-                            <th>评论人</th>
-                            <th>时间</th>
+                            <th class="col-lg-1">评论人</th>
+                            <th class="col-lg-1">时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -52,7 +52,7 @@
                         <tr>
                             <td>{{ $comment->id }}</td>
                             <td>{{ $comment->comment }}</td>
-                            <td>{{ $comment->add_user_id }}</td>
+                            <td>{{ $comment->name }}</td>
                             <td>{{ $comment->created_at }}</td>
                             <td>
                                 <a type="button" class="btn btn-outline btn-danger btn-sm" onclick="delComment({!! $comment->id.',\''. csrf_token().'\'' !!})">删除评论</a>

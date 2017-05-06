@@ -79,8 +79,13 @@
 										class="fa arrow"></span></a>
 							<ul class="nav nav-second-level collapse">
 								<li>
+									<a href="/itool">
+										<i class="fa fa-code"></i> iTool代码编辑器
+									</a>
+								</li>
+								<li>
 									<a href="/timeline">
-										<i class="fa fa-git"> iSchool时光机</i>
+										<i class="fa fa-git"></i> iSchool时光机
 									</a>
 								</li>
 							</ul>

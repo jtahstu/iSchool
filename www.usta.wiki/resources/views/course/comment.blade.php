@@ -51,7 +51,7 @@
                         <?php $i = count($comments);$lc = ['沙发', '板凳', '地板', '地下室', '下水道']; ?>
                         @foreach($comments as $key=>$comment)
                             <?php $i--; ?>
-                            <div class="chat-message left">
+                            <div class="chat-message left m-t-md">
                                 <img class="message-avatar img-circle head_pic" src="{{ asset($comment->head_pic) }}"
                                      alt="大头照啦 ~\(≧▽≦)/~">
                                 <div class="message">
@@ -87,9 +87,13 @@
                                             时间：{{ date_format(date_create($comment->created_at), 'Y-m-d H:i') }}
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             源自：
+                                            @if($comment->type == 1)
                                             <a href="/show?course={{ $course_main['course']['name'] }}&ware={{ $comment->url }}" target="_blank">
                                                 {{ $comment->title }}
                                             </a>
+                                            @else
+                                                课程评论
+                                            @endif
                                         </small>
 
                                     </span>
@@ -108,6 +112,7 @@
     </div>
     <script>
         $(function () {
+            $('#comment_c').val('');
             $('pre').addClass('prettyprint lang-js').attr('style', 'overflow:auto;font-family:consola;');
             window.prettyPrint && prettyPrint();
 
@@ -116,7 +121,7 @@
 
                 $.ajax({
                     type: "post",
-                    data: {'comment': comment,'course_id': '{{ $course_main['course']['id'] }}' , '_token': '{!! csrf_token() !!}'},
+                    data: {'comment': comment,'course_id': '{{ $course_main['course']['id'] }}' , 'type':2 , '_token': '{!! csrf_token() !!}'},
                     url: "/comment",
                     success: function (data) {
                         if (data.status == 1) {
@@ -126,7 +131,7 @@
                                 confirmButtonColor: "#30B593"
                             });
                             //2秒后页面跳转
-                            setTimeout('location.reload()', 2000);
+                            setTimeout('location.reload()', 1500);
                         } else {
                             swal({
                                 title: data.msg,
@@ -139,5 +144,37 @@
                 })
             });
         })
+
+        function like(comment_id) {
+            dolike('/like',1,comment_id)
+        }
+
+        function dislike(comment_id) {
+            dolike('/dislike',1,comment_id);
+        }
+
+        function dolike(url,type,comment_id) {
+            $.ajax({
+                url: url,
+                data: {'type':type ,'comment_id':comment_id , '_token': '{!! csrf_token() !!}'},
+                type: "post",
+                success: function(data) {
+                    if(data.status == 1) {
+                        swal({
+                            title: data.msg,
+                            type: "success",
+                            confirmButtonColor: "#30B593"
+                        });
+                        setTimeout('location.reload()', 1500);
+                    } else {
+                        swal({
+                            title: data.msg,
+                            type: "error",
+                            confirmButtonColor: "#F3AE56"
+                        });
+                    }
+                }
+            });
+        }
     </script>
 @endsection

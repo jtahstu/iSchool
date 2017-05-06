@@ -72,7 +72,7 @@ class CourseController extends Controller
 
         //页面评论
         $comments = DB::select('select a.*,b.name from ischool_comments a left join ischool_users b on a.add_user_id=b.id 
-        where a.ref_id=? and a.type=1 order by a.id desc',[$detail['id']]);
+        where a.ware_id=? and a.type=1 order by a.id desc',[$detail['id']]);
 
         //所有教程目录
         $courses = Course::all()->sortBy('sort');

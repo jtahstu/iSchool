@@ -30,8 +30,8 @@ class Status extends Model
 
     public static function addLearnStatus($course_id,$ware_id)
     {
-        $course_status = Status::where('type',1)->where('course_id',$course_id)->count();
-        $ware_status = Status::where('type',2)->where('course_id',$course_id)->where('ware_id',$ware_id)->count();
+        $course_status = Status::where('type',1)->where('course_id',$course_id)->where('user_id',Tool::get_user_id())->count();
+        $ware_status = Status::where('type',2)->where('course_id',$course_id)->where('ware_id',$ware_id)->where('user_id',Tool::get_user_id())->count();
         if($course_status==0){
             Status::addCourseStatus($course_id);
             Status::addWareStatus($course_id,$ware_id);

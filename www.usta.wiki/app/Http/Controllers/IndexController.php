@@ -32,4 +32,8 @@ class IndexController extends Controller
         return view('index.timeline',['gits'=>$git]);
     }
 
+    public function showITool()
+    {
+        return view('index.itool');
+    }
 }

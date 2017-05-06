@@ -58,6 +58,10 @@ Route::get('/note','CourseController@note');
 
 Route::post('/course-ware-learn','CourseController@learn');
 Route::post('/comment','CommentController@add');
+Route::post('/like','CommentController@addLike');
+Route::post('/dislike','CommentController@subLike');
+
+Route::get('/itool','IndexController@showITool');
 
 /**
  * Admin

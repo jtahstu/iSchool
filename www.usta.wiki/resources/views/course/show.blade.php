@@ -5,15 +5,15 @@
 @section('head')
     <link href="/public/css/editormd.min.css" rel="stylesheet">
     <script src="/public/js/editormd/editormd.min.js"></script>
-    <script src="/public/js/prettify.js"></script>
-    <link href="https://cdn.bootcss.com/prettify/r298/prettify.css" rel="stylesheet">
+    {{--<script src="/public/js/prettify.js"></script>--}}
+    {{--<link href="https://cdn.bootcss.com/prettify/r298/prettify.css" rel="stylesheet">--}}
 
     <script>
         var Editor;
 
         $(function () {
-            $('pre').addClass('prettyprint lang-js').attr('style', 'overflow:auto;font-family:consola;');
-            window.prettyPrint && prettyPrint();
+//            $('pre').addClass('prettyprint lang-js').attr('style', 'overflow:auto;font-family:consola;');
+//            window.prettyPrint && prettyPrint();
 
             Editor = editormd("editormd", {
                 width   : "100%",
@@ -121,7 +121,7 @@
                         <div class="ibox-tools">
                             <i class="fa fa-eye"></i> {{ $detail['view'] }}
                             &nbsp;&nbsp;
-                            <i class="fa fa-clock-o"></i> {{ date_format(date_create($detail['updated_at']), 'Y-m-d H:i') }}
+                            <i class="fa fa-clock-o"></i> {{ \App\Http\Controllers\Tool::datetime_to_YmdHi($detail['updated_at']) }}
                             &nbsp;&nbsp;
                             @if(\App\Http\Controllers\Tool::getLevel()==1)
                             <a href="/course-ware-edit/{{ $detail['id'] }}" target="_blank">

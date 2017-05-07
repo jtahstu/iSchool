@@ -45,7 +45,7 @@
                                         <p>{{ $git['content'] }}
                                         </p>
                                         <span class="vertical-date">
-                                        {{ date_format(date_create($git['created_at']),'Y-m-d H:i') }} <br/>
+                                        {{ \App\Http\Controllers\Tool::datetime_to_YmdHi($git['created_at']) }} <br/>
                                     </span>
                                     </div>
                                 </div>

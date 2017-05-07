@@ -15,17 +15,17 @@
     <div class="tabs-container">
         <ul class="nav nav-tabs">
             <li>
-                <a href="/course?course={{ $course_main['course']['name'] }}">
+                <a href="/course?course={{ $course_main['course']['url'] }}">
                     目录
                 </a>
             </li>
             <li class="">
-                <a href="/comment?course={{ $course_main['course']['name'] }}">
+                <a href="/comment?course={{ $course_main['course']['url'] }}">
                     评论
                 </a>
             </li>
             <li class="">
-                <a href="/problem?course={{ $course_main['course']['name'] }}">
+                <a href="/problem?course={{ $course_main['course']['url'] }}">
                     问答
                 </a>
             </li>

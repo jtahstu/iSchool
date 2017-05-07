@@ -17,7 +17,7 @@
     <div class="tabs-container">
         <ul class="nav nav-tabs">
             <li>
-                <a href="/course?course={{ $course_main['course']['name'] }}">
+                <a href="/course?course={{ $course_main['course']['url'] }}">
                     目录
                 </a>
             </li>
@@ -27,12 +27,12 @@
                 </a>
             </li>
             <li class="">
-                <a href="/problem?course={{ $course_main['course']['name'] }}">
+                <a href="/problem?course={{ $course_main['course']['url'] }}">
                     问答
                 </a>
             </li>
             <li class="">
-                <a href="/note?course={{ $course_main['course']['name'] }}">
+                <a href="/note?course={{ $course_main['course']['url'] }}">
                     笔记
                 </a>
             </li>
@@ -84,7 +84,7 @@
                                     </span>
                                     <span class="message-foot" style="margin: 5px;">
                                         <small>
-                                            时间：{{ date_format(date_create($comment->created_at), 'Y-m-d H:i') }}
+                                            时间：{{ \App\Http\Controllers\Tool::datetime_to_YmdHi($comment->created_at) }}
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             源自：
                                             @if($comment->type == 1)
@@ -100,12 +100,21 @@
                                 </div>
                             </div>
                         @endforeach
+                            <div class="text-center">
+                                    <ul class="pagination">
+                                        @for($i=1;$i<=$count/10+1;$i++)
+                                                <?php $page= $class=($i==(isset($_GET['page'])?$_GET['page']:1))?"class='active'":""; ?>
+                                            <li {!! $class !!}>
+                                                <a href="/comment?course={{ $course_main['course']['name'] }}&page={{ $i }}">
+                                                    {{ $i }}
+                                                </a>
+                                            </li>
+                                        @endfor
+                                    </ul>
+                            </div>
+                    </div>
+                    </div>
 
-                    </div>
-                    </div>
-                    <pre>
-                        {{ var_dump($comments) }}
-                    </pre>
                 </div>
             </div>
         </div>

@@ -55,13 +55,18 @@ Route::get('/show', 'CourseController@show');
 Route::get('/comment','CourseController@comment');
 Route::get('/problem','CourseController@problem');
 Route::get('/note','CourseController@note');
+Route::get('/problem-answer','ProblemController@problemAnswer');
 
 Route::post('/course-ware-learn','CourseController@learn');
 Route::post('/comment','CommentController@add');
 Route::post('/like','CommentController@addLike');
 Route::post('/dislike','CommentController@subLike');
+Route::post('/problem-like','ProblemController@addLike');
+Route::post('/problem-dislike','ProblemController@subLike');
 
 Route::get('/itool','IndexController@showITool');
+
+Route::get('/u/{user_id}','UserController@index');
 
 /**
  * Admin

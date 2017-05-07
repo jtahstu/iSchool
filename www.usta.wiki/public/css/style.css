@@ -6320,10 +6320,6 @@ table.shoping-cart-table tr td:last-child {
     border-bottom: 1px solid #e7eaec
 }
 
-.vote-item:hover {
-    background: #fbfbfb
-}
-
 .vote-actions {
     float: left;
     width: 30px;
@@ -6366,7 +6362,7 @@ table.shoping-cart-table tr td:last-child {
     margin-right: 10px
 }
 
-.vote-info a:hover {
+.vote-info a:hover , .vote-title:hover{
     color: #1ab394
 }
 

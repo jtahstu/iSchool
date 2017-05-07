@@ -14,7 +14,7 @@ class Course extends Model
      */
     public static function getCourseAll()
     {
-        $courses = Course::all()->sortBy('sort')->toArray();
+        $courses = Course::all()->where('is_delete',0)->sortBy('sort')->toArray();
         foreach ($courses as $key=>$course){
             $wares = Detail::where('course_id',$course['id'])->get(['id','title','url','view'])->toArray();
             $courses[$key]['wares'] = $wares;

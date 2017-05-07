@@ -87,4 +87,9 @@ class Tool extends Controller
         $log->content = $content;
         $log->save();
     }
+
+    public static function datetime_to_YmdHi($datetime)
+    {
+        return date_format(date_create($datetime), 'Y-m-d H:i');
+    }
 }

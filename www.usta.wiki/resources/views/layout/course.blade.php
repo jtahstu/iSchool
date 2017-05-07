@@ -179,7 +179,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>学习人数</td>
-                                                    <td>{{ $course_main['learn_num'] }}</td>
+                                                    <td>{{ $course_main['learn_num'] }} 人</td>
                                                 </tr>
                                                 <tr>
                                                     <td>课程评分</td>
@@ -187,7 +187,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>最后更新</td>
-                                                    <td>{{ date_format(date_create($course_main['course']['updated_at']), 'Y-m-d H:i')  }}</td>
+                                                    <td>{{ \App\Http\Controllers\Tool::datetime_to_YmdHi($course_main['course']['updated_at']) }}</td>
                                                 </tr>
                                                 @if(\App\Http\Controllers\Tool::isLogin())
                                                 <tr>

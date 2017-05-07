@@ -8,7 +8,12 @@ use DB;
 
 class Comment extends Model
 {
-    public static function getCourseComments($course_id)
+    /**
+     * @param $course_id
+     * @param $page
+     * @return mixed
+     */
+    public static function getCourseComments($course_id,$page)
     {
         $user_id = Tool::get_user_id();
         //页面评论
@@ -48,11 +53,25 @@ from
 					where a.type=2
 									and c.id=?)aa
 order by aa.like desc,
-	aa.id desc
-        ',[$user_id,$course_id,$user_id,$course_id]);
+	aa.id desc limit ?,10
+        ',[$user_id,$course_id,$user_id,$course_id,($page-1)*10]);
         return $comments;
     }
 
+    /**
+     * @param $course_id
+     * @return mixed
+     */
+    public static function getCourseCommentsCount($course_id)
+    {
+        $res = DB::select('select count(*)c from ischool_comments where course_id=?',[$course_id]);
+        return $res[0]->c;
+    }
+
+    /**
+     * @param $data
+     * @return bool
+     */
     public static function addComment($data)
     {
         $comment = new Comment();
@@ -66,6 +85,10 @@ order by aa.like desc,
         return $comment->save();
     }
 
+    /**
+     * @param $comment_id
+     * @return mixed
+     */
     public static function addLike($comment_id)
     {
         $like_row = Comment::where('id',$comment_id)->get(['like'])->toArray();
@@ -74,6 +97,10 @@ order by aa.like desc,
         return $comment->save();
     }
 
+    /**
+     * @param $comment_id
+     * @return mixed
+     */
     public static function subLike($comment_id)
     {
         $like_row = Comment::where('id',$comment_id)->get(['like'])->toArray();

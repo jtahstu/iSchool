@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Problem;
 use App\Status;
 use Illuminate\Http\Request;
 
@@ -85,26 +86,38 @@ class CourseController extends Controller
         return view('course.show',['courses'=>$courses,'course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * 课程/课件评论页面
+     */
     public function comment()
     {
         $course_url = Input::get('course');
         $ware_url = Input::get('ware');
+        $page = Input::get('page')?intval(Input::get('page')):1;
+
         $course_main = Course::getCourse($course_url);
 
-        $page = Input::get('page');
-
-        $comments = Comment::getCourseComments($course_main['course']['id']);
-
-        return view('course.comment',['course_main'=>$course_main,'comments'=>$comments]);
+        $comments = Comment::getCourseComments($course_main['course']['id'],$page);
+        $count = Comment::getCourseCommentsCount($course_main['course']['id']);
+        return view('course.comment',['course_main'=>$course_main,'comments'=>$comments,'count'=>$count]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * 课程/课件问答页面
+     */
     public function problem()
     {
         $course_url = Input::get('course');
         $ware_url = Input::get('ware');
-        $course_main = Course::getCourse($course_url);
+        $page = Input::get('page')?intval(Input::get('page')):1;
 
-        return view('course.problem',['course_main'=>$course_main]);
+        $course_main = Course::getCourse($course_url);
+        $problems = Problem::getCourseProblems($course_main['course']['id'],$page);
+        $count = Problem::getCourseProblemsCount($course_main['course']['id']);
+
+        return view('course.problem',['course_main'=>$course_main,'problems'=>$problems,'count'=>$count]);
     }
 
     public function note()
@@ -114,6 +127,11 @@ class CourseController extends Controller
         $course_main = Course::getCourse($course_url);
 
         return view('course.note',['course_main'=>$course_main]);
+    }
+
+    public function problemAnswer()
+    {
+
     }
 
 

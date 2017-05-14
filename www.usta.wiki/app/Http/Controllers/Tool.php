@@ -92,4 +92,13 @@ class Tool extends Controller
     {
         return date_format(date_create($datetime), 'Y-m-d H:i');
     }
+
+    public static function checkLogin()
+    {
+        if(self::isLogin()){
+            return true;
+        }else{
+            return self::returnMsg(0,'请先登录！');
+        }
+    }
 }

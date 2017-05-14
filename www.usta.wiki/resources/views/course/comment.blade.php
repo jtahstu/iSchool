@@ -43,8 +43,8 @@
                     <div class="ibox">
                         <div>
                             <textarea id="comment_c" cols="20" rows="4" class="form-control" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！"></textarea>
-                            <div class="pull-right m-t-md m-r-md">
-                                <button id="comment_s" class="btn btn-primary btn-outline btn-sm" type="button">发表评论</button>
+                            <div class="pull-right m-t-md m-r-md tooltip-demo">
+                                <button id="comment_s" class="btn btn-primary btn-outline btn-sm" type="button" data-toggle="tooltip" data-placement="left" title="请登陆后再发表评论哦...">发表评论</button>
                             </div>
                         </div>
                     <div class="chat-discussion" style="margin: 60px 0 0 0;padding: 0;">
@@ -55,7 +55,7 @@
                                 <img class="message-avatar img-circle head_pic" src="{{ asset($comment->head_pic) }}"
                                      alt="大头照啦 ~\(≧▽≦)/~">
                                 <div class="message">
-                                    <a class="message-author" href="/user/{{ $comment->add_user_id }}"> {{ $comment->name }} </a>
+                                    <a class="message-author" href="/u/{{ $comment->add_user_id }}"> {{ $comment->name }} </a>
                                     <span class="message-date">
                                             @if(\App\Http\Controllers\Tool::getLevel()==1)
                                             <a type="button" class="btn btn-outline btn-danger btn-xs" onclick="delComment({!! $comment->id.',\''. csrf_token().'\'' !!})">删除评论</a>

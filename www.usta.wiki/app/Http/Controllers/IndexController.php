@@ -11,7 +11,7 @@ class IndexController extends Controller
 {
     public function showIndex()
     {
-        $courses = Course::all()->sortBy('sort');
+        $courses = Course::all()->where('is_delete',0)->sortBy('sort');
 
         return view('index.index',['courses'=>$courses]);
     }

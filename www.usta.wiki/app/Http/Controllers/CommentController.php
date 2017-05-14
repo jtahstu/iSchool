@@ -13,6 +13,11 @@ use App\Http\Controllers\Tool;
 
 class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -22,18 +27,18 @@ class CommentController extends Controller
     {
 //        验证评论是否为空
         $comment = $request->input('comment');
-        if(empty($comment)){
-            return Tool::returnMsg(0,'评论内容不能为空！');
+        if (empty($comment)) {
+            return Tool::returnMsg(0, '评论内容不能为空！');
         }
 
 //        验证评论是否太长
-        if(mb_strlen(strip_tags($comment))>233){
-            return Tool::returnMsg(0,'评论内容过长,再来一条吧！');
+        if (mb_strlen(strip_tags($comment)) > 233) {
+            return Tool::returnMsg(0, '评论内容过长,再来一条吧！');
         }
 
 //        验证是否登录
-        if(!Tool::isLogin()){
-            return Tool::returnMsg(0,'请先登录！');
+        if (!Tool::isLogin()) {
+            return Tool::returnMsg(0, '请先登录！');
         }
 //
 ////        验证验证码是否正确
@@ -49,14 +54,14 @@ class CommentController extends Controller
         $data['course_id'] = $request->input('course_id');
         $data['comment'] = strval($comment);
         $data['type'] = $request->input('type');
-        if($data['type']==1){
+        if ($data['type'] == 1) {
             $data['ware_id'] = $request->input('ware_id');
         }
         $res = Comment::addComment($data);
-        if($res){
-            return Tool::returnMsg(1,'评论成功！');
-        }else{
-            return Tool::returnMsg(0,'评论失败！');
+        if ($res) {
+            return Tool::returnMsg(1, '评论成功！');
+        } else {
+            return Tool::returnMsg(0, '评论失败！');
         }
     }
 
@@ -64,12 +69,12 @@ class CommentController extends Controller
     {
         $type = intval($request->input('type'));
         $ref_id = intval($request->input('comment_id'));
-        $res = Like::add($type,$ref_id);
+        $res = Like::add($type, $ref_id);
         $res2 = Comment::addLike($ref_id);
-        if($res && $res2){
-            return Tool::returnMsg(1,'点赞成功！');
-        }else{
-            return Tool::returnMsg(0,'点赞失败！');
+        if ($res && $res2) {
+            return Tool::returnMsg(1, '点赞成功！');
+        } else {
+            return Tool::returnMsg(0, '点赞失败！');
         }
     }
 
@@ -77,12 +82,12 @@ class CommentController extends Controller
     {
         $type = intval($request->input('type'));
         $ref_id = intval($request->input('comment_id'));
-        $res = Like::del($type,$ref_id);
+        $res = Like::del($type, $ref_id);
         $res2 = Comment::subLike($ref_id);
-        if($res && $res2){
-            return Tool::returnMsg(1,'取消点赞成功！');
-        }else{
-            return Tool::returnMsg(0,'取消点赞失败！');
+        if ($res && $res2) {
+            return Tool::returnMsg(1, '取消点赞成功！');
+        } else {
+            return Tool::returnMsg(0, '取消点赞失败！');
         }
     }
 }

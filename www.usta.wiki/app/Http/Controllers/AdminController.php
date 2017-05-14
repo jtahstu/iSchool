@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Note;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -106,9 +107,14 @@ class AdminController extends Controller
     {
         $id = $request->input('id');
         $log = Tool::get_user_name().' 删除了一个课程，课程内容为：'.json_encode(Course::where('id',$id)->get()->toArray());
-        $res = Course::where('id',$id)->delete();
+//        $res = Course::where('id',$id)->delete();
+        $res = DB::table('courses')
+            ->where('id',$id)
+            ->update(array('is_delete'=>1));
         $log2 = '顺带删除了'.json_encode(Detail::where('course_id',$id)->get()->toArray());
-        $res2 = Detail::where('course_id',$id)->delete();
+        $res2 = DB::table('details')
+            ->where('course_id',$id)
+            ->update(array('is_delete'=>1));
         if($res){
             Tool::writeLog($log);
             Tool::writeLog($log2);
@@ -228,6 +234,19 @@ class AdminController extends Controller
             return Tool::returnMsg($res,'个人信息编辑成功!');
         }else{
             return Tool::returnMsg($res,'个人信息编辑失败!');
+        }
+    }
+
+    public function courseNoteDelDo(Request $request)
+    {
+        $id = $request->input('id');
+        $log = Tool::get_user_name().' 删除了一条笔记，笔记内容为：'.json_encode(Note::where('id',$id)->get()->toArray());
+        $res = Note::where('id',$id)->delete();
+        if($res){
+            Tool::writeLog($log);
+            return Tool::returnMsg($res,'笔记删除成功');
+        }else{
+            return Tool::returnMsg($res,'笔记删除失败');
         }
     }
 }

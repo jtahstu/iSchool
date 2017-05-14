@@ -45,11 +45,11 @@ order by a.like desc,
 
     /**
      * @param $course_id
-     * @return mixed 改课程的问答数
+     * @return mixed 该课程的问答数
      */
     public static function getCourseProblemsCount($course_id)
     {
-        $res = DB::select('select count(*)c from ischool_problems where course_id=?',[$course_id]);
+        $res = DB::select('select count(*)c from ischool_problems where course_id=? and is_delete=0',[$course_id]);
         return $res[0]->c;
     }
 

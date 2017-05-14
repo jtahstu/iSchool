@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Note;
 use App\Problem;
 use App\Status;
 use Illuminate\Http\Request;
@@ -126,7 +127,12 @@ class CourseController extends Controller
         $ware_url = Input::get('ware');
         $course_main = Course::getCourse($course_url);
 
-        return view('course.note',['course_main'=>$course_main]);
+        $page = Input::get('page')?intval(Input::get('page')):1;
+
+        $notes = Note::getCourseNotes($course_main['course']['id'],$page);
+        $count = Note::getCourseNotesCount($course_main['course']['id']);
+
+        return view('course.note',['course_main'=>$course_main,'notes'=>$notes,'count'=>$count]);
     }
 
     public function problemAnswer()

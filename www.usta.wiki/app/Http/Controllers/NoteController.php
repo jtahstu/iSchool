@@ -2,34 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Like;
 use Illuminate\Http\Request;
+use App\Note;
+use App\Like;
 
 use App\Http\Requests;
-use Illuminate\Support\Facades\Input;
-use DB;
-use App\Problem;
-use App\Http\Controllers\Tool;
 
-class ProblemController extends Controller
+class NoteController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function problemAnswer()
-    {
-        $id = Input::get('problem_id');
-
-        return view('course.problem-answer');
-    }
     public function addLike(Request $request)
     {
         $type = intval($request->input('type'));
-        $ref_id = intval($request->input('problem_id'));
+        $ref_id = intval($request->input('note_id'));
         $res = Like::add($type,$ref_id);
-        $res2 = Problem::addLike($ref_id);
+        $res2 = Note::addLike($ref_id);
         if($res && $res2){
             return Tool::returnMsg(1,'点赞成功！');
         }else{
@@ -40,14 +31,13 @@ class ProblemController extends Controller
     public function subLike(Request $request)
     {
         $type = intval($request->input('type'));
-        $ref_id = intval($request->input('problem_id'));
+        $ref_id = intval($request->input('note_id'));
         $res = Like::del($type,$ref_id);
-        $res2 = Problem::subLike($ref_id);
+        $res2 = Note::subLike($ref_id);
         if($res && $res2){
             return Tool::returnMsg(1,'取消点赞成功！');
         }else{
             return Tool::returnMsg(0,'取消点赞失败！');
         }
     }
-
 }

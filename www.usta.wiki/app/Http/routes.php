@@ -63,6 +63,8 @@ Route::post('/like','CommentController@addLike');
 Route::post('/dislike','CommentController@subLike');
 Route::post('/problem-like','ProblemController@addLike');
 Route::post('/problem-dislike','ProblemController@subLike');
+Route::post('/note-like','NoteController@addLike');
+Route::post('/note-dislike','NoteController@subLike');
 
 Route::get('/itool','IndexController@showITool');
 
@@ -95,6 +97,7 @@ Route::get('/timeline','IndexController@timeLine');
 Route::get('/git-add','AdminController@gitAdd');
 Route::get('/admin-comment','AdminController@comment');
 Route::post('/course-comment-del-do','AdminController@courseCommentDelDo');
+Route::post('/course-note-del-do','AdminController@courseNoteDelDo');
 
 Route::get('/img/{name?}/{tmp}', 'ImgController@captcha');
 

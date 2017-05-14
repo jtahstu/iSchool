@@ -46,17 +46,18 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="vote-actions">
-                                            <a onclick="like_problem({{ $problem->id }})">
-                                                @if($problem->like_status==1)
+                                                @if($problem->like_status>0)
+                                                 <a>
                                                 <span style="color: red;">
                                                 @else
+                                                <a onclick="like_problem({{ $problem->id }})">
                                                 <span>
                                                 @endif
                                                     <i class="fa fa-chevron-up"> </i>
                                                 </span>
                                             </a>
                                             <div>{{ $problem->like }}</div>
-                                            @if($problem->like_status==1)
+                                            @if($problem->like_status>0)
                                             <a onclick="dislike_problem({{ $problem->id }})">
                                                 <span style="color: gray;" class="tooltip-demo"><i class="fa fa-chevron-down"> </i></span>
                                             </a>

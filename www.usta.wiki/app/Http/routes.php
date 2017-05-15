@@ -75,6 +75,8 @@ Route::get('/u/{user_id}','UserController@index');
  */
 Route::get('/admin',['uses'=>'AdminController@index']);
 Route::get('/admin-course',['uses'=>'AdminController@course']);
+Route::get('/set',['uses'=>'AdminController@set']);
+
 Route::get('/setting',['uses'=>'AdminController@setting']);
 
 Route::get('/course-add',['uses'=>'AdminController@courseAdd']);
@@ -89,12 +91,18 @@ Route::get('/course-ware-edit/{id}',['uses'=>'AdminController@courseWareEdit']);
 Route::post('/course-ware-edit-do',['uses'=>'AdminController@courseWareEditDo']);
 Route::post('/course-ware-del-do',['uses'=>'AdminController@courseWareDelDo']);
 
+Route::post('/config-add-do',['uses'=>'AdminController@configAddDo']);
+Route::post('/config-get-one',['uses'=>'AdminController@configGetOne']);
+Route::post('/config-edit-do',['uses'=>'AdminController@configEditDo']);
+
 Route::get('/search', ['uses'=>'CourseController@search']);
 
 
 
 Route::get('/timeline','IndexController@timeLine');
-Route::get('/git-add','AdminController@gitAdd');
+Route::get('/git','AdminController@git');
+Route::post('/git-add-do','AdminController@gitAddDo');
+
 Route::get('/admin-comment','AdminController@comment');
 Route::post('/course-comment-del-do','AdminController@courseCommentDelDo');
 Route::post('/course-note-del-do','AdminController@courseNoteDelDo');
@@ -102,3 +110,7 @@ Route::post('/course-note-del-do','AdminController@courseNoteDelDo');
 Route::get('/img/{name?}/{tmp}', 'ImgController@captcha');
 
 Route::post('/user-edit-do','AdminController@userEditDo');
+
+Route::get('/announce','AnnounceController@index');
+Route::get('/announce-add','AnnounceController@announceAdd');
+Route::get('/announce-manage','AnnounceController@announceManage');

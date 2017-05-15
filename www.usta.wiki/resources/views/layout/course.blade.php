@@ -258,11 +258,11 @@
                             <div class="">
                                 <div class="m-t-md">
                                     <h4>课程须知</h4>
-                                    {{ $course_main['course']['notice'] }}
+                                    {!! $course_main['course']['notice'] !!}
                                 </div>
                                 <div class="m-t-md">
                                     <h4>老师告诉你能学到什么？</h4>
-                                    {{ $course_main['course']['reward'] }}
+                                    {!! $course_main['course']['reward'] !!}
                                 </div>
                             </div>
                         </div>

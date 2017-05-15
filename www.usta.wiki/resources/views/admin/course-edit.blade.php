@@ -19,7 +19,7 @@
                             type: "success",
                             confirmButtonColor: "#30B593"
                         });
-                        setTimeout('location.reload()');
+                        setTimeout("window.location.href = \"/course?course={{ $course['url'] }}\"",1500);
                     } else {
                         swal({
                             title: data.msg,
@@ -102,6 +102,19 @@
 			                            </span>
                                         <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">移除</a>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-2 control-label">课程须知</label>
+                                <div class="col-sm-10">
+                                    <textarea name="notice" id="notice" class="form-control" cols="30"
+                                              rows="6" placeholder="支持HTML格式">{{ $course['notice'] }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">课程收获</label>
+                                <div class="col-sm-10">
+                                    <textarea name="reward" id="reward" class="form-control" cols="30"
+                                              rows="6" placeholder="支持HTML格式">{{ $course['reward'] }}</textarea>
                                 </div>
                             </div>
                         </form>

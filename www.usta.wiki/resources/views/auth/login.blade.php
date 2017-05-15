@@ -5,11 +5,17 @@
 @section('body')
 
     <div class="container">
+
     <div class="row">
+        <div class="alert alert-warning alert-dismissible col-md-8 col-md-offset-2 m-t-lg role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            还没有账号? <i class="fa fa-long-arrow-right"></i> <a href="{{ url('/register') }}"> 立即注册</a>
+        </div>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">登录</div>
                 <div class="panel-body">
+
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
@@ -74,9 +80,12 @@
                                 </button>
 
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+
                             </div>
+
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

@@ -9,14 +9,6 @@
             vertical-align: middle !important;
         }
     </style>
-    <script src="/public/js/prettify.js"></script>
-    <script>
-        $(function () {
-//            $('pre').addClass('prettyprint lang-js').attr('style', 'overflow:auto');
-        })
-
-    </script>
-
 @endsection
 
 @section('body')
@@ -41,8 +33,10 @@
                         <thead>
                         <tr>
                             <th>ID</th>
+                            <th>类型</th>
                             <th>评论</th>
-                            <th class="col-lg-1">评论人</th>
+                            <th>评论人</th>
+                            <th>点赞数</th>
                             <th class="col-lg-1">时间</th>
                             <th>操作</th>
                         </tr>
@@ -51,8 +45,10 @@
                         @foreach($comments as $key=>$comment)
                         <tr>
                             <td>{{ $comment->id }}</td>
+                            <td>{{ $comment->type }}</td>
                             <td>{{ $comment->comment }}</td>
-                            <td>{{ $comment->name }}</td>
+                            <td>{{ $comment->add_user_id }}</td>
+                            <td>{{ $comment->like }}</td>
                             <td>{{ $comment->created_at }}</td>
                             <td>
                                 <a type="button" class="btn btn-outline btn-danger btn-sm" onclick="delComment({!! $comment->id.',\''. csrf_token().'\'' !!})">删除评论</a>
@@ -61,6 +57,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    {{--<pre>--}}
+                        {{--{{ var_dump($comments[0]) }}--}}
+                    {{--</pre>--}}
                     {!! $comments->links() !!}
                 </div>
             </div>

@@ -22,12 +22,7 @@
                 url: "/course-add-do",
                 success: function(data) {
                     if(data) {
-                        swal({
-                            title: '修改成功！',
-                            type: "success",
-                            confirmButtonColor: "#30B593"
-                        });
-                        setTimeout('location.reload()');
+                        location.href='/admin-course';
                     } else {
                         swal({
                             title: '修改失败！',
@@ -114,6 +109,21 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">课程须知</label>
+                                <div class="col-sm-10">
+                                    <textarea name="notice" id="notice" class="form-control" cols="30"
+                                              rows="6" placeholder="支持HTML格式"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group"><label class="col-sm-2 control-label">课程收获</label>
+                                <div class="col-sm-10">
+                                    <textarea name="reward" id="reward" class="form-control" cols="30"
+                                              rows="6" placeholder="支持HTML格式"></textarea>
+                                </div>
+                            </div>
+
                             <input type="reset" hidden="hidden" id="reset" />
                         </form>
                         <div class="hr-line-dashed"></div>

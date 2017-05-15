@@ -107,6 +107,13 @@
 								</div>
 							</form>
 						</div>
+						<ul class="nav navbar-top-links navbar-left col-md-offset-2">
+							<li>
+                                <a href="" style="color: #1AB394" id="announce">
+                                    你如果认识从前的我，也许你会原谅现在的我。
+                                </a>
+                            </li>
+						</ul>
 						<ul class="nav navbar-top-links navbar-right">
 							@if(!Auth::check())
 								<li><a href="{{ url('/login') }}">登录</a></li>

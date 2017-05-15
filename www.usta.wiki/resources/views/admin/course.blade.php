@@ -1,5 +1,7 @@
 @extends('layout/admin-main')
 
+@section('title','课程/课件编辑')
+
 @section('head')
     <style>
         th,td{

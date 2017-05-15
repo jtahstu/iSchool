@@ -125,12 +125,45 @@
 
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">网站管理</span> <span
+                        <a href="/admin-problem">
+                            <i class="fa fa-th-large"></i><span class="nav-label">问答管理</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="/admin-note">
+                            <i class="fa fa-pencil"></i><span class="nav-label">笔记管理</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">网站管理</span> <span
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">
                             <li>
-                                <a href="/git-add">
-                                    <i class="fa fa-git"> Git添加</i>
+                                <a href="/set">
+                                    <i class="fa fa-cog"> 网站配置</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/git">
+                                    <i class="fa fa-git"> Git管理</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">公告管理</span> <span
+                                    class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in">
+                            <li>
+                                <a href="/announce-add">
+                                    <i class="fa fa-cog"> 发布公告</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/announce-manage">
+                                    <i class="fa fa-git"> 公告管理</i>
                                 </a>
                             </li>
                         </ul>

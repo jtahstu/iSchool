@@ -154,7 +154,7 @@ class CourseController extends Controller
             $rows[$key]['course'] = Course::where('id',$row['course_id'])->get(['url'])->first();
         }
 
-        $courses = Course::all()->sortBy('sort');
+        $courses = Course::all()->where('is_delete',0)->sortBy('sort');
 
         $log = Tool::get_user_name().'搜索了 '.$words;
         Tool::writeLog($log);

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Config;
+use App\Git;
+use App\Like;
 use App\Note;
 use App\User;
 use Illuminate\Http\Request;
@@ -107,11 +110,10 @@ class AdminController extends Controller
     {
         $id = $request->input('id');
         $log = Tool::get_user_name().' 删除了一个课程，课程内容为：'.json_encode(Course::where('id',$id)->get()->toArray());
-//        $res = Course::where('id',$id)->delete();
         $res = DB::table('courses')
             ->where('id',$id)
             ->update(array('is_delete'=>1));
-        $log2 = '顺带删除了'.json_encode(Detail::where('course_id',$id)->get()->toArray());
+        $log2 = '顺带删除了课件表 '.json_encode(Detail::where('course_id',$id)->get()->toArray());
         $res2 = DB::table('details')
             ->where('course_id',$id)
             ->update(array('is_delete'=>1));
@@ -186,16 +188,35 @@ class AdminController extends Controller
         }
     }
 
-    public function gitAdd()
+    public function git()
     {
-        return view('admin.git-add');
+        $gits = Git::all()->sortByDesc('id');
+        return view('admin.git',['gits'=>$gits]);
+    }
+
+    public function gitAddDo(Request $request)
+    {
+        if(empty($request->input('content'))||empty($request->input('version'))){
+            return Tool::returnMsg(0,'content and version is required !');
+        }
+
+        $git = new Git();
+        $git->content = $request->input('content');
+        $git->version = $request->input('version');
+        $res = $git->save();
+        if($res){
+            return Tool::returnMsg($res,'Git添加成功');
+        }else{
+            return Tool::returnMsg($res,'Git添加失败');
+        }
+
     }
 
     public function comment()
     {
 //        $comments = DB::select('select a.*,b.title,c.name from ischool_comments a left join ischool_details b on a.ref_id=b.id
 //left join ischool_courses c on b.course_id=c.id')->get()->paginate(20);
-        $comments = DB::table('comments')->join('users', 'users.id', '=', 'comments.add_user_id')->paginate(20);
+        $comments = DB::table('comments')->paginate(20);
         return view('admin.comment', ['comments' => $comments]);
     }
 
@@ -204,8 +225,11 @@ class AdminController extends Controller
         $id = $request->input('id');
         $log = Tool::get_user_name().' 删除了一条评论，评论内容为：'.json_encode(Comment::where('id',$id)->get()->toArray());
         $res = Comment::where('id',$id)->delete();
+        $log2 = '顺带删除了点赞表 '.json_encode(Like::where('type',1)->where('ref_id',$id)->get()->toArray());
+        $res2 = Like::where('type',1)->where('ref_id',$id)->delete();
         if($res){
             Tool::writeLog($log);
+            Tool::writeLog($log2);
             return Tool::returnMsg($res,'评论删除成功');
         }else{
             return Tool::returnMsg($res,'评论删除失败');
@@ -220,6 +244,7 @@ class AdminController extends Controller
         $data['school']=$request->input('school');
         $data['address']=$request->input('address');
         $data['company']=$request->input('company');
+        $data['signature']=$request->input('signature');
         $file = $request->file('file');
         if ($file && $file->isValid()) {
             $clientName = $file -> getClientOriginalName();
@@ -240,6 +265,9 @@ class AdminController extends Controller
     public function courseNoteDelDo(Request $request)
     {
         $id = $request->input('id');
+        if(!$id){
+            return Tool::returnMsg(0,'id is required !');
+        }
         $log = Tool::get_user_name().' 删除了一条笔记，笔记内容为：'.json_encode(Note::where('id',$id)->get()->toArray());
         $res = Note::where('id',$id)->delete();
         if($res){
@@ -247,6 +275,57 @@ class AdminController extends Controller
             return Tool::returnMsg($res,'笔记删除成功');
         }else{
             return Tool::returnMsg($res,'笔记删除失败');
+        }
+    }
+
+    public function set()
+    {
+        $sets = Config::all()->toArray();
+
+        return view('admin.set',['sets'=>$sets]);
+    }
+
+    public function configAddDo(Request $request)
+    {
+        if(empty($request->input('name'))||empty($request->input('value'))){
+            return Tool::returnMsg(0,'name and value is required !');
+        }
+
+        $config = new Config();
+        $config->type = $request->input('type');
+        $config->name = $request->input('name');
+        $config->value = $request->input('value');
+        $config->des = $request->input('des');
+
+        $res = $config->save();
+        if($res){
+            return Tool::returnMsg(1,'配置添加成功!');
+        }else{
+            return Tool::returnMsg(0,'配置添加失败!');
+        }
+    }
+
+    public function configGetOne(Request $request)
+    {
+        $name = $request->input('name');
+        if(empty($name)){
+            return Tool::returnMsg(0,'name is required !');
+        }
+        return  Tool::returnMsg(1,Config::getConfigRow($name));
+    }
+
+    public function configEditDo(Request $request)
+    {
+        $id = intval($request->input('id'));
+        $data['type'] = $request->input('type');
+        $data['name'] = $request->input('name');
+        $data['value'] = $request->input('value');
+        $data['des'] = $request->input('des');
+        $res = DB::table('configs')->where('id',$id)->update($data);
+        if($res){
+            return Tool::returnMsg(1,'配置编辑成功!');
+        }else{
+            return Tool::returnMsg(0,'配置编辑失败!');
         }
     }
 }

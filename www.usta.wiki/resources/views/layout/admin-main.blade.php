@@ -113,33 +113,35 @@
                             </li>
                             <li>
                                 <a href="/admin-course">
-                                    <i class="fa fa-mortar-board"></i> 课程编辑
+                                    <i class="fa fa-mortar-board"></i>课程编辑
                                 </a>
+                            </li>
+                            <li>
+                                <a href="/admin-comment">
+                                    <i class="fa fa-comment"></i><span class="nav-label">评论管理</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="/admin-problem">
+                                    <i class="fa fa-th-large"></i><span class="nav-label">问答管理</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="/admin-note">
+                                    <i class="fa fa-pencil"></i><span class="nav-label">笔记管理</span>
+                                </a>
+
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/admin-comment">
-                            <i class="fa fa-comment"></i><span class="nav-label">评论管理</span>
-                        </a>
 
-                    </li>
-                    <li>
-                        <a href="/admin-problem">
-                            <i class="fa fa-th-large"></i><span class="nav-label">问答管理</span>
-                        </a>
-
-                    </li>
-                    <li>
-                        <a href="/admin-note">
-                            <i class="fa fa-pencil"></i><span class="nav-label">笔记管理</span>
-                        </a>
-
-                    </li>
                     <li>
                         <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">网站管理</span> <span
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse in">
+
                             <li>
                                 <a href="/set">
                                     <i class="fa fa-cog"> 网站配置</i>
@@ -151,6 +153,11 @@
                                 </a>
                             </li>
                         </ul>
+                    </li>
+                    <li>
+                        <a href="/user">
+                            <i class="fa fa-user"> 用户管理</i>
+                        </a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">公告管理</span> <span

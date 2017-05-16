@@ -220,12 +220,18 @@ class AdminController extends Controller
         return view('admin.comment', ['comments' => $comments]);
     }
 
+    public function note()
+    {
+        $notes = DB::table('notes')->paginate(20);
+        return view('admin.note',['notes'=>$notes]);
+    }
+
     public function courseCommentDelDo(Request $request)
     {
         $id = $request->input('id');
         $log = Tool::get_user_name().' 删除了一条评论，评论内容为：'.json_encode(Comment::where('id',$id)->get()->toArray());
         $res = Comment::where('id',$id)->delete();
-        $log2 = '顺带删除了点赞表 '.json_encode(Like::where('type',1)->where('ref_id',$id)->get()->toArray());
+        $log2 = '顺带删除了点赞表 '.json_encode(Like::where('type',1)->where('ref_id',$id)->get()->toArray(), JSON_UNESCAPED_UNICODE);
         $res2 = Like::where('type',1)->where('ref_id',$id)->delete();
         if($res){
             Tool::writeLog($log);
@@ -270,8 +276,11 @@ class AdminController extends Controller
         }
         $log = Tool::get_user_name().' 删除了一条笔记，笔记内容为：'.json_encode(Note::where('id',$id)->get()->toArray());
         $res = Note::where('id',$id)->delete();
+        $log2 = '顺带删除了点赞表 '.json_encode(Like::where('type',3)->where('ref_id',$id)->get()->toArray(), JSON_UNESCAPED_UNICODE);
+        $res2 = Like::where('type',3)->where('ref_id',$id)->delete();
         if($res){
             Tool::writeLog($log);
+            Tool::writeLog($log2);
             return Tool::returnMsg($res,'笔记删除成功');
         }else{
             return Tool::returnMsg($res,'笔记删除失败');

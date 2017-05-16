@@ -11,9 +11,7 @@ class IndexController extends Controller
 {
     public function showIndex()
     {
-        $courses = Course::all()->where('is_delete',0)->sortBy('sort');
-
-        return view('index.index',['courses'=>$courses]);
+        return view('index.index');
     }
 	
 	public function show404()
@@ -35,5 +33,10 @@ class IndexController extends Controller
     public function showITool()
     {
         return view('index.itool');
+    }
+
+    public function links()
+    {
+        return view('index.links');
     }
 }

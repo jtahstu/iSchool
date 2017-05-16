@@ -76,15 +76,12 @@ class CourseController extends Controller
         $comments = DB::select('select a.*,b.name from ischool_comments a left join ischool_users b on a.add_user_id=b.id 
         where a.ware_id=? and a.type=1 order by a.id desc',[$detail['id']]);
 
-        //所有教程目录
-        $courses = Course::all()->sortBy('sort');
-
         //打开课件时，添加学习状态
         if(Tool::isLogin()){
             Status::addLearnStatus($course['id'],$detail['id']);
         }
 
-        return view('course.show',['courses'=>$courses,'course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
+        return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
     }
 
     /**
@@ -154,12 +151,10 @@ class CourseController extends Controller
             $rows[$key]['course'] = Course::where('id',$row['course_id'])->get(['url'])->first();
         }
 
-        $courses = Course::all()->where('is_delete',0)->sortBy('sort');
-
         $log = Tool::get_user_name().'搜索了 '.$words;
         Tool::writeLog($log);
 
-        return view('index.search',['courses'=>$courses,'words'=>$words,'wares'=>$rows]);
+        return view('index.search',['words'=>$words,'wares'=>$rows]);
     }
 
     /**

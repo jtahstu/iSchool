@@ -73,6 +73,25 @@
                     </a>
 
                 </li>
+                @foreach($courses as $key=>$course)
+                    @if($course->id>1 && $course->first==1)
+            </ul>
+            </li>
+            @endif
+            @if($course->first==1)
+                <li>
+                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">{{ $course->type_des }}</span> <span
+                                class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        @endif
+                        <li>
+                            <a href="{{ URL::action('CourseController@index',['course'=>$course->url]) }}">
+                                <i class="fa fa-list-ul"></i> {{ $course->name }} 教程
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
 
                 <li>
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">更多精彩</span> <span
@@ -86,6 +105,11 @@
                         <li>
                             <a href="/timeline">
                                 <i class="fa fa-git"></i> iSchool时光机
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/links">
+                                <i class="fa fa-link"></i> 友情链接
                             </a>
                         </li>
                     </ul>
@@ -201,6 +225,9 @@
                                                             <button class="btn btn-success btn-sm btn-outline">
                                                                 继续学习
                                                             </button>
+                                                        @endif
+                                                        @if(\App\Http\Controllers\Tool::getLevel()==1)
+                                                            <a href="/course-edit/{{ $course_main['course']['id'] }}"><button class="btn btn-primary btn-sm btn-outline">编辑课程</button></a>
                                                         @endif
                                                     </td>
                                                 </tr>

@@ -105,7 +105,12 @@ Route::post('/git-add-do','AdminController@gitAddDo');
 
 Route::get('/admin-comment','AdminController@comment');
 Route::post('/course-comment-del-do','AdminController@courseCommentDelDo');
+Route::get('/admin-note','AdminController@note');
 Route::post('/course-note-del-do','AdminController@courseNoteDelDo');
+
+
+
+Route::get('/admin-problem','AdminController@problem');
 
 Route::get('/img/{name?}/{tmp}', 'ImgController@captcha');
 
@@ -114,3 +119,5 @@ Route::post('/user-edit-do','AdminController@userEditDo');
 Route::get('/announce','AnnounceController@index');
 Route::get('/announce-add','AnnounceController@announceAdd');
 Route::get('/announce-manage','AnnounceController@announceManage');
+
+Route::get('/links','IndexController@links');

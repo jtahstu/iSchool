@@ -63,7 +63,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element forum-info">
 						<span>
-						<img alt="image" class="img-circle head_pic" src="{{ \App\Http\Controllers\Tool::get_user_head_pic() }}" width="100px"/>
+						<img alt="image" class="img-circle head_pic" src="/{{ \App\Http\Controllers\Tool::get_user_head_pic() }}" width="100px"/>
 						</span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong
@@ -160,20 +160,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">公告管理</span> <span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level collapse in">
-                            <li>
-                                <a href="/announce-add">
-                                    <i class="fa fa-cog"> 发布公告</i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/announce-manage">
-                                    <i class="fa fa-git"> 公告管理</i>
-                                </a>
-                            </li>
-                        </ul>
+                        <a href="/announce">
+                            <i class="fa fa-th-large"> 公告管理</i>
+                        </a>
                     </li>
                 @endif
                 @yield('nav_li')

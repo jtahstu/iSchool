@@ -21,9 +21,9 @@
                     </h5>
                 </div>
                 <div class="ibox-content">
-                    <div class="row">
-                        <div class="alert alert-success col-md-10 col-md-offset-1 text-center" role="alert">
-                            <span style="font-size: 18px;">文字类</span>
+                    <div class="row m-t-lg m-b-lg">
+                        <div class="col-md-12 text-center">
+                            <h1 style="font-size: 18px;color: #1AB394;">文档类</h1>
                         </div>
                     </div>
                     <div class="row">
@@ -74,11 +74,11 @@
                         </div>
                     </div>
                     <div class="row m-t-md">
-                        <div class="alert alert-info col-md-10 col-md-offset-1 text-center" role="alert">
-                            <span style="font-size: 18px;">视频类</span>
+                        <div class="col-md-12 text-center">
+                            <h1 style="font-size: 18px;color: #1AB394;">视频类</h1>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row m-t-lg m-b-lg">
                         <div class="col-md-4">
                             <div class="panel panel-info">
                                 <div class="panel-heading tooltip-demo">

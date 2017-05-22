@@ -3,7 +3,11 @@
 @section('title','Git管理')
 
 @section('head')
-
+    <style>
+        th{
+            text-align: center;
+        }
+    </style>
 @endsection
 
 @section('body')

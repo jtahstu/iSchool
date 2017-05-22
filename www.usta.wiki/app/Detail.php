@@ -26,4 +26,17 @@ class Detail extends Model
   from ischool_details a where course_id=?";
         return DB::select($sql,[$user_id,$course_id]);
     }
+
+    /**
+     * @param $course_id
+     * @param $url
+     * @return bool
+     * 检查某个课程是否已经有某课件
+     * 存在返回true，不存在返回false
+     */
+    public static function checkUrl($course_id,$url)
+    {
+        $c = Detail::where('course_id',$course_id)->where('url',$url)->first()->toArray();
+        return !empty($c);
+    }
 }

@@ -60,85 +60,71 @@
                 })
             });
             $('#comment_code').val('');
-            $('#comment_link').click();
+//            $('#comment_link').click();
             $('#top-search').focus();
 
         })
     </script>
     @endsection
 
-    @section('nav_li')
-    @foreach($courses as $key=>$c)
-    @if($c->id>1 && $c->first==1)
-    </ul>
-    </li>
-    @endif
-    @if($c->first==1)
-        <li>
-            <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">{{ $c->type_des }}</span> <span
-                        class="fa arrow"></span></a>
-            <ul class="nav nav-second-level collapse">
-                @endif
-                <li>
-                    <a href="{{ URL::action('CourseController@index',['course'=>$c->url]) }}">
-                        <i class="fa fa-list-ul"></i> {{ $c->name }} 教程
-                    </a>
-                </li>
-                @endforeach
-            </ul>
-        </li>
-
-        <li class="active">
-            <a href="#"><i class="fa fa-list-ul"></i> <span class="nav-label">{{ $course['name'] }} 教程</span><span
-                        class="fa arrow"></span></a>
-            <ul class="nav nav-second-level collapse">
-
-                @foreach($nav_lis as $key=>$li)
-                    @if($li['title']==$detail['title'])
-                        <li class="active">
-                    @else
-                        <li>
-                            @endif
-                            <a href="{{ URL::action('CourseController@show',['course'=>$course->url,'ware'=>$li['url']]) }}">
-                                <i class="fa fa-file-text"></i> {{ $li['title'] }}
-                            </a>
-
-                        </li>
-                        @endforeach
-
-            </ul>
-        </li>
-
-@endsection
-
 @section('body')
     <div class="wrapper wrapper-content  animated fadeInRight article">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-11">
+                <h2>{{ $detail['title'] }}</h2>
+                <div class="pull-right">
+                    <i class="fa fa-eye"></i> {{ $detail['view'] }}
+                    &nbsp;&nbsp;
+                    <i class="fa fa-clock-o"></i> {{ \App\Http\Controllers\Tool::datetime_to_YmdHi($detail['updated_at']) }}
+                </div>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    <li><a href="/course?course={{ $course['url'] }}">{{ $course['name'] }}</a></li>
+                    <li class="active">{{ $detail['title'] }}</li>
+                    @if(\App\Http\Controllers\Tool::getLevel()==1)
+                    <li>
+                        <a href="/course-ware-edit/{{ $detail['id'] }}" target="_blank">
+                            <button class="btn btn-primary btn-outline btn-xs">编辑课件</button>
+                        </a>
+                        &nbsp;&nbsp;
+                    </li>
+                    @endif
+                </ol>
+            </div>
+            <div class="col-lg-1">
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
                 <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>{{ $detail['title'] }}</h5>
-                        <div class="ibox-tools">
-                            <i class="fa fa-eye"></i> {{ $detail['view'] }}
-                            &nbsp;&nbsp;
-                            <i class="fa fa-clock-o"></i> {{ \App\Http\Controllers\Tool::datetime_to_YmdHi($detail['updated_at']) }}
-                            &nbsp;&nbsp;
-                            @if(\App\Http\Controllers\Tool::getLevel()==1)
-                            <a href="/course-ware-edit/{{ $detail['id'] }}" target="_blank">
-                                <button class="btn btn-primary btn-outline btn-xs">编辑课件</button>
-                            </a>
-                            &nbsp;&nbsp;
-                            @endif
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
+                    {{--<div class="ibox-title">--}}
+                        {{--<h5>--}}
+                            {{--{{ $detail['title'] }}--}}
+                        {{--</h5>--}}
+                        {{--<div class="ibox-tools">--}}
+                            {{--<i class="fa fa-eye"></i> {{ $detail['view'] }}--}}
+                            {{--&nbsp;&nbsp;--}}
+                            {{--<i class="fa fa-clock-o"></i> {{ \App\Http\Controllers\Tool::datetime_to_YmdHi($detail['updated_at']) }}--}}
+                            {{--&nbsp;&nbsp;--}}
+                            {{--@if(\App\Http\Controllers\Tool::getLevel()==1)--}}
+                            {{--<a href="/course-ware-edit/{{ $detail['id'] }}" target="_blank">--}}
+                                {{--<button class="btn btn-primary btn-outline btn-xs">编辑课件</button>--}}
+                            {{--</a>--}}
+                            {{--&nbsp;&nbsp;--}}
+                            {{--@endif--}}
+                            {{--<a class="collapse-link">--}}
+                                {{--<i class="fa fa-chevron-up"></i>--}}
+                            {{--</a>--}}
 
 
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
+                            {{--<a class="close-link">--}}
+                                {{--<i class="fa fa-times"></i>--}}
+                            {{--</a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <div class="ibox-content">
                         <div class="article-intro" id="content">
                             {!! $detail['content'] !!}
@@ -182,79 +168,110 @@
                         </ul>
                     </div>
                 </div>
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h5>评论列表 &nbsp <i class="fa fa-comment fa-spin"></i>{{ count($comments) }} </h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link" id="comment_link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content" style="padding: 12px;">
-                        <div class="col-lg-12">
-                            {{--编辑器--}}
-                            <div id="editormd">
-                            </div>
-
-                            <div class="col-lg-12 pull-left">
-                                <div class="col-lg-4">
-                                    <input type="text" class="form-control" name="comment_code" id="comment_code" placeholder="请输入验证码">
-                                </div>
-                                <div class="col-lg-2">
-                                    <button class="btn btn-primary btn-outline" id="comment">
-                                        <i class="fa fa-comment fa-spin"></i> 评论
-                                    </button>
-                                </div>
-                                <div class="col-lg-6"></div>
-
-
-                            </div>
-                            <div class="col-lg-12 pull-left">
-                                <div class="col-lg-4">
-                                    <a onclick="javascript:re_captcha();" >
-                                        <img src="{{ URL('/img/comment_code/1') }}"  alt="验证码" title="刷新图片" width="150" height="80" id="c2c98f0de5a04167a9e427d883690ff6" border="0" class="m-t-sm">
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="chat-discussion">
-                            <?php $i = count($comments);$lc = ['沙发', '板凳', '地板', '地下室', '下水道']; ?>
-                            @foreach($comments as $key=>$comment)
-                                <?php $i--; ?>
-                                <div class="chat-message left">
-                                    <img class="message-avatar img-circle head_pic" src="{{ asset('public/img/tx/0.png') }}"
-                                         alt="">
-                                    <div class="message">
-                                        <a class="message-author" href="#"> {{ $comment->name }} </a>
-                                        <span class="message-date">
+            </div>
+        </div>
+        <div class="row m-b-lg">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="tabs-container">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1">评论</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-2">问答</a></li>
+                        <li><a data-toggle="tab" href="#tab-3">笔记</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                                <div class="ibox">
+                                    <div>
+                                        <textarea id="comment_c" cols="20" rows="4" class="form-control" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！"></textarea>
+                                        <div class="pull-right m-t-md m-r-md tooltip-demo">
+                                            <button id="comment_s" class="btn btn-primary btn-outline btn-sm" type="button" data-toggle="tooltip" data-placement="left" title="请登陆后再发表评论哦...">发表评论</button>
+                                        </div>
+                                    </div>
+                                    <div class="chat-discussion" style="margin: 60px 0 0 0;padding: 0;">
+                                        <?php $i = count($comments);$lc = ['沙发', '板凳', '地板', '地下室', '下水道']; ?>
+                                        @foreach($comments as $key=>$comment)
+                                            <?php $i--; ?>
+                                            <div class="chat-message left m-t-md">
+                                                <img class="message-avatar img-circle head_pic" src="{{ asset($comment->head_pic) }}"
+                                                     alt="大头照啦 ~\(≧▽≦)/~">
+                                                <div class="message">
+                                                    <a class="message-author" href="/u/{{ $comment->add_user_id }}"> {{ $comment->name }} </a>
+                                                    <span class="message-date">
                                             @if(\App\Http\Controllers\Tool::getLevel()==1)
-                                                <a type="button" class="btn btn-outline btn-danger btn-xs" onclick="delComment({!! $comment->id.',\''. csrf_token().'\'' !!})">删除评论</a>
-                                            @endif
-                                        @if($i<count($lc))
-                                                <button class="btn btn-primary btn-outline btn-xs"> {{ $lc[$i] }} </button>
-                                            @else
-                                                <button class="btn btn-primary btn-outline btn-xs"> {{ $i+1 }}
-                                                    楼 </button>
-                                            @endif
-                                            &nbsp;{{ date_format(date_create($comment->created_at), 'Y-m-d H:i') }}
+                                                            <a type="button" class="btn btn-outline btn-danger btn-xs" onclick="delComment({!! $comment->id.',\''. csrf_token().'\'' !!})">删除评论</a>
+                                                        @endif
+                                                        &nbsp;&nbsp;
+                                                        @if($comment->like_status==1)
+                                                            <a onclick="dislike({{ $comment->id }})">
+                                            <i class="fa fa-thumbs-up fa-lg" style="color: #ff6d00;"></i>
+                                        </a>
+                                                        @else
+                                                            <a onclick="like({{ $comment->id }})">
+                                            <i class="fa fa-thumbs-o-up fa-lg"></i>
+                                        </a>
+                                                        @endif
+                                                        &nbsp;{{ $comment->like }}&nbsp;&nbsp;
+                                                        @if($i<count($lc))
+                                                            <button class="btn btn-primary btn-outline btn-xs"> {{ $lc[$i] }} </button>
+                                                        @else
+                                                            <button class="btn btn-primary btn-outline btn-xs"> {{ $i+1 }}
+                                                                楼 </button>
+                                                        @endif
+
                                     </span>
-                                        <span class="message-content">
+                                                    <span class="message-content" style="margin: 10px;">
 											{!! $comment->comment !!}
-                                            </span>
+                                    </span>
+                                                    <span class="message-foot" style="margin: 5px;">
+                                        <small>
+                                            时间：{{ \App\Http\Controllers\Tool::datetime_to_YmdHi($comment->created_at) }}
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                        </small>
+
+                                    </span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                        <div class="text-center">
+                                            <ul class="pagination">
+                                                @for($i=1;$i<=$c_count/10+1;$i++)
+                                                    <?php $page= $class=($i==(isset($_GET['page'])?$_GET['page']:1))?"class='active'":""; ?>
+                                                    <li {!! $class !!}>
+                                                        <a href="/show?course={{ $course->url }}&ware={{ $detail['url'] }}&page={{ $i }}">
+                                                            {{ $i }}
+                                                        </a>
+                                                    </li>
+                                                @endfor
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            @endforeach
-
+                            </div>
                         </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="panel-body">
+                                <pre>
+                                    {{ var_dump($comments) }}
+                                </pre>
 
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane">
+                            <div class="panel-body">
+                                <strong>Donec quam felis</strong>
+
+                                <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
+                                    and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+
+                            </div>
+                        </div>
                     </div>
+
+
                 </div>
             </div>
+
         </div>
         <script>
             function re_captcha() {
@@ -262,5 +279,44 @@
                 $url = $url + "/" + Math.random();
                 document.getElementById('c2c98f0de5a04167a9e427d883690ff6').src=$url;
             }
+            function like(comment_id) {
+                dolike('/like',1,comment_id,'{!! csrf_token() !!}')
+            }
+
+            function dislike(comment_id) {
+                dolike('/dislike',1,comment_id,'{!! csrf_token() !!}');
+            }
+            $(function () {
+                $("#content").find("a").hide();
+                $('#comment_c').val('');
+
+                $('#comment_s').click(function () {
+                    var comment = $('#comment_c').val();
+
+                    $.ajax({
+                        type: "post",
+                        data: {'comment': comment,'course_id': {{ $detail['course_id'] }},'ware_id':{{ $detail['id'] }} , 'type':1 , '_token': '{!! csrf_token() !!}'},
+                        url: "/comment",
+                        success: function (data) {
+                            if (data.status == 1) {
+                                swal({
+                                    title: data.msg,
+                                    type: "success",
+                                    confirmButtonColor: "#30B593"
+                                });
+                                //2秒后页面跳转
+                                setTimeout('location.reload()', 1500);
+                            } else {
+                                swal({
+                                    title: data.msg,
+                                    type: "error",
+                                    confirmButtonColor: "#F3AE56"
+                                });
+                            }
+
+                        }
+                    })
+                });
+            })
         </script>
 @endsection

@@ -159,6 +159,9 @@ class AdminController extends Controller
         if(empty($data['course_id'])||empty($data['title'])||empty($data['content'])){
             return Tool::returnMsg(0,'课件标题和课件内容为必填');
         }
+        if(Detail::checkUrl($data['course_id'],$data['url'])){
+            return Tool::returnMsg(0,'该课程链接已存在！');
+        }
 
         $detail = new Detail();
         $detail->course_id = $data['course_id'];
@@ -244,7 +247,7 @@ class AdminController extends Controller
 
     public function userEditDo(Request $request)
     {
-        $id = Tool::get_user_id();
+        $id = $request->input('id');
         $data['name']=$request->input('name');
         $data['gender']=$request->input('gender');
         $data['school']=$request->input('school');
@@ -258,10 +261,13 @@ class AdminController extends Controller
             $newName = md5(date("Y-m-d H:i:s").$clientName).".".$entension;
             $data['head_pic'] = $file -> move('public/img/tx',$newName);
         }
+        $user = User::where('id',$id)->first()->toArray();
+        $log = Tool::get_user_name().' 修改了用户信息，原信息为'.\GuzzleHttp\json_encode($user).' ,修改为 '.\GuzzleHttp\json_encode($data);
         $res = DB::table('users')
             ->where('id',$id)
             ->update($data);
         if($res){
+            Tool::writeLog($log);
             return Tool::returnMsg($res,'个人信息编辑成功!');
         }else{
             return Tool::returnMsg($res,'个人信息编辑失败!');
@@ -330,11 +336,20 @@ class AdminController extends Controller
         $data['name'] = $request->input('name');
         $data['value'] = $request->input('value');
         $data['des'] = $request->input('des');
+        $config = Config::where('id',$id)->first()->toArray();
         $res = DB::table('configs')->where('id',$id)->update($data);
+        $log = Tool::get_user_name().' 修改了配置,原配置为 '.\GuzzleHttp\json_encode($config).' 修改为 '.\GuzzleHttp\json_encode($data);
         if($res){
+            Tool::writeLog($log);
             return Tool::returnMsg(1,'配置编辑成功!');
         }else{
             return Tool::returnMsg(0,'配置编辑失败!');
         }
+    }
+
+    public function user()
+    {
+        $users = DB::table('users')->paginate(20);
+        return view('admin.user',['users'=>$users]);
     }
 }

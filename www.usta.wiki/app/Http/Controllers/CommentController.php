@@ -32,7 +32,7 @@ class CommentController extends Controller
         }
 
 //        验证评论是否太长
-        if (mb_strlen(strip_tags($comment)) > 233) {
+        if (mb_strlen(strip_tags($comment)) > 2333) {
             return Tool::returnMsg(0, '评论内容过长,再来一条吧！');
         }
 

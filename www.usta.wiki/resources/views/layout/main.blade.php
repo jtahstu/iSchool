@@ -46,80 +46,8 @@
 
 <body>
 
-
 <div id="wrapper">
-
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element forum-info">
-						<span>
-							<a href="/">
-								<img alt="image" class="img-container logo" src="{{asset('public/img/logo.png')}}"
-                                     style=""/>
-							</a>
-						</span>
-
-                    </div>
-                    <div class="logo-element">
-                        <a href="/">
-                            iSchool
-                        </a>
-                    </div>
-                </li>
-
-                <li>
-                    <a href="{{ URL::to('/') }}">
-                        <i class="fa fa-th-large"></i><span class="nav-label">首页导航</span>
-                    </a>
-
-                </li>
-                @foreach($courses as $key=>$course)
-                    @if($course->id>1 && $course->first==1)
-                </ul>
-                </li>
-                @endif
-                @if($course->first==1)
-                <li>
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span
-                                class="nav-label">{{ $course->type_des }}</span> <span
-                                class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        @endif
-                        <li>
-                            <a href="{{ URL::action('CourseController@index',['course'=>$course->url]) }}">
-                                <i class="fa fa-list-ul"></i> {{ $course->name }} 教程
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">更多精彩</span> <span
-                                class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li>
-                            <a href="/itool">
-                                <i class="fa fa-code"></i> iTool代码编辑器
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/timeline">
-                                <i class="fa fa-git"></i> iSchool时光机
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/links">
-                                <i class="fa fa-link"></i> 友情链接
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                </ul>
-        </div>
-    </nav>
-
+    @include('part.navbar')
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top " role="navigation" style="margin-bottom: 0">
@@ -134,11 +62,11 @@
                         </div>
                     </form>
                 </div>
-                <ul class="nav navbar-top-links navbar-left col-md-offset-2">
-                    <li>
-                        <a href="" style="color: #1AB394" id="announce">
-                            你如果认识从前的我，也许你会原谅现在的我。
-                        </a>
+                <ul class="nav navbar-top-links navbar-left col-md-offset-1 m-t-sm">
+                    <li class="tooltip-demo">
+                        <button class="btn btn-link" style="color: #1AB394" type="button" onclick="announce('{!! csrf_token() !!}')" data-toggle="tooltip" data-placement="bottom" title="网站公告">
+                            网站公告：{{ $announce }}
+                        </button>
                     </li>
                 </ul>
                 <ul class="nav navbar-top-links navbar-right">
@@ -178,6 +106,25 @@
         @yield('body')
     </div>
     @include('part.foot')
+</div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="show_announce_modal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="announce_modal_title">貌似出错了，没有标题</h4>
+            </div>
+            <div class="modal-body">
+                <p id="announce_modal_body">貌似出错了，没有内容</p>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">发布时间：<span id="announce_modal_time"></span></div>
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 

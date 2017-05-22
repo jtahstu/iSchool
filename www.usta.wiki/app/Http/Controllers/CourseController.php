@@ -72,16 +72,17 @@ class CourseController extends Controller
             $link_ware['next_course'] = Detail::where('id',$next_id)->get(['title','url'])->first();
         }
 
-        //页面评论
-        $comments = DB::select('select a.*,b.name from ischool_comments a left join ischool_users b on a.add_user_id=b.id 
-        where a.ware_id=? and a.type=1 order by a.id desc',[$detail['id']]);
+//        //页面评论
+        $page = Input::get('page')?intval(Input::get('page')):1;
+        $comments = Comment::getWareComments($detail['id'],$page);
+        $c_count = Comment::getWareCommentsCount($detail['id']);
 
         //打开课件时，添加学习状态
         if(Tool::isLogin()){
             Status::addLearnStatus($course['id'],$detail['id']);
         }
 
-        return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments]);
+        return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments,'c_count'=>$c_count]);
     }
 
     /**

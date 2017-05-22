@@ -52,6 +52,7 @@
                     <div class="ibox-content col-lg-12">
                         <form class="form-horizontal" id="form">
                             {!! csrf_field() !!}
+                            <input type="text" name="id" id="id" hidden="hidden" value="{{ $user->id }}">
                             <div class="form-group"><label class="col-sm-2 control-label">用户名</label>
 
                                 <div class="col-sm-10"><input type="text" class="form-control" placeholder="Username"

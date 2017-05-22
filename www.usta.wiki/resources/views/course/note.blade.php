@@ -90,7 +90,7 @@
                                     @for($i=1;$i<=$count/10+1;$i++)
                                         <?php $page = $class = ($i == (isset($_GET['page']) ? $_GET['page'] : 1)) ? "class='active'" : ""; ?>
                                         <li {!! $class !!}>
-                                            <a href="/note?course={{ $course_main['course']['name'] }}&page={{ $i }}">
+                                            <a href="/note?course={{ $course_main['course']['url'] }}&page={{ $i }}">
                                                 {{ $i }}
                                             </a>
                                         </li>

@@ -20,7 +20,7 @@
                 <div class="ibox float-e-margins">
                     <div class="pull-right float-e-margins p-md">
                         @if(\App\Http\Controllers\Tool::getLevel()==1)
-                            <a href="/admin/git-add" class="btn btn-sm btn-primary" id="add_git">添加Git记录</a>
+                            <a href="/git" class="btn btn-sm btn-primary" id="add_git">添加Git记录</a>
                         @endif
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="#" class="btn btn-sm btn-primary" id="leftVersion">Change</a>

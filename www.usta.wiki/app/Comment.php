@@ -59,12 +59,57 @@ order by aa.like desc,
     }
 
     /**
+     * @param $ware_id
+     * @param $page
+     * @return mixed
+     * 课件的评论,按页数
+     */
+    public static function getWareComments($ware_id,$page)
+    {
+        $user_id = Tool::get_user_id();
+        $comments = DB::select('
+select *
+from
+				(select a.*,
+						b.name,
+						b.head_pic,
+						c.title,
+						c.url,
+
+									(select count(*)
+										from ischool_likes d
+										where d.type=1
+														and d.ref_id=a.id
+														and user_id=?)like_status
+					from ischool_comments a
+					left join ischool_users b on a.add_user_id=b.id
+					left join ischool_details c on a.ware_id=c.id
+					where a.type=1
+									and c.id=?
+					)aa
+order by aa.like desc,
+	aa.id desc limit ?,10
+        ',[$user_id,$ware_id,($page-1)*10]);
+        return $comments;
+    }
+
+    /**
      * @param $course_id
      * @return mixed
      */
     public static function getCourseCommentsCount($course_id)
     {
         $res = DB::select('select count(*)c from ischool_comments where course_id=?',[$course_id]);
+        return $res[0]->c;
+    }
+
+    /**
+     * @param $course_id
+     * @return mixed
+     */
+    public static function getWareCommentsCount($ware_id)
+    {
+        $res = DB::select('select count(*)c from ischool_comments where ware_id=?',[$ware_id]);
         return $res[0]->c;
     }
 

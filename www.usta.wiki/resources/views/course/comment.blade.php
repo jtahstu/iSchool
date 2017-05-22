@@ -88,7 +88,7 @@
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             源自：
                                             @if($comment->type == 1)
-                                            <a href="/show?course={{ $course_main['course']['name'] }}&ware={{ $comment->url }}" target="_blank">
+                                            <a href="/show?course={{ $course_main['course']['url'] }}&ware={{ $comment->url }}" target="_blank">
                                                 {{ $comment->title }}
                                             </a>
                                             @else
@@ -105,7 +105,7 @@
                                         @for($i=1;$i<=$count/10+1;$i++)
                                                 <?php $page= $class=($i==(isset($_GET['page'])?$_GET['page']:1))?"class='active'":""; ?>
                                             <li {!! $class !!}>
-                                                <a href="/comment?course={{ $course_main['course']['name'] }}&page={{ $i }}">
+                                                <a href="/comment?course={{ $course_main['course']['url'] }}&page={{ $i }}">
                                                     {{ $i }}
                                                 </a>
                                             </li>
@@ -155,35 +155,12 @@
         })
 
         function like(comment_id) {
-            dolike('/like',1,comment_id)
+            dolike('/like',1,comment_id,'{!! csrf_token() !!}')
         }
 
         function dislike(comment_id) {
-            dolike('/dislike',1,comment_id);
+            dolike('/dislike',1,comment_id,'{!! csrf_token() !!}');
         }
 
-        function dolike(url,type,comment_id) {
-            $.ajax({
-                url: url,
-                data: {'type':type ,'comment_id':comment_id , '_token': '{!! csrf_token() !!}'},
-                type: "post",
-                success: function(data) {
-                    if(data.status == 1) {
-                        swal({
-                            title: data.msg,
-                            type: "success",
-                            confirmButtonColor: "#30B593"
-                        });
-                        setTimeout('location.reload()', 1500);
-                    } else {
-                        swal({
-                            title: data.msg,
-                            type: "error",
-                            confirmButtonColor: "#F3AE56"
-                        });
-                    }
-                }
-            });
-        }
     </script>
 @endsection

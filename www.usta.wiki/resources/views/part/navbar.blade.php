@@ -44,6 +44,7 @@
                     @endforeach
                 </ul>
             </li>
+
             <li>
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">更多精彩</span> <span
                             class="fa arrow"></span></a>
@@ -65,6 +66,9 @@
                     </li>
                 </ul>
             </li>
+
+            @yield('nav_li')
+
             </ul>
     </div>
 </nav>

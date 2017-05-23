@@ -352,4 +352,10 @@ class AdminController extends Controller
         $users = DB::table('users')->paginate(20);
         return view('admin.user',['users'=>$users]);
     }
+
+    public function problem()
+    {
+        $problems = DB::table('problems')->paginate(20);
+        return view('admin.problem',['problems'=>$problems]);
+    }
 }

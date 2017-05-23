@@ -4,7 +4,7 @@
 
 @section('head')
     <script type="text/javascript" src="{{ asset('public/js/ueditor/ueditor.config.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/js//ueditor/ueditor.all.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/js/ueditor/ueditor.all.js') }}"></script>
     <script>
         $(function(){
             var ue = UE.getEditor('description',{initialFrameWidth:null,initialFrameHeight:600});

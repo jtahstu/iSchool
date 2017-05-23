@@ -50,4 +50,28 @@ class ProblemController extends Controller
         }
     }
 
+    public function problemAddDo(Request $request)
+    {
+        $course_id = $request->input('course_id');
+        $ware_id = $request->input('ware_id');
+        $p_title = $request->input('p_title');
+        $p_problem = $request->input('p_problem');
+        if(!($course_id&&$ware_id&&$p_title&&$p_problem)){
+            return Tool::returnMsg(0,'参数传递错误');
+        }
+
+        $problem = new Problem();
+        $problem->course_id = $course_id;
+        $problem->ware_id = $ware_id;
+        $problem->title = $p_title;
+        $problem->problem = $p_problem;
+        $problem->user_id = Tool::get_user_id();
+        $res = $problem->save();
+        if($res){
+            return Tool::returnMsg(1,'提问成功！');
+        }else{
+            return Tool::returnMsg(0,'提问失败！');
+        }
+    }
+
 }

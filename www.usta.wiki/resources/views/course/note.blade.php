@@ -87,7 +87,8 @@
                             @endforeach
                             <div class="text-center">
                                 <ul class="pagination">
-                                    @for($i=1;$i<=$count/10+1;$i++)
+                                    <?php $pages = ($count%10==0)?($count/10):($count/10+1); ?>
+                                    @for($i=1;$i<=$pages;$i++)
                                         <?php $page = $class = ($i == (isset($_GET['page']) ? $_GET['page'] : 1)) ? "class='active'" : ""; ?>
                                         <li {!! $class !!}>
                                             <a href="/note?course={{ $course_main['course']['url'] }}&page={{ $i }}">

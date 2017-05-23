@@ -92,7 +92,7 @@
                         </li>
                         @if(\App\Http\Controllers\Tool::getLevel()==1)
                             <li>
-                                <a href="/admin">
+                                <a href="/admin-course">
                                     <i class="fa fa-sign-in"></i> 管理后台
                                 </a>
                             </li>

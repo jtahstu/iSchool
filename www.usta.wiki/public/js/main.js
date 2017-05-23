@@ -139,3 +139,27 @@ function dolike(url,type,comment_id,token) {
         }
     });
 }
+
+function dolike_problem(url,type,problem_id,token) {
+    $.ajax({
+        url: url,
+        data: {'type':type ,'problem_id':problem_id , '_token': token},
+        type: "post",
+        success: function(data) {
+            if(data.status == 1) {
+                swal({
+                    title: data.msg,
+                    type: "success",
+                    confirmButtonColor: "#30B593"
+                });
+                setTimeout('location.reload()', 1500);
+            } else {
+                swal({
+                    title: data.msg,
+                    type: "error",
+                    confirmButtonColor: "#F3AE56"
+                });
+            }
+        }
+    });
+}

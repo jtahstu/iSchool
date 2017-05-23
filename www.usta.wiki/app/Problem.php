@@ -22,7 +22,7 @@ class Problem extends Model
 select a.*,
 	b.name,
 	b.head_pic,
-	c.title,
+	c.title ware_title,
 	c.url,
 
 				(select count(*)
@@ -43,6 +43,35 @@ order by a.like desc,
         return $problems;
     }
 
+    public static function getWareProblems($ware_id,$page)
+    {
+        $user_id = Tool::get_user_id();
+
+        $problems = DB::select('
+select a.*,
+	b.name,
+	b.head_pic,
+	c.title ware_title,
+	c.url,
+
+				(select count(*)
+					from ischool_likes d
+					where d.type=2
+									and d.ref_id=a.id
+									and user_id=?)like_status ,
+				(select count(*)
+					from ischool_answers e
+					where e.problem_id=a.id)answer_count
+from ischool_problems a
+left join ischool_users b on a.user_id=b.id
+left join ischool_details c on a.ware_id=c.id
+where a.ware_id=? and a.is_delete=0
+order by a.like desc,
+	a.id desc limit ?,10
+        ',[$user_id,$ware_id,($page-1)*10]);
+        return $problems;
+    }
+
     /**
      * @param $course_id
      * @return mixed 该课程的问答数
@@ -50,6 +79,12 @@ order by a.like desc,
     public static function getCourseProblemsCount($course_id)
     {
         $res = DB::select('select count(*)c from ischool_problems where course_id=? and is_delete=0',[$course_id]);
+        return $res[0]->c;
+    }
+
+    public static function getWareProblemsCount($ware_id)
+    {
+        $res = DB::select('select count(*)c from ischool_problems where ware_id=? and is_delete=0',[$ware_id]);
         return $res[0]->c;
     }
 

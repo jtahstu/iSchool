@@ -64,12 +64,16 @@
                                                 @endif
                                         </div>
                                         <a href="/problem-answer?id={{ $problem->id }}" class="vote-title">
-                                            {{ $problem->problem }}
+                                            {{ $problem->title }}
                                         </a>
                                         <div class="vote-info">
                                             <i class="fa fa-comments-o"></i> <a href="/problem-answer?id={{ $problem->id }}">Answers ({{ $problem->answer_count }})</a>
                                             <i class="fa fa-clock-o"></i> <a>{{ \App\Http\Controllers\Tool::datetime_to_YmdHi($problem->created_at) }}</a>
                                             <i class="fa fa-user"></i> <a href="/u/{{ $problem->user_id }}">{{ $problem->name }}</a>
+                                            源自:
+                                                <a href="/show?course={{ $course_main['course']['url'] }}&ware={{ $problem->url }}" target="_blank">
+                                                    {{ $problem->ware_title }}
+                                                </a>
                                         </div>
 
                                     </div>
@@ -86,7 +90,8 @@
                             {{--分页开始--}}
                             <div class="text-center">
                                 <ul class="pagination">
-                                    @for($i=1;$i<=$count/10+1;$i++)
+                                    <?php $pages = ($count%10==0)?($count/10):($count/10+1); ?>
+                                    @for($i=1;$i<=$pages;$i++)
                                         <?php $page= $class=($i==(isset($_GET['page'])?$_GET['page']:1))?"class='active'":""; ?>
                                         <li {!! $class !!}>
                                             <a href="/problem?course={{ $course_main['course']['url'] }}&page={{ $i }}">
@@ -106,35 +111,11 @@
     </div>
     <script>
         function like_problem(problem_id) {
-            dolike('/problem-like',2,problem_id);
-        }
-        
-        function dislike_problem(problem_id) {
-            dolike('/problem-dislike',2,problem_id);
+            dolike_problem('/problem-like',2,problem_id,'{!! csrf_token() !!}');
         }
 
-        function dolike(url,type,problem_id) {
-            $.ajax({
-                url: url,
-                data: {'type':type ,'problem_id':problem_id , '_token': '{!! csrf_token() !!}'},
-                type: "post",
-                success: function(data) {
-                    if(data.status == 1) {
-                        swal({
-                            title: data.msg,
-                            type: "success",
-                            confirmButtonColor: "#30B593"
-                        });
-                        setTimeout('location.reload()', 1500);
-                    } else {
-                        swal({
-                            title: data.msg,
-                            type: "error",
-                            confirmButtonColor: "#F3AE56"
-                        });
-                    }
-                }
-            });
+        function dislike_problem(problem_id) {
+            dolike_problem('/problem-dislike',2,problem_id,'{!! csrf_token() !!}');
         }
     </script>
 @endsection

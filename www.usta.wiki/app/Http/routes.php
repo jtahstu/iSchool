@@ -125,3 +125,5 @@ Route::post('/announce-get-one','AnnounceController@announceGetOne');
 
 Route::get('/links','IndexController@links');
 
+Route::post('/problem-add-do','ProblemController@problemAddDo');
+

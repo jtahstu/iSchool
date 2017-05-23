@@ -72,17 +72,22 @@ class CourseController extends Controller
             $link_ware['next_course'] = Detail::where('id',$next_id)->get(['title','url'])->first();
         }
 
-//        //页面评论
-        $page = Input::get('page')?intval(Input::get('page')):1;
-        $comments = Comment::getWareComments($detail['id'],$page);
+        //页面评论
+        $c_page = Input::get('cpage')?intval(Input::get('cpage')):1;
+        $comments = Comment::getWareComments($detail['id'],$c_page);
         $c_count = Comment::getWareCommentsCount($detail['id']);
+
+        //页面问答
+        $p_page = Input::get('ppage')?intval(Input::get('ppage')):1;
+        $problems = Problem::getWareProblems($detail['id'],$p_page);
+        $p_count = Problem::getWareProblemsCount($detail['id']);
 
         //打开课件时，添加学习状态
         if(Tool::isLogin()){
             Status::addLearnStatus($course['id'],$detail['id']);
         }
 
-        return view('course.show',['course'=>$course,'nav_lis'=>$nav_lis,'detail'=>$detail,'link_ware'=>$link_ware,'comments'=>$comments,'c_count'=>$c_count]);
+        return view('course.show',['course'=>$course,'detail'=>$detail,'nav_lis'=>$nav_lis,'link_ware'=>$link_ware,'comments'=>$comments,'c_count'=>$c_count,'problems'=>$problems,'p_count'=>$p_count]);
     }
 
     /**
@@ -99,7 +104,7 @@ class CourseController extends Controller
 
         $comments = Comment::getCourseComments($course_main['course']['id'],$page);
         $count = Comment::getCourseCommentsCount($course_main['course']['id']);
-        return view('course.comment',['course_main'=>$course_main,'comments'=>$comments,'count'=>$count]);
+        return view('course.comment',['course_main'=>$course_main,'comments'=>$comments,'c_count'=>$count]);
     }
 
     /**

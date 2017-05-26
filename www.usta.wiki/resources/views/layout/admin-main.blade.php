@@ -96,12 +96,12 @@
                     </a>
                 </li>
                 @if(\App\Http\Controllers\Tool::getLevel()==1)
-                    <li>
-                        <a href="/admin">
-                            <i class="fa fa-dashboard"></i><span class="nav-label">Dashboards</span>
-                        </a>
+                    {{--<li>--}}
+                        {{--<a href="/admin">--}}
+                            {{--<i class="fa fa-dashboard"></i><span class="nav-label">Dashboards</span>--}}
+                        {{--</a>--}}
 
-                    </li>
+                    {{--</li>--}}
                     <li>
                         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">课程管理</span> <span
                                     class="fa arrow"></span></a>
@@ -165,7 +165,6 @@
                         {{--</a>--}}
                     {{--</li>--}}
                 @endif
-                @yield('nav_li')
 
             </ul>
 

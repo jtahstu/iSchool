@@ -87,6 +87,8 @@ class AdminController extends Controller
     public function courseAddDo(Request $request)
     {
         $data = $request->input();
+        $data['add_user_id'] = Tool::get_user_id();
+        $data['created_at'] = Tool::getDateTime();
         $id = $request->input('id');
         $file = $request->file('file');
         if ($file && $file->isValid()) {

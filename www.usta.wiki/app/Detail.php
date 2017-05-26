@@ -23,7 +23,7 @@ class Detail extends Model
         $user_id = Tool::get_user_id();
         $sql = "select a.id,a.title,a.url,a.first,a.node_des
 ,(select count(*) from ischool_statuses b where b.type=2 and b.ware_id=a.id and b.user_id=?)status
-  from ischool_details a where course_id=?";
+  from ischool_details a where course_id=? and is_delete=0";
         return DB::select($sql,[$user_id,$course_id]);
     }
 
@@ -36,7 +36,7 @@ class Detail extends Model
      */
     public static function checkUrl($course_id,$url)
     {
-        $c = Detail::where('course_id',$course_id)->where('url',$url)->first()->toArray();
+        $c = Detail::where('course_id',$course_id)->where('url',$url)->first();
         return !empty($c);
     }
 }

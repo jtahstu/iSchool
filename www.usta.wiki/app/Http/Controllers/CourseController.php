@@ -82,12 +82,16 @@ class CourseController extends Controller
         $problems = Problem::getWareProblems($detail['id'],$p_page);
         $p_count = Problem::getWareProblemsCount($detail['id']);
 
+        $n_page = Input::get('npage')?intval(Input::get('npage')):1;
+        $notes = Note::getWareNotes($detail['id'],$n_page);
+        $n_count = Note::getWareNotesCount($detail['id']);
+
         //打开课件时，添加学习状态
         if(Tool::isLogin()){
             Status::addLearnStatus($course['id'],$detail['id']);
         }
 
-        return view('course.show',['course'=>$course,'detail'=>$detail,'nav_lis'=>$nav_lis,'link_ware'=>$link_ware,'comments'=>$comments,'c_count'=>$c_count,'problems'=>$problems,'p_count'=>$p_count]);
+        return view('course.show',['course'=>$course,'detail'=>$detail,'nav_lis'=>$nav_lis,'link_ware'=>$link_ware,'comments'=>$comments,'c_count'=>$c_count,'problems'=>$problems,'p_count'=>$p_count,'notes'=>$notes,'n_count'=>$n_count]);
     }
 
     /**
@@ -152,7 +156,7 @@ class CourseController extends Controller
     {
         $words = Input::get('top-search');
         $word = '%'.trim($words).'%';
-        $rows = Detail::where('title','like',$word)->get()->toArray();
+        $rows = Detail::where('title','like',$word)->where('is_delete',0)->get()->toArray();
         foreach ($rows as $key=>$row){
             $rows[$key]['course'] = Course::where('id',$row['course_id'])->get(['url'])->first();
         }

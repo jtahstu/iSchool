@@ -167,10 +167,10 @@
                             <li>评论内容不要超过233个字符 (⊙o⊙)哦</li>
                             <li>请注意单词拼写，以及中英文排版，<a href="https://github.com/sparanoid/chinese-copywriting-guidelines"
                                                    target="_blank">参考此页</a></li>
-                            <li>支持 Markdown 格式, <strong>**粗体**</strong>、<code>```代码```</code>, 更多语法请见这里 <a
-                                        href="http://www.markdown.cn/"
-                                        target="_blank">Markdown 语法</a></li>
-                            <li>目前MarkDown在添加代码时，预览会有点问题，但不影响评论后的效果 ╮(╯▽╰)╭哎</li>
+                            {{--<li>支持 Markdown 格式, <strong>**粗体**</strong>、<code>```代码```</code>, 更多语法请见这里 <a--}}
+                                        {{--href="http://www.markdown.cn/"--}}
+                                        {{--target="_blank">Markdown 语法</a></li>--}}
+                            {{--<li>目前MarkDown在添加代码时，预览会有点问题，但不影响评论后的效果 ╮(╯▽╰)╭哎</li>--}}
                         </ul>
                     </div>
                 </div>
@@ -338,10 +338,63 @@
                         </div>
                         <div id="tab-3" class="tab-pane">
                             <div class="panel-body">
-                                <pre>
-                                    {{ var_dump($comments) }}
-                                </pre>
+                                <button class="btn btn-primary btn-outline btn-sm" id="n_add">记笔记</button>
+                                <div class="ibox">
+                                <div class="chat-discussion" style="margin: 0;padding: 0;">
+                                @foreach($notes as $key=>$note)
+                                    <div class="chat-message left m-t-md">
+                                        <img class="message-avatar img-circle head_pic" src="{{ asset($note->head_pic) }}"
+                                             alt="大头照啦 ~\(≧▽≦)/~">
+                                        <div class="message">
+                                            <a class="message-author"
+                                               href="/u/{{ $note->add_user_id }}"> {{ $note->name }} </a>
+                                            <span class="message-date">
+                                            @if(\App\Http\Controllers\Tool::getLevel()==1)
+                                                    <a type="button" class="btn btn-outline btn-danger btn-xs"
+                                                       onclick="delNote({!! $note->id.',\''. csrf_token().'\'' !!})">删除笔记</a>
+                                                @endif
+                                                &nbsp;&nbsp;
+                                                @if($note->like_status==1)
+                                                    <a onclick="dislike_note({{ $note->id }})">
+                                            <i class="fa fa-thumbs-up fa-lg" style="color: #ff6d00;"></i>
+                                        </a>
+                                                @else
+                                                    <a onclick="like_note({{ $note->id }})">
+                                            <i class="fa fa-thumbs-o-up fa-lg"></i>
+                                        </a>
+                                                @endif
+                                                &nbsp;{{ $note->like }}&nbsp;&nbsp;
+
+
+                                    </span>
+                                            <span class="message-content" style="margin: 10px;">
+											{!! $note->note !!}
+                                    </span>
+                                            <span class="message-foot" style="margin: 5px;">
+                                        <small>
+                                            时间：{{ \App\Http\Controllers\Tool::datetime_to_YmdHi($note->created_at) }}
+                                        </small>
+
+                                    </span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                </div>
+                                    <div class="text-center">
+                                        <ul class="pagination">
+                                            <?php $pages = ($n_count%10==0)?($n_count/10):($n_count/10+1); ?>
+                                            @for($i=1;$i<=$pages;$i++)
+                                                <?php $page = $class = ($i == (isset($_GET['page']) ? $_GET['page'] : 1)) ? "class='active'" : ""; ?>
+                                                <li {!! $class !!}>
+                                                    <a href="/note?course={{ $course['url'] }}&ware={{ $detail['url'] }}&npage={{ $i }}">
+                                                        {{ $i }}
+                                                    </a>
+                                                </li>
+                                            @endfor
+                                        </ul>
+                                    </div>
                             </div>
+                        </div>
                         </div>
                     </div>
 
@@ -381,6 +434,33 @@
                 </div>
             </div>
         </div>
+
+        <!--记笔记的模态框-->
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="n_add_modal">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="exampleModalLabel">添加笔记</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="n_form">
+                            {{ csrf_field() }}
+                            <input type="text" name="course_id" value="{{ $course->id }}" hidden="hidden">
+                            <input type="text" name="ware_id" value="{{ $detail['id'] }}" hidden="hidden">
+                            <div class="form-group">
+                                <label for="n_note">笔记详情</label>
+                                <textarea name="n_note" id="n_note"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" onclick="n_add()">添加</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script type="text/javascript" src="{{ asset('public/js/ueditor/ueditor.config.js') }}"></script>
         <script type="text/javascript" src="{{ asset('public/js/ueditor/ueditor.all.js') }}"></script>
         <script>
@@ -403,6 +483,14 @@
 
             function dislike_problem(problem_id) {
                 dolike_problem('/problem-dislike',2,problem_id,'{!! csrf_token() !!}');
+            }
+
+            function like_note(note_id) {
+                dolike_note('/note-like',3,note_id,'{!! csrf_token() !!}');
+            }
+
+            function dislike_note(note_id) {
+                dolike_note('/note-dislike',3,note_id,'{!! csrf_token() !!}');
             }
             
             function p_add() {
@@ -432,6 +520,35 @@
                     }
                 })
             }
+
+            function n_add() {
+                var n_form = new FormData(document.getElementById("n_form"));
+                $.ajax({
+                    type: "post",
+                    data: n_form,
+                    processData:false,
+                    contentType:false,
+                    url: "/note-add-do",
+                    success: function(data) {
+                        if(data.status==1) {
+                            swal({
+                                title: data.msg,
+                                type: "success",
+                                confirmButtonColor: "#30B593"
+                            });
+                            setTimeout('location.reload()', 1500);
+                        } else {
+                            swal({
+                                title: data.msg,
+                                type: "error",
+                                confirmButtonColor: "#F3AE56"
+                            });
+                        }
+
+                    }
+                })
+            }
+
             $(function () {
                 $("#spider_content").find("a").hide();
                 $('#comment_c').val('');
@@ -470,8 +587,15 @@
                     })
                 });
                 var ue = UE.getEditor('p_problem',{initialFrameWidth:null,initialFrameHeight:300});
+//                ue.setContent('');
                 $('#p_add').click(function () {
                     $('#p_add_modal').modal('show');
+                })
+
+                var ue2 = UE.getEditor('n_note',{initialFrameWidth:null,initialFrameHeight:300});
+//                ue2.setContent('');
+                $('#n_add').click(function () {
+                    $('#n_add_modal').modal('show');
                 })
             })
         </script>

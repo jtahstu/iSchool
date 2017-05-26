@@ -69,9 +69,14 @@
                                     <span style="color: #ff6d00;"><small>课程添加后务必添加一个课件，否则课程无法点开显示。</small></span>
                                 </div>
                             </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">教程介绍</label>
+                            <div class="form-group"><label class="col-sm-2 control-label">课程简介</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="des" placeholder="Des" >
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-2 control-label">课程详情</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="introduce" placeholder="Introduce" >
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">链接</label>

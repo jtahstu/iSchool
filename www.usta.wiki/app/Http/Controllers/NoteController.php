@@ -40,4 +40,26 @@ class NoteController extends Controller
             return Tool::returnMsg(0,'取消点赞失败！');
         }
     }
+
+    public function noteAddDo(Request $request)
+    {
+        $course_id = $request->input('course_id');
+        $ware_id = $request->input('ware_id');
+        $n_note = $request->input('n_note');
+        if(!($course_id&&$ware_id&&$n_note)){
+            return Tool::returnMsg(0,'参数传递错误');
+        }
+
+        $note = new Note();
+        $note->course_id = $course_id;
+        $note->ware_id = $ware_id;
+        $note->note = $n_note;
+        $note->add_user_id = Tool::get_user_id();
+        $res = $note->save();
+        if($res){
+            return Tool::returnMsg(1,'添加笔记成功！');
+        }else{
+            return Tool::returnMsg(0,'添加笔记失败！');
+        }
+    }
 }

@@ -60,9 +60,14 @@
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="Name" name="name" value="{{ $course['name'] }}"></div>
                             </div>
-                            <div class="form-group"><label class="col-sm-2 control-label">教程介绍</label>
+                            <div class="form-group"><label class="col-sm-2 control-label">教程简介</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="des" placeholder="Des" value="{{ $course['des'] }}">
+                                </div>
+                            </div>
+                            <div class="form-group"><label class="col-sm-2 control-label">教程详情</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="introduce" placeholder="Des" value="{{ $course['introduce'] }}">
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">链接</label>

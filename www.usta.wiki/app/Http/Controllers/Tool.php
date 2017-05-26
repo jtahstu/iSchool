@@ -60,7 +60,7 @@ class Tool extends Controller
         if(!self::isLogin()){
             return 2;
         }else{
-            if(in_array(\Auth::user()->id,[1,2]))
+            if(in_array(\Auth::user()->id,[1]))
                 return 1;
             else
                 return 2;

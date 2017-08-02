@@ -550,7 +550,7 @@
             }
 
             $(function () {
-                $("#spider_content").find("a").hide();
+//                $("#spider_content").find("a").hide();
                 $('#comment_c').val('');
 
                 $('#comment_s').click(function () {

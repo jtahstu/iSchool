@@ -70,6 +70,7 @@ class AdminController extends Controller
         }
         unset($data['_token']);
         unset($data['id']);
+        unset($data['s']);  //看后面的注释
         $res = DB::table('courses')
             ->where('id',$id)
             ->update($data);
@@ -99,8 +100,14 @@ class AdminController extends Controller
         }
         unset($data['_token']);
         unset($data['id']);
+
+        //这里由于服务器迁移，由原来的Apache移至Nginx下，添加了个重写规则，导致读入的参数多了方法名，在插入数据库时产生错误
+        //产生了这么个奇葩的特定条件下的错误，Apache下不会产生这个问题，或者把这个代码改成一个一个接收也可以
+        //先这么弄吧
+        //by jtahstu at 2017/08/02 16:30
+        unset($data['s']);
+
         $res = DB::table('courses')
-            ->where('id',$id)
             ->insert($data);
         if($res)
             return Tool::returnMsg($res,'教程添加成功！');

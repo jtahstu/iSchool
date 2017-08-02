@@ -64,6 +64,11 @@
                             <i class="fa fa-link"></i> 友情链接
                         </a>
                     </li>
+                    <li>
+                        <a href="https://github.com/jtahstu/iSchool" target="_blank">
+                            <i class="fa fa-github"></i> Github
+                        </a>
+                    </li>
                 </ul>
             </li>
 
